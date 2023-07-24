@@ -1,9 +1,14 @@
 package com.example.lionproject.OpenApi.CallResponse.Raw;
 
+import com.example.lionproject.OpenApi.CallResponse.dto.PublicReservationEducationDto;
 import com.example.lionproject.OpenApi.CallResponse.dto.PublicReservationMedicalDto;
+import com.fasterxml.jackson.annotation.JsonValue;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,8 +17,8 @@ import java.util.stream.Collectors;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@XmlRootElement(name = "ListPublicReservationMedical")
-public class ListPublicReservationMedicalRaw {
+@XmlRootElement(name = "ListPublicReservationEducation")
+public class ListPublicReservationEducationRaw {
 
     @XmlElement(name = "list_total_count")
     private String count;
@@ -23,7 +28,6 @@ public class ListPublicReservationMedicalRaw {
 
     @XmlElement(name = "row")
     private List<Row> rows;
-
 
     @Setter
     @ToString
@@ -125,9 +129,9 @@ public class ListPublicReservationMedicalRaw {
         return this.rows;
     }
 
-    public List<PublicReservationMedicalDto> toDto(){
+    public List<PublicReservationEducationDto> toDto(){
         return this.fetchRows().stream()
-                .map(r -> PublicReservationMedicalDto.of(
+                .map(r -> PublicReservationEducationDto.of(
                         r.gubun,
                         r.svcId,
                         r.maxClassNM,
@@ -154,5 +158,4 @@ public class ListPublicReservationMedicalRaw {
                         r.revStdDay
                 )).collect(Collectors.toList());
     }
-
 }
