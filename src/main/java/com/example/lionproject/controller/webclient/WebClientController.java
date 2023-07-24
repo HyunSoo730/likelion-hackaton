@@ -1,6 +1,6 @@
 package com.example.lionproject.controller.webclient;
 
-import com.example.lionproject.domain.WebClientDTO;
+import com.example.lionproject.domain.dto.WebClientDTO;
 import com.example.lionproject.service.Api.WebClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,4 +29,12 @@ public class WebClientController {
         return res;
     }
 
+    /**
+     * 서울시 공공서비스 예약 (종합) 정보
+     */
+    @GetMapping("/test3")
+    public WebClientDTO returnPublicServiceReservationAPI(@RequestParam Integer startIndex, @RequestParam Integer endIndex) {
+        WebClientDTO res = service.getPublicServiceReservation(startIndex, endIndex);
+        return res;
+    }
 }
