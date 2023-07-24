@@ -1,4 +1,4 @@
-package com.example.lionproject.domain;
+package com.example.lionproject.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -12,13 +12,13 @@ import java.util.List;
 @AllArgsConstructor
 public class WebClientDTO {
 
-    @JsonProperty("ListPublicReservationCulture")
-    private ListPublicReservationCulture listPublicReservationCulture;
+    @JsonProperty("tvYeyakCOllect")
+    private PublicServiceReservation publicServiceReservation;
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    private static class ListPublicReservationCulture {
+    private static class PublicServiceReservation {
         @JsonProperty("list_total_count")
         private String listTotalCount;
 
@@ -44,6 +44,13 @@ public class WebClientDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     private static class Row{
+
+        @JsonProperty("DIV")
+        private String div;
+
+        @JsonProperty("Service")
+        private String service;
+
         @JsonProperty("GUBUN")
         private String gubun;
 
@@ -116,7 +123,5 @@ public class WebClientDTO {
         @JsonProperty("REVSTDDAY")
         private String RevStdDay;
     }
-
-
 
 }

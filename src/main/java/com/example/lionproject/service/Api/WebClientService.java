@@ -1,6 +1,6 @@
 package com.example.lionproject.service.Api;
 
-import com.example.lionproject.domain.WebClientDTO;
+import com.example.lionproject.domain.dto.WebClientDTO;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -72,6 +72,34 @@ public class WebClientService {
          */
         log.info("반환되는 값 : {}", response.toString());
         return response;
+    }
+
+    public WebClientDTO getPublicServiceReservation(Integer startIndex, Integer endIndex) {
+        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(BASE_URL);
+        factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
+
+        //기본세팅
+        WebClient webClient = WebClient.builder()
+                .uriBuilderFactory(factory)
+                .baseUrl(BASE_URL)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+
+        //모든 값 요청.
+        WebClientDTO res = webClient.get()
+                .uri(uriBuilder -> uriBuilder.path("{api_key}/json/tvYeyakCOllect/{startIndex}/{endIndex}")
+                        .build(api_key, startIndex, endIndex))
+                .retrieve()
+                .bodyToMono(WebClientDTO.class)
+                .block();
+
+        /**
+         * 결과 확인 log
+         */
+        log.info("반환되는 res : {}", res.toString());
+
+        return res;
+
     }
 
 }
