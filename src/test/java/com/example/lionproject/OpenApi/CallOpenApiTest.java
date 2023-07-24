@@ -1,5 +1,6 @@
 package com.example.lionproject.OpenApi;
 
+import com.example.lionproject.OpenApi.CallResponse.Raw.ListPublicReservationEducationRaw;
 import com.example.lionproject.OpenApi.CallResponse.Raw.ListPublicReservationMedicalRaw;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,16 @@ class CallOpenApiTest {
 
         // Then
         Assertions.assertThat(response.fetchResultCode()).isEqualTo("INFO-000");
+    }
 
+    @Test
+    void givenNothing_whenCallingPublicReservationEducationRaw_thenSuccess() throws Exception {
+        // Given
 
+        // When
+        ListPublicReservationEducationRaw response = callOpenApi.CallListPublicReservationEducation(1, 5);
+
+        // Then
+        Assertions.assertThat(response.fetchResultCode()).isEqualTo("INFO-000");
     }
 }
