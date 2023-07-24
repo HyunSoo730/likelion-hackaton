@@ -1,10 +1,12 @@
 package com.example.lionproject.OpenApi.CallResponse.Raw;
 
+import com.example.lionproject.OpenApi.CallResponse.dto.PublicReservationMedicalDto;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Setter
 @ToString
@@ -121,6 +123,36 @@ public class ListPublicReservationMedicalRaw {
 
     public List<Row> fetchRows(){ // getRows() 로 설정기 오류 발생 -> 1 counts of IllegalAnnotationExceptions
         return this.rows;
+    }
+
+    public List<PublicReservationMedicalDto> toDto(){
+        return this.fetchRows().stream()
+                .map(r -> PublicReservationMedicalDto.of(
+                        r.gubun,
+                        r.svcId,
+                        r.maxClassNM,
+                        r.minClassNM,
+                        r.svcStatNM,
+                        r.svnNM,
+                        r.payatNM,
+                        r.placeNM,
+                        r.useTgtInfo,
+                        r.svcUrl,
+                        r.x,
+                        r.y,
+                        r.svccopnbgndt,
+                        r.svcopnenddt,
+                        r.rcptbgndt,
+                        r.rcptenddt,
+                        r.areaNM,
+                        r.imgUrl,
+                        r.dtlcont,
+                        r.telno,
+                        r.vMin,
+                        r.vMax,
+                        r.revStdDayNM,
+                        r.revStdDay
+                )).collect(Collectors.toList());
     }
 
 }

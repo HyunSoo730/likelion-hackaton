@@ -1,5 +1,7 @@
 package com.example.lionproject.OpenApi.CallResponse.Raw;
 
+import com.example.lionproject.OpenApi.CallResponse.dto.PublicReservationEducationDto;
+import com.example.lionproject.OpenApi.CallResponse.dto.PublicReservationMedicalDto;
 import com.fasterxml.jackson.annotation.JsonValue;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -9,6 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Setter
 @ToString
@@ -126,4 +129,33 @@ public class ListPublicReservationEducationRaw {
         return this.rows;
     }
 
+    public List<PublicReservationEducationDto> toDto(){
+        return this.fetchRows().stream()
+                .map(r -> PublicReservationEducationDto.of(
+                        r.gubun,
+                        r.svcId,
+                        r.maxClassNM,
+                        r.minClassNM,
+                        r.svcStatNM,
+                        r.svnNM,
+                        r.payatNM,
+                        r.placeNM,
+                        r.useTgtInfo,
+                        r.svcUrl,
+                        r.x,
+                        r.y,
+                        r.svccopnbgndt,
+                        r.svcopnenddt,
+                        r.rcptbgndt,
+                        r.rcptenddt,
+                        r.areaNM,
+                        r.imgUrl,
+                        r.dtlcont,
+                        r.telno,
+                        r.vMin,
+                        r.vMax,
+                        r.revStdDayNM,
+                        r.revStdDay
+                )).collect(Collectors.toList());
+    }
 }
