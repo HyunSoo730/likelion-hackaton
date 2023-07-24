@@ -7,6 +7,9 @@ import org.springframework.http.codec.xml.Jaxb2XmlEncoder;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 
+/**
+ * 설명 필요.
+ */
 @Configuration
 public class WebClientConfig {
 
