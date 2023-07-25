@@ -46,7 +46,7 @@ public class PublicServiceReservation {
 
     private String x;//장소x좌표
 
-    private String Y;//장소Y좌표
+    private String y;//장소Y좌표
 
     private String rcptbgndt;//접수시작일지
 
@@ -64,4 +64,60 @@ public class PublicServiceReservation {
 
     private String vMax;//서비스이용종료시간
 
+    public static PublicServiceReservation of(String reserveType, String service, String gubun, String serviceId, String maxClassNM, String minClassNM,
+                                              String svcStatNM, String svcNM, String payAtNM, String placeNM, String useTgtInfo, String svcUrl,
+                                              String x, String y, String rcptbgndt, String rcptenddt, String areaNM, String imgUrl, String dtlCont, String telNo, String vMin, String vMax) {
+        return new PublicServiceReservation(
+                null,
+                reserveType,
+                service,
+                gubun,
+                serviceId,
+                maxClassNM,
+                minClassNM,
+                svcStatNM,
+                svcNM,
+                payAtNM,
+                placeNM,
+                useTgtInfo,
+                svcUrl,
+                x,
+                y,
+                rcptbgndt,
+                rcptenddt,
+                areaNM,
+                imgUrl,
+                dtlCont,
+                telNo,
+                vMin,
+                vMax
+        );
+    }
+
+    public static PublicServiceReservation of(String serviceId) {
+        return PublicServiceReservation.of(
+                null,
+                null,
+                null,
+                serviceId,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+    }
 }
