@@ -1,17 +1,16 @@
 package com.example.lionproject.domain.entity;
 
+import com.example.lionproject.domain.dto.PublicServiceReservationDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
+@ToString(of = {"serviceId"})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class PublicServiceReservation {
@@ -118,6 +117,33 @@ public class PublicServiceReservation {
                 null,
                 null,
                 null
+        );
+    }
+
+    public static PublicServiceReservation fromDto(PublicServiceReservationDto dto) {
+        return PublicServiceReservation.of(
+                dto.getDiv(),
+                dto.getService(),
+                dto.getGubun(),
+                dto.getServiceId(),
+                dto.getMaxClassNM(),
+                dto.getMinClassNM(),
+                dto.getSvcStatNM(),
+                dto.getSvcNM(),
+                dto.getPayAtNM(),
+                dto.getPlaceNM(),
+                dto.getUseTgtInfo(),
+                dto.getSvcUrl(),
+                dto.getX(),
+                dto.getY(),
+                dto.getRcptbgndt(),
+                dto.getRcptenddt(),
+                dto.getAreaNM(),
+                dto.getImgUrl(),
+                dto.getDtlCont(),
+                dto.getTelNo(),
+                dto.getVMin(),
+                dto.getVMax()
         );
     }
 }
