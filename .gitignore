@@ -35,7 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
-LionprojectApplication.java
 /src/main/resources/application.properties
 
 src/main/resources/env.txt

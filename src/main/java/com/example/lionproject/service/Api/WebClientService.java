@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
+import org.springframework.web.util.UriBuilderFactory;
 
 @Service
 @Transactional
@@ -16,6 +18,11 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 public class WebClientService {
 
     private final String BASE_URL = "http://openAPI.seoul.go.kr:8088";
+    private final WebClient webClient;
+
+    public WebClientService(WebClient webClient) {
+        this.webClient = webClient;
+    }
 
     @Value("${api.hyunsoo.key}")
     private String api_key;
@@ -78,17 +85,14 @@ public class WebClientService {
         DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(BASE_URL);
         factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
 
-        //기본세팅
-        WebClient webClient = WebClient.builder()
-                .uriBuilderFactory(factory)
-                .baseUrl(BASE_URL)
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .build();
-
         //모든 값 요청.
-        WebClientDTO res = webClient.get()
-                .uri(uriBuilder -> uriBuilder.path("{api_key}/json/tvYeyakCOllect/{startIndex}/{endIndex}")
-                        .build(api_key, startIndex, endIndex))
+        WebClientDTO res = webClient.mutate() // mutate() => Return a builder to create a new WebClient whose settings are replicated from the current WebClient.
+                .uriBuilderFactory(factory)
+                .build()
+                .get().uri(uriBuilder ->
+                        uriBuilder.path("{api_key}/json/tvYeyakCOllect/{startIndex}/{endIndex}")
+                                .build(api_key, startIndex, endIndex))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
                 .bodyToMono(WebClientDTO.class)
                 .block();
@@ -96,7 +100,7 @@ public class WebClientService {
         /**
          * 결과 확인 log
          */
-        log.info("반환되는 res : {}", res.toString());
+//        log.info("반환되는 res : {}", res.toString());
 
         return res;
 
