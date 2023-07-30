@@ -48,7 +48,7 @@ public class WebClientDTO {
         @JsonProperty("DIV")
         private String div;
 
-        @JsonProperty("Service")
+        @JsonProperty("SERVICE")
         private String service;
 
         @JsonProperty("GUBUN")

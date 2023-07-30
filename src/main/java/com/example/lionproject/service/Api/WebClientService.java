@@ -1,14 +1,22 @@
 package com.example.lionproject.service.Api;
 
+import com.example.lionproject.domain.dto.Volunteer;
 import com.example.lionproject.domain.dto.WebClientDTO;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.codec.xml.Jaxb2XmlDecoder;
+import org.springframework.http.codec.xml.Jaxb2XmlEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 @Service
 @Transactional
@@ -16,9 +24,13 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 public class WebClientService {
 
     private final String BASE_URL = "http://openAPI.seoul.go.kr:8088";
-
+    private final String BASE_URL_1365 = "http://openapi.1365.go.kr/openapi/service";
     @Value("${api.hyunsoo.key}")
     private String api_key;
+
+    @Value("${api.key.1365}")
+    private String api_key_1365;
+
 
 
     public WebClientDTO get(Integer startIndex, Integer endIndex) {
@@ -42,8 +54,8 @@ public class WebClientService {
 
         /**
          * 결과 확인 log
+         log.info("반환되는 값 : {}", response.toString());
          */
-        log.info("반환되는 값 : {}", response.toString());
         return response;
     }
 
@@ -69,8 +81,8 @@ public class WebClientService {
 
         /**
          * 결과 확인 log
+         log.info("반환되는 값 : {}", response.toString());
          */
-        log.info("반환되는 값 : {}", response.toString());
         return response;
     }
 
@@ -87,7 +99,7 @@ public class WebClientService {
 
         //모든 값 요청.
         WebClientDTO res = webClient.get()
-                .uri(uriBuilder -> uriBuilder.path("{api_key}/json/tvYeyakCOllect/{startIndex}/{endIndex}")
+                .uri(uriBuilder -> uriBuilder.path("/{api_key}/json/tvYeyakCOllect/{startIndex}/{endIndex}")
                         .build(api_key, startIndex, endIndex))
                 .retrieve()
                 .bodyToMono(WebClientDTO.class)
@@ -95,11 +107,105 @@ public class WebClientService {
 
         /**
          * 결과 확인 log
+         log.info("반환되는 res : {}", res.toString());
          */
-        log.info("반환되는 res : {}", res.toString());
 
         return res;
 
     }
 
+    public String get1365Data(Integer num) {
+        //xml open api를 사용하기 위한 기본 세팅.
+        /**
+         * open api를 xml 형식으로 받아오기 위해 기본 세팅.
+         */
+        WebClient webClient = WebClient.builder()
+                .baseUrl(BASE_URL_1365)
+                .exchangeStrategies(ExchangeStrategies.builder()
+                        .codecs(clientCodecConfigurer ->
+                                clientCodecConfigurer.defaultCodecs()
+                                        .jaxb2Encoder(new Jaxb2XmlEncoder())
+                        ).codecs(clientCodecConfigurer ->
+                                clientCodecConfigurer.defaultCodecs()
+                                        .jaxb2Decoder(new Jaxb2XmlDecoder())
+                        )
+                        .build()
+                )
+                .build();
+        /**
+         * 내가 원하는 형식으로 반환 성공 !
+         */
+        String res = webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/rest")
+                        .path("/VolunteerPartcptnService")
+                        .path("getVltrSearchWordList")
+                        .queryParam("serviceKey", api_key_1365)
+                        .queryParam("noticeEndde", num)
+                        .build())
+                .accept(MediaType.valueOf(MediaType.APPLICATION_XML_VALUE))
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+
+
+        /**
+         * String format을 활용한 xml 활용
+
+        String url = String.format("http://openapi.1365.go.kr/openapi/service/rest/VolunteerPartcptnService/getVltrSearchWordList?serviceKey=%s&noticeEndde=%d", api_key_1365, num);
+        String res = webClient.get()
+                .uri(url)
+                .accept(MediaType.valueOf(MediaType.APPLICATION_XML_VALUE))
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+         */
+
+        /**
+         * 로그 확인
+         log.info("num : {}", num);
+         log.info("response : {}", res);
+         */
+
+        return res;
+    }
+
+    public Volunteer returnData(Integer num) {
+        /**
+         * open api를 xml 형식으로 받아오기 위해 기본 세팅.
+         */
+        WebClient webClient = WebClient.builder()
+                .baseUrl(BASE_URL_1365)
+                .exchangeStrategies(ExchangeStrategies.builder()
+                        .codecs(clientCodecConfigurer ->
+                                clientCodecConfigurer.defaultCodecs()
+                                        .jaxb2Encoder(new Jaxb2XmlEncoder())
+                        ).codecs(clientCodecConfigurer ->
+                                clientCodecConfigurer.defaultCodecs()
+                                        .jaxb2Decoder(new Jaxb2XmlDecoder())
+                        )
+                        .build()
+                )
+                .build();
+        /**
+         * 내가 원하는 형식으로 반환 성공 !
+         */
+        Volunteer res = webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/rest")
+                        .path("/VolunteerPartcptnService")
+                        .path("getVltrSearchWordList")
+                        .queryParam("serviceKey", api_key_1365)
+                        .queryParam("noticeEndde", num)
+                        .build())
+                .accept(MediaType.valueOf(MediaType.APPLICATION_XML_VALUE))
+                .retrieve()
+                .bodyToMono(Volunteer.class)
+                .block();
+        /**
+         * 로그 확인
+         log.info("res : {}", res.toString());
+         */
+        return res;
+    }
 }
