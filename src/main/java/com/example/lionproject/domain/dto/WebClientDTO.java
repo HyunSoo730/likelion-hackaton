@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -48,7 +50,7 @@ public class WebClientDTO {
         @JsonProperty("DIV")
         private String div;
 
-        @JsonProperty("Service")
+        @JsonProperty("SERVICE")
         private String service;
 
         @JsonProperty("GUBUN")
@@ -84,8 +86,8 @@ public class WebClientDTO {
         @JsonProperty("X")
         private String x;
 
-        @JsonProperty("Y")
-        private String Y;
+        @JsonProperty("y")
+        private String y;
 
         @JsonProperty("SVCOPNBGNDT")
         private String svcOpnBgnDt;
@@ -122,6 +124,18 @@ public class WebClientDTO {
 
         @JsonProperty("REVSTDDAY")
         private String RevStdDay;
+    }
+
+    public int fetchListTotalCount() {
+        return Integer.parseInt(this.publicServiceReservation.listTotalCount);
+    }
+
+    public List<PublicServiceReservationDto> toDto() {
+        return this.publicServiceReservation.rows.stream()
+                .map(r -> PublicServiceReservationDto.of(
+                        r.div, r.service, r.gubun, r.serviceId, r.maxClassNM, r.minClassNM, r.svcStatNM, r.svcNM, r.payAtNM, r.placeNM, r.useTgtInfo, r.svcUrl,
+                        r.x, r.y, r.svcOpnBgnDt, r.svcOpnEndDt, r.rcptbgndt, r.rcptenddt, r.areaNM, r.imgUrl, r.dtlCont, r.telNo, r.vMin, r.vMax, r.revStdDayNM, r.RevStdDay
+                )).collect(Collectors.toList());
     }
 
 }
