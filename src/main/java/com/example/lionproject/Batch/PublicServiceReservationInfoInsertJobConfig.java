@@ -3,6 +3,7 @@ package com.example.lionproject.Batch;
 import com.example.lionproject.Batch.Reader.PublicServiceReservationReader;
 import com.example.lionproject.domain.dto.WebClientDTO;
 import com.example.lionproject.domain.entity.PublicServiceReservation;
+import com.example.lionproject.repository.PublicServiceReservationRepository;
 import com.example.lionproject.service.Api.WebClientService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -34,14 +36,27 @@ public class PublicServiceReservationInfoInsertJobConfig {
     private final PlatformTransactionManager platformTransactionManager;
 
     private final WebClientService webClientService;
+    private final PublicServiceReservationRepository repository;
 
     @Bean
-    public Job publicServiceReservationInfoInsertJob(Step insertPublicServiceReservationStep) {
+    public Job publicServiceReservationInfoInsertJob(Step fetchLastUpdated, Step insertPublicServiceReservationStep) {
         log.info("[PublicServiceReservationInfoInsertJobConfig] Job Launched");
 
         return new JobBuilder("publicServiceReservationInfoInsertJob", jobRepository)
                 .incrementer(new RunIdIncrementer())
-                .start(insertPublicServiceReservationStep)
+                .start(fetchLastUpdated).on("CONTINUABLE")
+                    .to(insertPublicServiceReservationStep).next(fetchLastUpdated)
+                    .from(fetchLastUpdated).on("COMPLETED")
+                    .end()
+                .end()
+                .build();
+    }
+
+    @Bean
+    @JobScope
+    public Step fetchLastUpdated(Tasklet fetchLastUpdatedTasklet) {
+        return new StepBuilder("fetchLastUpdated", jobRepository)
+                .tasklet(fetchLastUpdatedTasklet, platformTransactionManager)
                 .build();
     }
 
@@ -69,7 +84,9 @@ public class PublicServiceReservationInfoInsertJobConfig {
     @Bean
     @StepScope
     public ItemProcessor<WebClientDTO, List<PublicServiceReservation>> publicServiceReservationProcessor(){
+        Set<String> serviceIds = repository.findAllDistinctServiceId();
         return item -> item.toDto().stream()
+                .filter(i -> !serviceIds.contains(i.getServiceId()))
                 .map(PublicServiceReservation::fromDto)
                 .collect(Collectors.toList());
     }
@@ -77,7 +94,7 @@ public class PublicServiceReservationInfoInsertJobConfig {
     @Bean
     @StepScope
     public ItemWriter<List<PublicServiceReservation>> publicServiceReservationWriter() {
-        return items -> items.forEach(i -> i.forEach(ii -> log.info("[PublicServiceReservationWriter] {}", ii.getServiceId())));
+        return items -> items.forEach(i -> repository.saveAllAndFlush(i));
     }
 
 
