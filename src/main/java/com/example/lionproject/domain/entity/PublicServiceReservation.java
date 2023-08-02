@@ -86,7 +86,7 @@ public class PublicServiceReservation {
                 rcptenddt,
                 areaNM,
                 imgUrl,
-                dtlCont,
+                "Check Web Page",
                 telNo,
                 vMin,
                 vMax
