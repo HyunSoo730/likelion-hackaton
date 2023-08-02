@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
+import org.springframework.web.util.UriBuilderFactory;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -25,6 +26,16 @@ public class WebClientService {
 
     private final String BASE_URL = "http://openAPI.seoul.go.kr:8088";
     private final String BASE_URL_1365 = "http://openapi.1365.go.kr/openapi/service";
+    private final WebClient webClient;
+
+    /**
+     * 객체지향적으로 Bean으로 등록해서 받아와서 사용
+     * 등록은 xml전용으로 해놓고 가져와서 json으로 사용해야 할 경우 변경
+     */
+    public WebClientService(WebClient webClient) {
+        this.webClient = webClient;
+    }
+
     @Value("${api.hyunsoo.key}")
     private String api_key;
 
@@ -90,17 +101,15 @@ public class WebClientService {
         DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(BASE_URL);
         factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
 
-        //기본세팅
-        WebClient webClient = WebClient.builder()
-                .uriBuilderFactory(factory)
-                .baseUrl(BASE_URL)
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .build();
-
         //모든 값 요청.
-        WebClientDTO res = webClient.get()
-                .uri(uriBuilder -> uriBuilder.path("/{api_key}/json/tvYeyakCOllect/{startIndex}/{endIndex}")
-                        .build(api_key, startIndex, endIndex))
+
+        WebClientDTO res = webClient.mutate() // mutate() => Return a builder to create a new WebClient whose settings are replicated from the current WebClient.
+                .uriBuilderFactory(factory)
+                .build()
+                .get().uri(uriBuilder ->
+                        uriBuilder.path("{api_key}/json/tvYeyakCOllect/{startIndex}/{endIndex}")
+                                .build(api_key, startIndex, endIndex))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
                 .bodyToMono(WebClientDTO.class)
                 .block();
