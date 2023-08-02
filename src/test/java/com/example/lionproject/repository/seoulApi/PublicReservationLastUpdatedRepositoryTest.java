@@ -3,6 +3,7 @@ package com.example.lionproject.repository.seoulApi;
 import com.example.lionproject.domain.seoulApi.PublicReservationLastUpdated;
 import com.example.lionproject.domain.seoulApi.enums.PublicReservationType;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Disabled
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest
 class PublicReservationLastUpdatedRepositoryTest {

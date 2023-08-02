@@ -53,6 +53,10 @@ dependencies {
 	// 쿼리문 실제로 볼 때 바인딩 되는 객체값 확인하기 위한 dependency
 }
 
+bootJar {
+	duplicatesStrategy = 'exclude'
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
