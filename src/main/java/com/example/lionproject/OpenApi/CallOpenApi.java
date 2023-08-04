@@ -2,11 +2,14 @@ package com.example.lionproject.OpenApi;
 
 import com.example.lionproject.OpenApi.CallResponse.Raw.ListPublicReservationEducationRaw;
 import com.example.lionproject.OpenApi.CallResponse.Raw.ListPublicReservationMedicalRaw;
+import com.example.lionproject.OpenApi.CallResponse.Raw.SenuriServiceRawResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import java.net.URI;
 
@@ -15,7 +18,10 @@ import java.net.URI;
 public class CallOpenApi {
 
     @Value("${api.key.seoul}")
-    private  String apiKey;
+    private String apiKey;
+
+    @Value("${api.hyunsoo.key}")
+    private String apiKeyHyunsoo;
 
     private final WebClient webClient;
 
@@ -58,4 +64,24 @@ public class CallOpenApi {
             throw new RuntimeException("[CallOpenApi] CallListPublicReservationEducation Error.");
         }
     }
+
+    public SenuriServiceRawResponse CallSenuriService(int numOfRows, int pageNo) {
+        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory("http://apis.data.go.kr/");
+        factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
+
+        //모든 값 요청.
+        SenuriServiceRawResponse res = webClient.mutate() // mutate() => Return a builder to create a new WebClient whose settings are replicated from the current WebClient.
+                .uriBuilderFactory(factory)
+                .build()
+                .get().uri(uriBuilder ->
+                        uriBuilder.path("B552474/SenuriService/getJobList?ServiceKey={apiKey}&numOfRows={numOfRows}&pageNo={pageNo}")
+                                .build(apiKeyHyunsoo, numOfRows, pageNo))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE)
+                .retrieve()
+                .bodyToMono(SenuriServiceRawResponse.class)
+                .block();
+
+        return res;
+    }
+
 }
