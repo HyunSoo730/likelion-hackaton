@@ -21,7 +21,7 @@ public class PublicServiceReservationController {
     private final PublicServiceReservationRepository repository;
 
     @PostMapping("/public_service")
-    public ResponseEntity<List<PublicServiceReservationResponse>> returnEntity(@RequestBody PublicServiceReservationRequest dto) {
+    public ResponseEntity<List<PublicServiceReservationResponse>> returnEntity2(@RequestBody PublicServiceReservationRequest dto) {
         //해당 dto로 찾아오기
         List<PublicServiceReservation> res = repository.findByAreaNMOrReserveTypeOrMaxClassNMOrMinClassNMOrSvcStatNMOrPayAtNMOrUseTgtInfo(
                 dto.getAreaNM(), dto.getReserveType(), dto.getMaxClassNM(),
@@ -50,5 +50,6 @@ public class PublicServiceReservationController {
         vo.setUseTgtInfo(reservation.getUseTgtInfo());
         return vo;
     }
+
 
 }

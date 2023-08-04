@@ -1,5 +1,6 @@
 package com.example.lionproject.service.Api;
 
+import com.example.lionproject.domain.dto.EmploymentDto;
 import com.example.lionproject.domain.dto.Volunteer;
 import com.example.lionproject.domain.dto.WebClientDTO;
 import jakarta.transaction.Transactional;
@@ -218,7 +219,7 @@ public class WebClientService {
         return res;
     }
 
-    public String employeementSupport(Integer startIndex, Integer endIndex) {
+    public String employmentSupport(Integer startIndex, Integer endIndex) {
         DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(BASE_URL);
         factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
         //이렇게 URI의 빌드 설정을 완료하면 WebClient의 인스턴스를 생성할 때 해당 UriBuilder로 uri를 만든다고 설정하면 된다.
@@ -244,5 +245,25 @@ public class WebClientService {
          */
         return response;
     }
+
+    public EmploymentDto returnEmploymentDto(Integer startIndex, Integer endIndex) {
+        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(BASE_URL);
+        factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
+
+        EmploymentDto res = webClient.mutate() // mutate() => Return a builder to create a new WebClient whose settings are replicated from the current WebClient.
+                .uriBuilderFactory(factory)
+                .build()
+                .get().uri(uriBuilder ->
+                        uriBuilder.path("{api_key}/json/tbViewProgram/{startIndex}/{endIndex}")
+                                .build(api_key, startIndex, endIndex))
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .retrieve()
+                .bodyToMono(EmploymentDto.class)
+                .block();
+
+        return res;
+
+    }
+
 
 }
