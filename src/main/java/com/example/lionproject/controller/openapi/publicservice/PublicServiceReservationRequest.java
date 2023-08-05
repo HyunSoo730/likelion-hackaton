@@ -22,6 +22,9 @@ public class PublicServiceReservationRequest {
 
     private String payAtNM;//결제방법
 
-    private String useTgtInfo;//서비스대상
+    //    private String useTgtInfo;//서비스대상  //일단 안씀
 
+    //페이징 정보 추가
+    private Integer page;
+    private Integer size;  //페이지 당 개수
 }
