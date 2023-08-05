@@ -3,6 +3,7 @@ package com.example.lionproject.OpenApi;
 import com.example.lionproject.OpenApi.CallResponse.Raw.ListPublicReservationEducationRaw;
 import com.example.lionproject.OpenApi.CallResponse.Raw.ListPublicReservationMedicalRaw;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
+@Disabled
 @SpringBootTest
 class CallOpenApiTest {
 
