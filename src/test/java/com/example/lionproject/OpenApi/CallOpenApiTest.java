@@ -2,12 +2,12 @@ package com.example.lionproject.OpenApi;
 
 import com.example.lionproject.OpenApi.CallResponse.Raw.ListPublicReservationEducationRaw;
 import com.example.lionproject.OpenApi.CallResponse.Raw.ListPublicReservationMedicalRaw;
+import com.example.lionproject.OpenApi.CallResponse.Raw.SenuriServiceRawResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
@@ -42,5 +42,16 @@ class CallOpenApiTest {
 
         // Then
         Assertions.assertThat(response.fetchResultCode()).isEqualTo("INFO-000");
+    }
+
+    @Test
+    void givenPagingInfo_whenCallingSenuriService_thenSuccess() throws Exception {
+        // Given
+
+        // When
+        SenuriServiceRawResponse response = callOpenApi.CallSenuriService(1, 1);
+
+        // Then
+        Assertions.assertThat(response.fetchResultCode()).isEqualTo("00");
     }
 }
