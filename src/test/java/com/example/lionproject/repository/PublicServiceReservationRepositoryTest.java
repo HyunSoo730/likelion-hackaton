@@ -45,12 +45,11 @@ class PublicServiceReservationRepositoryTest {
     }
 
     @Test
-    @Deprecated void givenTestData_whenCallingFindAllDistinctServiceId_thenSuccess() throws Exception {
+    void givenTestData_whenCallingFindAllDistinctServiceId_thenSuccess() throws Exception {
         // Given
 
         // When
         Set<String> result = publicServiceReservationRepository.findAllDistinctServiceId();
-
         // Then
         Assertions.assertThat(result.size()).isEqualTo(10);
     }

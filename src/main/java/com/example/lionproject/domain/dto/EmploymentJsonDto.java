@@ -67,6 +67,10 @@ public class EmploymentJsonDto {
         private String viewDetail;  //강좌상세화면
     }
 
+    public int fetchListTotalCount() {
+        return Integer.parseInt(this.employeement.list_total_count);
+    }
+
     public List<EmploymentDto> toDto() {
         List<EmploymentDto> res = employeement.rows.stream()
                 .map(r -> new EmploymentDto(
