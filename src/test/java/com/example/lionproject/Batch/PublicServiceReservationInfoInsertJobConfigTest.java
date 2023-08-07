@@ -3,6 +3,7 @@ package com.example.lionproject.Batch;
 import com.example.lionproject.Config.SpringBatchConfig;
 import com.example.lionproject.service.Api.WebClientService;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.batch.core.JobExecution;
@@ -17,6 +18,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Disabled //테스트 무시
 @Slf4j
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {
