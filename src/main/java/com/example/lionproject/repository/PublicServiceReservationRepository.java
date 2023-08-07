@@ -21,4 +21,5 @@ public interface PublicServiceReservationRepository extends JpaRepository<Public
             String areaNM, String reserveType, String maxClassNM, String minClassNM, String svcStatNM, String payAtNM, Pageable pageable
     ); //페이징 처리 + 가가운 마감일자로 정렬
 
+    Page<PublicServiceReservation> findAll(Pageable pageable);
 }
