@@ -1,20 +1,20 @@
 import { useState, useEffect } from "react";
-import JobInfoList from "../components/JobInfo/JobInfoList";
+import EducationList from "../components/EducationInfo/EducationList";
 import Pagination from "../components/Pagination/Pagination";
 import { styled } from "styled-components";
-import { axiosGetPubSvc } from "../api/axios/axios.PubSvc";
-import Data from "../assets/data/Data1";
+import { axiosGetEduSvc } from "../api/axios/axios.EduSvc";
+import Data from "../assets/data/Data3";
 
-function JobInfo() {
-  const [JobInfoData, setJobInfoData] = useState([]);
-  const [totalPage, setTotalPage] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
+function EducationInfo() {
+  const [educationInfoData, setEducationInfoData] = useState([]);
+  const [totalPage, setTotalPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
 
   async function getData(page) {
     try {
-      const result = await axiosGetPubSvc(page);
+      const result = await axiosGetEduSvc(page);
       setTotalPage(result.totalPages);
-      setJobInfoData(result.content);
+      setEducationInfoData(result.content);
     } catch (error) {
       console.error("Error getting data:", error);
     }
@@ -28,9 +28,10 @@ function JobInfo() {
     setCurrentPage(newPage);
   };
 
+  console.log(Data);
   return (
-    <JobInfoListStyled>
-      <JobInfoList JobInfoLists={Data} />
+    <EducationInfoListStyled>
+      <EducationList EducationLists={Data} />
       <PaginationStyled>
         <Pagination
           currentPage={currentPage}
@@ -38,15 +39,14 @@ function JobInfo() {
           onPageChange={handlePageChange}
         />
       </PaginationStyled>
-    </JobInfoListStyled>
+    </EducationInfoListStyled>
   );
 }
 
-const JobInfoListStyled = styled.div`
+const EducationInfoListStyled = styled.div`
   width: 100%;
   height: 676px;
   position: relative;
-  background-color: #fff0e8;
   display: flex;
   align-items: center;
 `;
@@ -62,4 +62,4 @@ const PaginationStyled = styled.div`
   width: 90%;
 `;
 
-export default JobInfo;
+export default EducationInfo;

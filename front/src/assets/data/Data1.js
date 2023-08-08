@@ -30,7 +30,7 @@ const Data = [
     placeNM: "소방서 교육장",
     svcUrl: "http://fire.seoul.go.kr/multi",
     frDd: "",
-    toDd: "",
+    toDd: "20230808",
   },
   {
     areaNM: "강남구",
@@ -41,7 +41,7 @@ const Data = [
     placeNM: "소방서 교육장",
     svcUrl: "http://fire.seoul.go.kr/multi",
     frDd: "",
-    toDd: "",
+    toDd: "20230810",
   },
   {
     areaNM: "강남구",

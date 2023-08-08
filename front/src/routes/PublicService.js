@@ -2,19 +2,52 @@ import { useState, useEffect } from "react";
 import PublicServiceList from "../components/PublicService/PublicServiceList";
 import Pagination from "../components/Pagination/Pagination";
 import { styled } from "styled-components";
-import { axiosGetPubSvc } from "../api/axios/axiosPubSvc";
+import { axiosGetPubSvc, axiosPostPubSvc } from "../api/axios/axios.PubSvc";
 import Data from "../assets/data/Data2"; //testdata
 
+const postData = {
+  areaNM: "광진구",
+  svcStatNM: "",
+  maxClassNM: "",
+  minClassNM: "",
+  payAtNM: "",
+};
 function PublicService() {
   const [publicServiceData, setPublicServiceData] = useState([]);
-  const [totalPage, setTotalPage] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
 
-  async function getData(page) {
+  // async function getData() {
+  //   try {
+  //     const result = await axiosGetPubSvc();
+  //     const itemsPerPage = 6;
+  //     const totalItems = result.length;
+  //     const totalPages = Math.ceil(totalItems / itemsPerPage);
+  //     setTotalPage(totalPages);
+
+  //     const startIndex = currentPage * itemsPerPage;
+  //     const endIndex = startIndex + itemsPerPage;
+  //     const currentPageData = result.slice(startIndex, endIndex);
+
+  //     setPublicServiceData(currentPageData);
+  //   } catch (error) {
+  //     console.error("Error getting data:", error);
+  //   }
+  // }
+
+  async function getData() {
     try {
-      const result = await axiosGetPubSvc(page);
-      setTotalPage(result.totalPages);
-      setPublicServiceData(result.content);
+      const result = await axiosPostPubSvc(postData);
+      const itemsPerPage = 6;
+      const totalItems = result.length;
+      const totalPages = Math.ceil(totalItems / itemsPerPage);
+      setTotalPage(totalPages);
+
+      const startIndex = currentPage * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      const currentPageData = result.slice(startIndex, endIndex);
+
+      setPublicServiceData(currentPageData);
     } catch (error) {
       console.error("Error getting data:", error);
     }
@@ -26,11 +59,12 @@ function PublicService() {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
+    getData(newPage);
   };
 
   return (
     <PublicServiceListStyled>
-      <PublicServiceList publicServiceLists={Data} />
+      <PublicServiceList publicServiceLists={publicServiceData} />
       <PaginationStyled>
         <Pagination
           currentPage={currentPage}

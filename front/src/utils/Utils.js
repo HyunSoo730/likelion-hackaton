@@ -1,15 +1,15 @@
-export function getRemainingDays(rcptenddt) {
-  if (!rcptenddt) {
+export function getRemainingDays(endDate) {
+  if (!endDate) {
     return "---";
   }
-  const targetDate = new Date(rcptenddt);
-  const currentDate = new Date();
-  const timeDiff = targetDate - currentDate;
-  const remainingDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+  const end = new Date(endDate);
+  const now = new Date();
+  const timeDiff = end - now;
+  const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-  if (remainingDays < 0) return "마감";
-  if (remainingDays === 0) return "day";
-  return remainingDays;
+  if (daysDiff < 0) return "end";
+  if (daysDiff === 0) return "day";
+  return daysDiff;
 }
 
 export const getRemainingDays2 = (endDate) => {
@@ -21,7 +21,8 @@ export const getRemainingDays2 = (endDate) => {
   );
   const timeDiff = end - now;
   const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-  return daysDiff >= 0 ? `${daysDiff}` : "마감";
+  if (daysDiff === 0) return "day";
+  return daysDiff >= 0 ? `${daysDiff}` : "end";
 };
 
 export function decodeHTMLEntities(text) {
@@ -34,5 +35,5 @@ export const formatDate = (dateString) => {
   const year = dateString.slice(0, 4);
   const month = dateString.slice(4, 6);
   const day = dateString.slice(6, 8);
-  return `${year}/${month}/${day}`;
+  return `${year}-${month}-${day}`;
 };
