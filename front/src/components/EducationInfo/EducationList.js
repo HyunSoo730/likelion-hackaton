@@ -38,6 +38,8 @@ const EducationListsStyled = styled.div`
 
 const Row = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 80%;
 `;
 

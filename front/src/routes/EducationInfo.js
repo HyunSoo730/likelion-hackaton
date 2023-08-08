@@ -49,6 +49,7 @@ const EducationInfoListStyled = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
 `;
 
 const PaginationStyled = styled.div`
@@ -58,8 +59,7 @@ const PaginationStyled = styled.div`
   align-items: center;
   left: 50%;
   transform: translateX(-50%);
-  top: 50%;
-  width: 90%;
+  width: 85%;
 `;
 
 export default EducationInfo;

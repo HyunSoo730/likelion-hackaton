@@ -46,6 +46,7 @@ const JobInfoListStyled = styled.div`
   width: 100%;
   height: 676px;
   position: relative;
+  justify-content: center;
   background-color: #fff0e8;
   display: flex;
   align-items: center;
@@ -58,8 +59,7 @@ const PaginationStyled = styled.div`
   align-items: center;
   left: 50%;
   transform: translateX(-50%);
-  top: 50%;
-  width: 90%;
+  width: 85%;
 `;
 
 export default JobInfo;
