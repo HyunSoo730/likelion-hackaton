@@ -17,9 +17,19 @@ public interface PublicServiceReservationRepository extends JpaRepository<Public
     @Query("SELECT DISTINCT p.serviceId FROM PublicServiceReservation p")
     Set<String> findAllDistinctServiceId();
 
+    //페이징 처리 + 가가운 마감일자로 정렬
     Page<PublicServiceReservation> findByAreaNMOrReserveTypeOrMaxClassNMOrMinClassNMOrSvcStatNMOrPayAtNMOrderByRcptenddtAsc(
-            String areaNM, String reserveType, String maxClassNM, String minClassNM, String svcStatNM, String payAtNM, Pageable pageable
-    ); //페이징 처리 + 가가운 마감일자로 정렬
+            String areaNM, String reserveType, String maxClassNM, String minClassNM, String svcStatNM, String payAtNM,
+            Pageable pageable
+    );
+
+    List<PublicServiceReservation> findByAreaNMOrReserveTypeOrMaxClassNMOrMinClassNMOrSvcStatNMOrPayAtNMOrderByRcptenddtAsc(
+            String areaNM, String reserveType, String maxClassNM, String minClassNM, String svcStatNM, String payAtNM
+    );
+
+    List<PublicServiceReservation> findBySvcNMContainingOrderByRcptenddtAsc(String serviceName);
+
+    List<PublicServiceReservation> findAllByOrderByRcptenddtAsc();
 
     Page<PublicServiceReservation> findAll(Pageable pageable);
 }
