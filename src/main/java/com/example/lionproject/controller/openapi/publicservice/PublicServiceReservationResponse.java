@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,7 +26,7 @@ public class PublicServiceReservationResponse {
 
     private String svcUrl;//바로가기URL
 
-    private String rcptenddt;//접수종료일시
+    private LocalDateTime rcptenddt;//접수종료일시
 
     private String imgUrl;//이미지주소
 

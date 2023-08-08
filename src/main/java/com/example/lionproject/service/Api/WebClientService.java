@@ -1,6 +1,6 @@
 package com.example.lionproject.service.Api;
 
-import com.example.lionproject.domain.dto.EmploymentDto;
+import com.example.lionproject.domain.dto.EmploymentJsonDto;
 import com.example.lionproject.domain.dto.Volunteer;
 import com.example.lionproject.domain.dto.WebClientDTO;
 import jakarta.transaction.Transactional;
@@ -14,11 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
-import org.springframework.web.util.UriBuilderFactory;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 @Service
 @Transactional
@@ -246,11 +241,11 @@ public class WebClientService {
         return response;
     }
 
-    public EmploymentDto returnEmploymentDto(Integer startIndex, Integer endIndex) {
+    public EmploymentJsonDto returnEmploymentDto(Integer startIndex, Integer endIndex) {
         DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory(BASE_URL);
         factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.VALUES_ONLY);
 
-        EmploymentDto res = webClient.mutate() // mutate() => Return a builder to create a new WebClient whose settings are replicated from the current WebClient.
+        EmploymentJsonDto res = webClient.mutate() // mutate() => Return a builder to create a new WebClient whose settings are replicated from the current WebClient.
                 .uriBuilderFactory(factory)
                 .build()
                 .get().uri(uriBuilder ->
@@ -258,7 +253,7 @@ public class WebClientService {
                                 .build(api_key, startIndex, endIndex))
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
-                .bodyToMono(EmploymentDto.class)
+                .bodyToMono(EmploymentJsonDto.class)
                 .block();
 
         return res;
