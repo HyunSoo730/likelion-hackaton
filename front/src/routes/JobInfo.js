@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import PublicServiceList from "../components/PublicService/PublicServiceList";
+import JobInfoList from "../components/JobInfo/JobInfoList";
 import Pagination from "../components/Pagination/Pagination";
 import { styled } from "styled-components";
 import { axiosGetPubSvc } from "../api/axios/axiosPubSvc";
-import Data from "../assets/data/Data2"; //testdata
+import Data from "../assets/data/Data1";
 
-function PublicService() {
-  const [publicServiceData, setPublicServiceData] = useState([]);
+function JobInfo() {
+  const [JobInfoData, setJobInfoData] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -14,7 +14,7 @@ function PublicService() {
     try {
       const result = await axiosGetPubSvc(page);
       setTotalPage(result.totalPages);
-      setPublicServiceData(result.content);
+      setJobInfoData(result.content);
     } catch (error) {
       console.error("Error getting data:", error);
     }
@@ -29,8 +29,8 @@ function PublicService() {
   };
 
   return (
-    <PublicServiceListStyled>
-      <PublicServiceList publicServiceLists={Data} />
+    <JobInfoListStyled>
+      <JobInfoList JobInfoLists={Data} />
       <PaginationStyled>
         <Pagination
           currentPage={currentPage}
@@ -38,14 +38,17 @@ function PublicService() {
           onPageChange={handlePageChange}
         />
       </PaginationStyled>
-    </PublicServiceListStyled>
+    </JobInfoListStyled>
   );
 }
 
-const PublicServiceListStyled = styled.div`
+const JobInfoListStyled = styled.div`
   width: 100%;
-  height: 100%;
+  height: 676px;
   position: relative;
+  background-color: #fff0e8;
+  display: flex;
+  align-items: center;
 `;
 
 const PaginationStyled = styled.div`
@@ -58,4 +61,5 @@ const PaginationStyled = styled.div`
   top: 50%;
   width: 90%;
 `;
-export default PublicService;
+
+export default JobInfo;

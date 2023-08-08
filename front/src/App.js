@@ -5,6 +5,7 @@ import JobSearch from "./routes/JobSearch";
 import PublicService from "./routes/PublicService";
 import AlarmService from "./routes/AlarmService";
 import MyPage from "./routes/MyPage";
+import JobInfo from "./routes/JobInfo";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/jobsearch" element={<JobSearch />} />
         <Route path="/publicservice" element={<PublicService />} />
         <Route path="/alarmservice" element={<AlarmService />} />
+        <Route path="/jobinfo" element={<JobInfo />} />
       </Routes>
     </Router>
   );
