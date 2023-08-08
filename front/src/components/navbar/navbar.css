@@ -31,10 +31,11 @@
     cursor:pointer;
 }
 
-.login, .join {
+.signIn, .signUp {
     font-family: 'IBM Plex Sans KR', sans-serif;
     position: relative;
     padding:0px 5px 0px 5px;
+    cursor:pointer;
 }
 
 .navUser {
@@ -44,6 +45,6 @@
 }
 
 
-.login:hover, .join:hover {
+.signIn:hover, .signUp:hover {
     color: green;
 }

@@ -4,23 +4,27 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
     const navigate = useNavigate();
-    
+
+    const navigateToMain = () => {
+        navigate("/");
+    }; 
+
     const navigateToSignIn = () => {
-        navigate("/signin");
-    };
+        navigate("/SignIn");
+    };   
 
     return (
         <div className="navbar">
             <div className="navbarWrapper">
-                <div className="navLogo">
+                <div className="navLogo" onClick={navigateToMain}>
                 <img src={process.env.PUBLIC_URL + '/img/logo.jpg'} width = '70px' alt=''/>
                 </div>
                 <div className="navUser">
-                    <div className="login" onclick={navigateToSignIn}>
+                    <div className="signIn" onClick={navigateToSignIn}>
                         로그인
                     </div>
                     ｜
-                    <div className="join">
+                    <div className="signUp">
                         회원가입
                     </div>
                 </div>

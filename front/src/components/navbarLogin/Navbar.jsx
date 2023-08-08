@@ -6,6 +6,9 @@ export default function Navbar() {
 
     const navigate = useNavigate();
     
+    const navigateToMain = () => {
+        navigate("/");
+    };
     const navigateToJobsearch = () => {
         navigate("/jobsearch");
     };
@@ -18,12 +21,15 @@ export default function Navbar() {
     const navigateToAlarmservice = () => {
         navigate("/alarmservice");
     };
+    const navigateToMyPage = () => {
+        navigate("/mypage");
+    };
 
     return (
         <div className="navbar">
             <div className="navbarWrapper">
                 <div className="navLogo">
-                    <img src={process.env.PUBLIC_URL + '/img/logo.jpg'} width = '70px' alt='logo image'/>
+                    <img src={process.env.PUBLIC_URL + '/img/logo.jpg'} width = '70px' alt='' onClick={navigateToMain}/>
                 </div>
                 <div className="nav">
                     <div className="navJob" onClick={navigateToJobsearch}>
@@ -40,10 +46,10 @@ export default function Navbar() {
                     </div>
                 </div>
                 <div className="navUser">
-                    <div className="userImg">
-                    <img src={process.env.PUBLIC_URL + '/img/user.jpg'} width = '35px' alt='logo image'/>
+                    <div className="userImg" onClick={navigateToMyPage}>
+                        <img src={process.env.PUBLIC_URL + '/img/user.jpg'} width = '35px' alt=''/>
                     </div>
-                    <div className="user">
+                    <div className="user" onClick={navigateToMyPage}>
                         하미리님
                     </div>
                 </div>

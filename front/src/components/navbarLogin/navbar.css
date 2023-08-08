@@ -54,6 +54,7 @@
 
 .navJob, .navPbl, .navEdu, .navAlm {
     margin: 0 30px 0 30px;
+    cursor:pointer;
 }
 
 .navJob:hover, .navPbl:hover, .navEdu:hover, .navAlm:hover {
@@ -65,6 +66,7 @@
     display: flex;
     align-items:center;
     padding: 5px 30px 5px 30px;
+    cursor:pointer;
 }
 
 .userImg {

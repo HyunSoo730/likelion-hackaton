@@ -8,7 +8,7 @@ import Education from "./routes/Education";
 import AlarmService from "./routes/AlarmService";
 import MyPage from "./routes/MyPage";
 
-import './app.css'
+import './App.css'
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
