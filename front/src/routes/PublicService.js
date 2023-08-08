@@ -1,95 +1,124 @@
-import { useState, useEffect } from "react";
-import PublicServiceList from "../components/PublicService/PublicServiceList";
-import Pagination from "../components/Pagination/Pagination";
+import { useState } from "react";
 import { styled } from "styled-components";
-import { axiosGetPubSvc, axiosPostPubSvc } from "../api/axios/axios.PubSvc";
-import Data from "../assets/data/Data2"; //testdata
+import PublicServiceContainer from "../components/PublicService/PublicService.container";
+import SearchImg from "../assets/images/search.png";
+import ResetImg from "../assets/images/reset.png";
+import PubSvcFilterList from "../components/PublicService/PubSvcFilterList";
 
-const postData = {
-  areaNM: "광진구",
-  svcStatNM: "",
-  maxClassNM: "",
-  minClassNM: "",
-  payAtNM: "",
-};
 function PublicService() {
-  const [publicServiceData, setPublicServiceData] = useState([]);
-  const [totalPage, setTotalPage] = useState(0);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [searchText, setSearchText] = useState("");
 
-  // async function getData() {
-  //   try {
-  //     const result = await axiosGetPubSvc();
-  //     const itemsPerPage = 6;
-  //     const totalItems = result.length;
-  //     const totalPages = Math.ceil(totalItems / itemsPerPage);
-  //     setTotalPage(totalPages);
+  const handleSearchChange = (event) => {
+    setSearchText(event.target.value);
+  };
 
-  //     const startIndex = currentPage * itemsPerPage;
-  //     const endIndex = startIndex + itemsPerPage;
-  //     const currentPageData = result.slice(startIndex, endIndex);
+  const handleSearchClick = () => {
+    // 검색 동작 구현
+    console.log("검색어:", searchText);
+  };
 
-  //     setPublicServiceData(currentPageData);
-  //   } catch (error) {
-  //     console.error("Error getting data:", error);
-  //   }
-  // }
-
-  async function getData() {
-    try {
-      const result = await axiosPostPubSvc(postData);
-      const itemsPerPage = 6;
-      const totalItems = result.length;
-      const totalPages = Math.ceil(totalItems / itemsPerPage);
-      setTotalPage(totalPages);
-
-      const startIndex = currentPage * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-      const currentPageData = result.slice(startIndex, endIndex);
-
-      setPublicServiceData(currentPageData);
-    } catch (error) {
-      console.error("Error getting data:", error);
-    }
-  }
-
-  useEffect(() => {
-    getData(currentPage);
-  }, [currentPage]);
-
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-    getData(newPage);
+  const handleResetClick = () => {
+    setSearchText("");
   };
 
   return (
-    <PublicServiceListStyled>
-      <PublicServiceList publicServiceLists={publicServiceData} />
-      <PaginationStyled>
-        <Pagination
-          currentPage={currentPage}
-          totalPage={totalPage}
-          onPageChange={handlePageChange}
-        />
-      </PaginationStyled>
-    </PublicServiceListStyled>
+    <PublicServiceWrapped>
+      <PublicServiceTop>
+        <SearchBarStyled>
+          <SearchBar>
+            <input
+              type="text"
+              value={searchText}
+              onChange={handleSearchChange}
+              placeholder="검색어를 입력하세요"
+            />
+            <button onClick={handleSearchClick}>
+              <img src={SearchImg} alt="search" />
+            </button>
+          </SearchBar>
+          <ResetBtn onClick={handleResetClick}>
+            <img src={ResetImg} alt="reset" />
+            조건 초기화
+          </ResetBtn>
+        </SearchBarStyled>
+        <PubSvcFilterList />
+      </PublicServiceTop>
+      <PublicServiceContainer></PublicServiceContainer>
+    </PublicServiceWrapped>
   );
 }
 
-const PublicServiceListStyled = styled.div`
+const PublicServiceWrapped = styled.div`
   width: 100%;
-  height: 100%;
-  position: relative;
 `;
 
-const PaginationStyled = styled.div`
-  position: absolute;
+const PublicServiceTop = styled.div`
+  width: 100%;
+  height: 370px;
+  background-color: #ffb287;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 50%;
-  width: 90%;
 `;
+
+const SearchBarStyled = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const SearchBar = styled.div`
+  width: 980px;
+  height: 60px;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 0px 4px 48px 0px #0000001a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    width: 87%;
+    font-size: 24px;
+    color: #767676;
+    flex: 1;
+    border: none;
+    border-radius: 15px 0 0 15px;
+    outline: none;
+    margin-left: 30px;
+  }
+
+  button {
+    width: 60px;
+    height: 48px;
+    float: right;
+    background-color: #ff8643;
+    margin: 6px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #ffb287;
+  }
+`;
+
+const ResetBtn = styled.div`
+  width: 180px;
+  height: 60px;
+  border-radius: 15px;
+  background-color: white;
+  color: #767676;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+  font-size: 20px;
+
+  img {
+    margin-right: 12px;
+  }
+`;
+
 export default PublicService;

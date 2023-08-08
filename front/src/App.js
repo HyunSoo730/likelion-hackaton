@@ -9,12 +9,13 @@ import JobInfo from "./routes/JobInfo";
 import EduationInfo from "./routes/EducationInfo";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { createGlobalStyle } from "styled-components";
 
 function App() {
   return (
     <Router>
       <ScrollToTop />
-
+      <GlobalStyles />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
@@ -29,4 +30,9 @@ function App() {
   );
 }
 
+const GlobalStyles = createGlobalStyle`
+  body {
+    margin: 0;
+  }
+`;
 export default App;
