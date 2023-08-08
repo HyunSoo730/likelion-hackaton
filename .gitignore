@@ -4,6 +4,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+.DS_Store
 
 ### STS ###
 .apt_generated
@@ -39,5 +40,9 @@ out/
 
 src/main/resources/env.txt
 env.txt
+.env
 
+
+### front ###
 node_modules
+setupProxy.js
