@@ -1,33 +1,33 @@
 import React from "react";
 import styled from "styled-components";
-import JobInfoTable from "./JobInfoTable";
+import EducationTable from "./EducationTable";
 
-const JobInfoList = ({ JobInfoLists }) => {
-  if (!Array.isArray(JobInfoLists)) {
+const EducationList = ({ EducationLists }) => {
+  if (!Array.isArray(EducationLists)) {
     return null;
   }
   const itemsPerRow = 3;
-  const totalRows = Math.ceil(JobInfoLists.length / itemsPerRow);
+  const totalRows = Math.ceil(EducationLists.length / itemsPerRow);
 
   const rows = [];
 
   for (let i = 0; i < totalRows; i++) {
     const startIndex = i * itemsPerRow;
-    const rowItems = JobInfoLists.slice(startIndex, startIndex + itemsPerRow);
+    const rowItems = EducationLists.slice(startIndex, startIndex + itemsPerRow);
 
     rows.push(
       <Row key={i} className="row">
         {rowItems.map((data, index) => (
-          <JobInfoTable key={startIndex + index} data={data} />
+          <EducationTable key={startIndex + index} data={data} />
         ))}
       </Row>
     );
   }
 
-  return <JobInfoListsStyled>{rows}</JobInfoListsStyled>;
+  return <EducationListsStyled>{rows}</EducationListsStyled>;
 };
 
-const JobInfoListsStyled = styled.div`
+const EducationListsStyled = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -41,4 +41,4 @@ const Row = styled.div`
   width: 80%;
 `;
 
-export default JobInfoList;
+export default EducationList;

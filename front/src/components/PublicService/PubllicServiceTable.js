@@ -101,7 +101,7 @@ const ServiceNameStyled = styled.div`
 
 const PlaceStyled = styled.span`
   display: inline-block;
-  max-width: 25ch; /* 원하는 글자 수로 조정 */
+  max-width: 25ch;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
