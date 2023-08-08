@@ -21,11 +21,9 @@ const PublicServiceTable = ({ serviceInfoData }) => {
             {decodeHTMLEntities(serviceInfoData.svcNM)}
           </ServiceNameStyled>
           <div>{serviceInfoData.maxClassNM}</div>
-          <div>
-            <PlaceStyled>
-              {serviceInfoData.areaNM} / {serviceInfoData.placeNM}
-            </PlaceStyled>
-          </div>
+          <PlaceStyled>
+            {serviceInfoData.areaNM} / {serviceInfoData.placeNM}
+          </PlaceStyled>
           <div>{serviceInfoData.payAtNM}</div>
           <SvcStatStyled status={serviceInfoData.svcStatNM}>
             {serviceInfoData.svcStatNM}
