@@ -10,15 +10,20 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.*;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.batch.JobLauncherApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -32,6 +37,8 @@ public class EmploymentJobConfig {
     private final PlatformTransactionManager platformTransactionManager;
     private final WebClientService webClientService;
     private final EmploymentRepository repository;
+
+
 
     @Bean
     public Job employmentInfoJob(Step employmentInsertJob) {
@@ -70,8 +77,10 @@ public class EmploymentJobConfig {
                     return null;
 
                 EmploymentJsonDto employmentJsonDto = webClientService.returnEmploymentDto(startIndex, startIndex + CHUNK_SIZE - 1);
-                if (lastIndex == -1)
+                if (lastIndex == -1) {
                     lastIndex = employmentJsonDto.fetchListTotalCount();
+                    log.info("lastIndex = {}", lastIndex);
+                }
 
                 startIndex += CHUNK_SIZE;
                 if (startIndex > lastIndex) {
@@ -104,8 +113,9 @@ public class EmploymentJobConfig {
         return new ItemWriter<List<Employment>>() {
             @Override
             public void write(Chunk<? extends List<Employment>> chunk) throws Exception {
-                log.info("item write is good {}", chunk);
-
+//                log.info("item write is good {}", chunk);
+                chunk.forEach(i -> repository.saveAllAndFlush(i));
+                log.info("save !!");
             }
         };
     }
