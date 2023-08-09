@@ -62,7 +62,6 @@ function EducationInfo() {
             조건 초기화
           </ResetBtn>
         </SearchBarStyled>
-        {showNoResult}
         <EduFilterList />
       </EducationInfoTop>
       {showNoResult ? (

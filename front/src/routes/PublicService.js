@@ -62,7 +62,6 @@ function PublicService() {
             조건 초기화
           </ResetBtn>
         </SearchBarStyled>
-        {showNoResult}
         <PubSvcFilterList />
       </PublicServiceTop>
       {showNoResult ? (
