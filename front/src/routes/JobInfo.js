@@ -59,7 +59,7 @@ const PaginationStyled = styled.div`
   align-items: center;
   left: 50%;
   transform: translateX(-50%);
-  width: 85%;
+  width: 90%;
 `;
 
 export default JobInfo;

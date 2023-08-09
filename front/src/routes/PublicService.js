@@ -4,21 +4,41 @@ import PublicServiceContainer from "../components/PublicService/PublicService.co
 import SearchImg from "../assets/images/search.png";
 import ResetImg from "../assets/images/reset.png";
 import PubSvcFilterList from "../components/PublicService/PubSvcFilterList";
+import { axiosPubSvcFind } from "../api/axios/axios.PubSvc";
+import NoResults from "../components/SearchFilter/NoResults";
 
 function PublicService() {
   const [searchText, setSearchText] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [showNoResult, setShowNoResult] = useState(false);
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
   };
 
-  const handleSearchClick = () => {
-    // 검색 동작 구현
-    console.log("검색어:", searchText);
+  const handleSearchClick = async () => {
+    if (searchText.trim().length < 2) {
+      return alert("두 글자 이상의 검색어를 입력해주세요.");
+    }
+    try {
+      const results = await axiosPubSvcFind(searchText);
+      setSearchResults(results);
+      setShowNoResult(results.length === 0);
+    } catch (error) {
+      console.error("검색 중 오류 발생:", error);
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearchClick();
+    }
   };
 
   const handleResetClick = () => {
+    setSearchResults([]);
     setSearchText("");
+    setShowNoResult(false);
   };
 
   return (
@@ -30,6 +50,7 @@ function PublicService() {
               type="text"
               value={searchText}
               onChange={handleSearchChange}
+              onKeyDown={handleKeyPress}
               placeholder="검색어를 입력하세요"
             />
             <button onClick={handleSearchClick}>
@@ -41,9 +62,14 @@ function PublicService() {
             조건 초기화
           </ResetBtn>
         </SearchBarStyled>
+        {showNoResult}
         <PubSvcFilterList />
       </PublicServiceTop>
-      <PublicServiceContainer></PublicServiceContainer>
+      {showNoResult ? (
+        <NoResults />
+      ) : (
+        <PublicServiceContainer searchResults={searchResults} />
+      )}
     </PublicServiceWrapped>
   );
 }
@@ -115,7 +141,7 @@ const ResetBtn = styled.div`
   align-items: center;
   margin-left: 20px;
   font-size: 20px;
-
+  cursor: pointer;
   img {
     margin-right: 12px;
   }
