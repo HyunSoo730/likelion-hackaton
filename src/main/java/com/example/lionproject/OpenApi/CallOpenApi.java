@@ -79,7 +79,7 @@ public class CallOpenApi {
                     .accept(MediaType.APPLICATION_XML)
                     .retrieve()
                     .bodyToMono(SenuriServiceRawResponse.class)
-                    .block();
+                    .blockOptional().orElseThrow(() -> new RuntimeException("[CallSenuriService] Error."));
 
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
