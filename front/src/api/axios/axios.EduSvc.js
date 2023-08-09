@@ -1,15 +1,10 @@
 import axios from "axios";
 
-const axiosEduSvcUrl = "/api/employment";
+const axiosEduSvcUrl = "/api/employment/data";
 
-export const axiosGetEduSvc = async (page) => {
+export const axiosGetEduSvc = async () => {
   try {
-    const response = await axios.get(axiosEduSvcUrl, {
-      params: {
-        page: page,
-        size: 6,
-      },
-    });
+    const response = await axios.get(axiosEduSvcUrl);
     return response.data;
   } catch (error) {
     throw error;

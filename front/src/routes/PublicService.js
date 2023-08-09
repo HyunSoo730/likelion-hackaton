@@ -91,10 +91,11 @@ const PublicServiceTop = styled.div`
 const SearchBarStyled = styled.div`
   display: flex;
   justify-content: center;
+  width: 100%;
 `;
 
 const SearchBar = styled.div`
-  width: 980px;
+  width: 60%;
   height: 60px;
   border-radius: 15px;
   background-color: white;
