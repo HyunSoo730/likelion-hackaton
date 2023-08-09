@@ -4,23 +4,26 @@ import PaginationBtn from "../../assets/images/paginationBtn.png";
 
 const Pagination = ({ currentPage, totalPage, onPageChange }) => {
   const handleClickPrev = () => {
-    if (currentPage > 1) {
+    if (currentPage > 0) {
       onPageChange(currentPage - 1);
     }
   };
 
   const handleClickNext = () => {
-    if (currentPage < totalPage) {
+    if (currentPage < totalPage - 1) {
       onPageChange(currentPage + 1);
     }
   };
 
   return (
     <PaginationWrapper>
-      <PrevBtn onClick={handleClickPrev} disabled={currentPage === 1}>
+      <PrevBtn onClick={handleClickPrev} disabled={currentPage === 0}>
         <img src={PaginationBtn} alt="Prev" />
       </PrevBtn>
-      <NextBtn onClick={handleClickNext} disabled={currentPage === totalPage}>
+      <NextBtn
+        onClick={handleClickNext}
+        disabled={currentPage === totalPage - 1}
+      >
         <img src={PaginationBtn} alt="Next" />
       </NextBtn>
     </PaginationWrapper>

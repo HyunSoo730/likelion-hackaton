@@ -1,7 +1,7 @@
 import { useState } from "react";
 import FilterToggle from "./FilterToggle";
 
-const FilterContainer = ({ Filters }) => {
+const FilterContainer = ({ Filters, onFilterUpdate }) => {
   const [selectedFilter, setselectedFilter] = useState(
     Array(Filters.length - 1).fill(false)
   );
@@ -9,9 +9,14 @@ const FilterContainer = ({ Filters }) => {
   const handleAreaToggle = (index) => {
     const updatedFilter = [...selectedFilter];
     updatedFilter[index] = !updatedFilter[index];
-    const clickedArea = Filters[index + 1];
-    console.log(clickedArea);
     setselectedFilter(updatedFilter);
+
+    const selectedFilterValues = Filters.slice(1).filter(
+      (_, idx) => updatedFilter[idx]
+    );
+
+    // 선택한 필터 값들을 부모 컴포넌트로 전달
+    onFilterUpdate(selectedFilterValues);
   };
 
   const filterTitle = Filters[0];
