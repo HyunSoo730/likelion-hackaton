@@ -75,16 +75,19 @@ public class PublicServiceReservationController {
 
 
     /**
-     * 검색 필터 적용한 데이터 조회
+     * 체크박스 필터 적용한 데이터 조회
      */
     @PostMapping("/filter_data")
     public ResponseEntity<List<PublicServiceReservationResponse>> returnFilterData(@RequestBody PublicServiceReservationRequest dto) {
 
-        List<PublicServiceReservation> res2 = repository.findByAreaNMOrReserveTypeOrMaxClassNMOrMinClassNMOrSvcStatNMOrPayAtNMOrderByRcptenddtAsc(
+        List<PublicServiceReservation> res = repository.findByAreaNMInAndReserveTypeInAndMaxClassNMInAndMinClassNMInAndSvcStatNMInAndPayAtNMInOrderByRcptenddtAsc(
                 dto.getAreaNM(), dto.getReserveType(), dto.getMaxClassNM(),
-                dto.getMinClassNM(), dto.getSvcStatNM(), dto.getPayAtNM());
+                dto.getMinClassNM(), dto.getSvcStatNM(), dto.getPayAtNM()
+        );
+        log.info("res size =  {}, res : {}", res.size(), res.stream().collect(Collectors.toList()));
+
         //리스트로 그냥 반환해봄
-        List<PublicServiceReservationResponse> collect = res2.stream().map(this::convertToVO)
+        List<PublicServiceReservationResponse> collect = res.stream().map(this::convertToVO)
                 .filter(Objects::nonNull)
                 .limit(150)
                 .collect(Collectors.toList());
@@ -93,6 +96,17 @@ public class PublicServiceReservationController {
             System.out.println("publicServiceReservationResponse = " + publicServiceReservationResponse);
         }
         return new ResponseEntity<>(collect,  HttpStatus.OK);
+    }
+
+    @PostMapping("/test")
+    public ResponseEntity<List<PublicServiceReservation>> test(@RequestBody PublicServiceReservationRequest dto) {
+
+        List<PublicServiceReservation> res = repository.findByAreaNMInAndReserveTypeInAndMaxClassNMInAndMinClassNMInAndSvcStatNMInAndPayAtNMInOrderByRcptenddtAsc(
+                dto.getAreaNM(), dto.getReserveType(), dto.getMaxClassNM(),
+                dto.getMinClassNM(), dto.getSvcStatNM(), dto.getPayAtNM()
+        );
+
+        return new ResponseEntity<>(res,  HttpStatus.OK);
     }
 
     /**

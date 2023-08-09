@@ -27,6 +27,10 @@ public interface PublicServiceReservationRepository extends JpaRepository<Public
             String areaNM, String reserveType, String maxClassNM, String minClassNM, String svcStatNM, String payAtNM
     );
 
+    List<PublicServiceReservation> findByAreaNMInAndReserveTypeInAndMaxClassNMInAndMinClassNMInAndSvcStatNMInAndPayAtNMInOrderByRcptenddtAsc(
+            List<String> areaNM, List<String> reserveType, List<String> maxClassNM,
+            List<String> minClassNM, List<String> svcStatNM, List<String> payAtNM
+    );
     List<PublicServiceReservation> findBySvcNMContainingOrderByRcptenddtAsc(String serviceName);
 
     List<PublicServiceReservation> findAllByOrderByRcptenddtAsc();
