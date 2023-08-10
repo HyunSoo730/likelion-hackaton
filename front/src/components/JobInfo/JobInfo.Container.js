@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import JobInfoList from "./JobInfoList";
 import Pagination from "../../components/Pagination/Pagination";
-import { styled } from "styled-components";
+import { styled, css } from "styled-components";
 import { axiosGetPubSvc } from "../../api/axios/axios.PubSvc";
 import Data from "../../assets/data/Data1";
 
-function JobInfoContainer() {
+function JobInfoContainer({ Data1, subscription }) {
   const [JobInfoData, setJobInfoData] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,8 +29,8 @@ function JobInfoContainer() {
   };
 
   return (
-    <JobInfoListStyled>
-      <JobInfoList JobInfoLists={Data} />
+    <JobInfoListStyled subscription={subscription}>
+      <JobInfoList JobInfoLists={Data1 ? Data1 : Data} />
       <PaginationStyled>
         <Pagination
           currentPage={currentPage}
@@ -47,9 +47,11 @@ const JobInfoListStyled = styled.div`
   height: 676px;
   position: relative;
   justify-content: center;
-  background-color: #fff0e8;
+  background-color: white;
   display: flex;
   align-items: center;
+  background-color: ${(props) =>
+    props.subscription === "true" ? "#fff0e8" : "white"};
 `;
 
 const PaginationStyled = styled.div`
