@@ -28,7 +28,6 @@ function EducationInfoContainer() {
     setCurrentPage(newPage);
   };
 
-  console.log(Data);
   return (
     <EducationInfoListStyled>
       <EducationList EducationLists={Data} />

@@ -3,6 +3,8 @@ import { styled } from "styled-components";
 import JobInfo from "../components/JobInfo/JobInfo";
 import JobInfoContainer from "../components/JobInfo/JobInfo.Container";
 import Data1 from "../assets/data/Data1";
+import Navbar from "../components/navbar/Navbar";
+import Footer from "../components/footer/Footer";
 
 const Job = () => {
   const [activeTab, setActiveTab] = useState("JobInfoContainer");
@@ -19,6 +21,7 @@ const Job = () => {
 
   return (
     <JobWrapped>
+      <Navbar />
       <JobIndex>
         <TabButton
           onClick={() => handleTabClick("JobInfoContainer")}
@@ -38,6 +41,7 @@ const Job = () => {
       ) : (
         <JobInfo />
       )}
+      <Footer />
     </JobWrapped>
   );
 };
