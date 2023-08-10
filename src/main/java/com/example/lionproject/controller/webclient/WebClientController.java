@@ -1,11 +1,16 @@
 package com.example.lionproject.controller.webclient;
 
+import com.example.lionproject.domain.dto.Volunteer;
 import com.example.lionproject.domain.dto.WebClientDTO;
 import com.example.lionproject.service.Api.WebClientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.net.URISyntaxException;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,6 +40,19 @@ public class WebClientController {
     @GetMapping("/test3")
     public WebClientDTO returnPublicServiceReservationAPI(@RequestParam Integer startIndex, @RequestParam Integer endIndex) {
         WebClientDTO res = service.getPublicServiceReservation(startIndex, endIndex);
+        return res;
+    }
+
+    @GetMapping("/test4")
+    public String get1365Data(@RequestParam("noticeEndde") Integer num) {  //프로그램 등록 정보
+        System.out.println("num : " + num);
+        String res = service.get1365Data(num);
+        return res;
+    }
+
+    @GetMapping(value = "/test5", produces = MediaType.APPLICATION_XML_VALUE)
+    public Volunteer getData(@RequestParam("noticeEndde") Integer num) {
+        Volunteer res = service.returnData(num);
         return res;
     }
 }

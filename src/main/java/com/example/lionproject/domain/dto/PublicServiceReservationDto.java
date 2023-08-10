@@ -4,6 +4,8 @@ import com.example.lionproject.domain.entity.PublicServiceReservation;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @ToString(of = {"serviceId"})

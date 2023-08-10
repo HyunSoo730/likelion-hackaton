@@ -1,12 +1,15 @@
 package com.example.lionproject.domain.entity;
 
 import com.example.lionproject.domain.dto.PublicServiceReservationDto;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Getter
@@ -146,4 +149,7 @@ public class PublicServiceReservation {
                 dto.getVMax()
         );
     }
+
+
+
 }
