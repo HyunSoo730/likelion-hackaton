@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Gothic&display=swap');
+
+.layout {
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    background-color: #FFB287;
+
+    width: 100%;
+    height:40vh;
+
+    color: white;
+    white-space:nowrap; /*줄바꿈 방지*/
+}
+
+.title {
+    text-align: left;
+    font-weight: bold;
+    font-size:180%;
+    
+    margin: 0 0 13px 13%;
+    padding:3% 0 0 0;
+}
+
+.info {
+    text-align: left;
+    margin-left:13%;
+    margin-bottom: 1.5%;
+    font-size:130%;
+}
+
+.info2 {
+    text-align: left;
+    margin-left:13%;
+    font-size:130%;
+}
