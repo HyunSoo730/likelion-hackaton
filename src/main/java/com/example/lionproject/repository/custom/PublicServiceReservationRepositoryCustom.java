@@ -11,6 +11,6 @@ import java.util.List;
 public interface PublicServiceReservationRepositoryCustom {
 
     List<PublicServiceReservation> findByFiltered(List<String> areaNM, List<String> reserveType, List<String> maxClassNM,
-                                                  List<String> minClassNM, List<String> svcStatNM, List<String> payAtNM, Pageable pageable);
+                                                  List<String> minClassNM, List<String> svcStatNM, List<String> payAtNM);
 
 }

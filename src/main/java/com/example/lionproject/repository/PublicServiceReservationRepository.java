@@ -39,6 +39,6 @@ public interface PublicServiceReservationRepository extends JpaRepository<Public
     Page<PublicServiceReservation> findAll(Pageable pageable);
 
     // SELECT *FROM PublicServiceReservation WHERE areaNM in :areaNM;
-    Page<PublicServiceReservation> findByAreaNMIn(List<String> areaNM, Pageable pageable);
+    Page<PublicServiceReservation> findByAreaNMInOrderByRcptenddt(List<String> areaNM, Pageable pageable);
 
 }

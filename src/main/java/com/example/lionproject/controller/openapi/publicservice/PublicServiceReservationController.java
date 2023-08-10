@@ -80,7 +80,7 @@ public class PublicServiceReservationController {
     @PostMapping("/filter_data")
     public ResponseEntity<List<PublicServiceReservationResponse>> returnFilterData(@RequestBody PublicServiceReservationRequest dto) {
 
-        List<PublicServiceReservation> res = repository.findByAreaNMInAndReserveTypeInAndMaxClassNMInAndMinClassNMInAndSvcStatNMInAndPayAtNMInOrderByRcptenddtAsc(
+        List<PublicServiceReservation> res = repository.findByFiltered(
                 dto.getAreaNM(), dto.getReserveType(), dto.getMaxClassNM(),
                 dto.getMinClassNM(), dto.getSvcStatNM(), dto.getPayAtNM()
         );
@@ -141,7 +141,7 @@ public class PublicServiceReservationController {
     }
 
     /**
-     * 검색어로 저회 ( 서비스명에서 찾기 )
+     * 검색어로 조회 ( 서비스명에서 찾기 )
      */
     @GetMapping("/find")
     public ResponseEntity<List<PublicServiceReservationResponse>> findData(@RequestParam String serviceName) {

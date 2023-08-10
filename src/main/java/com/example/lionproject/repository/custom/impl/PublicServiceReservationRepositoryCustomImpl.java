@@ -18,7 +18,7 @@ public class PublicServiceReservationRepositoryCustomImpl implements PublicServi
 
     @Override
     public List<PublicServiceReservation> findByFiltered(List<String> areaNM, List<String> reserveType, List<String> maxClassNM,
-                                                         List<String> minClassNM, List<String> svcStatNM, List<String> payAtNM, Pageable pageable) {
+                                                         List<String> minClassNM, List<String> svcStatNM, List<String> payAtNM) {
 
         String query = "SELECT p FROM PublicServiceReservation p where ";
 
@@ -44,6 +44,7 @@ public class PublicServiceReservationRepositoryCustomImpl implements PublicServi
 
         if(checkParamList(whereClause)){
             query += String.join(" and ", whereClause);
+            query += " ORDER BY p.rcptenddt ASC";   //조회할 때 마감일자 순으로 오름차순으로 보여주기 위해.
         }
 
         TypedQuery<PublicServiceReservation> typedQuery
@@ -67,12 +68,13 @@ public class PublicServiceReservationRepositoryCustomImpl implements PublicServi
             typedQuery.setParameter("payAtNM", payAtNM);
         }
 
-        int offset = pageable.getPageNumber() * pageable.getPageSize();
-        int limit = pageable.getPageSize();
+//        int offset = pageable.getPageNumber() * pageable.getPageSize();
+//        int limit = pageable.getPageSize();
 
-        return typedQuery.setFirstResult(offset)
-                .setMaxResults(limit)
-                .getResultList();
+        return typedQuery.getResultList();
+        //        return typedQuery.setFirstResult(offset)
+//                .setMaxResults(limit)
+//                .getResultList();
     }
 
     private <T> boolean checkParamList(List<T> param) {
