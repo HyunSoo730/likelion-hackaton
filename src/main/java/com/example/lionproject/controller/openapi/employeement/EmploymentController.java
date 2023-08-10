@@ -57,7 +57,31 @@ public class EmploymentController {
     @PostMapping("/filter_data")
     public ResponseEntity<List<EmploymentResponse>> returnFilterData(@RequestBody EmploymentRequest dto) {
         //검색 필터에 일치하는 내용들 가져오기
-        return null;
+        List<Employment> temp;
+        if (dto.getRegistCost() == null && dto.getApplyState() == null) {
+            temp = repository.findAll();
+        } else if (dto.getRegistCost() != null && dto.getApplyState() == null) {
+            temp = repository.findByRegistCost(dto.getRegistCost());
+        } else if (dto.getRegistCost() == null && dto.getApplyState() != null) {
+            temp = repository.findByApplyState(dto.getApplyState());
+        }else {
+            temp = repository.findByRegistCostAndApplyState(dto.getRegistCost(), dto.getApplyState());
+        }
+
+        List<EmploymentResponse> res = temp.stream().map(this::convertToEmploymentResponse)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    /**
+     * 교육명으로 검색
+     */
+    @GetMapping("/find")
+    public ResponseEntity<List<EmploymentResponse>> returnFindData(@RequestParam String subject) {
+        List<Employment> temp = repository.findBySubjectContaining(subject);
+        List<EmploymentResponse> res = temp.stream().map(this::convertToEmploymentResponse)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     private EmploymentResponse convertToEmploymentResponse(Employment dto) {

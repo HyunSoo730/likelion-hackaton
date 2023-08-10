@@ -166,7 +166,7 @@ public class PublicServiceReservationController {
         }
         //오늘 이전인 경우 null 반환.
         LocalDateTime rcptenddt = LocalDateTime.parse(rcptenddtStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"));
-        if (rcptenddt.isBefore(LocalDateTime.now())) {
+        if (rcptenddt.isBefore(LocalDateTime.now().plusDays(1))) {
             return null;
         }
 
