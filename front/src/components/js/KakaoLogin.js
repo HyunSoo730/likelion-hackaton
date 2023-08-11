@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Rest_api_key from "../../config/key";
 
 function KakaoLogin() {
-  const Rest_api_key = "bf84c97be9c877da06a4bcfa274ebeb0"; //REST API KEY
   const redirect_uri = "http://localhost:3000/auth/kakao/callback"; //Redirect URI
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
 
