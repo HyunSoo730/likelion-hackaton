@@ -5,6 +5,8 @@ import JobSearch from "./routes/JobSearch";
 import PublicService from "./routes/PublicService";
 import AlarmService from "./routes/AlarmService";
 import MyPage from "./routes/MyPage";
+import Auth from "./routes/Auth";
+import "./App.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -14,12 +16,13 @@ function App() {
       <ScrollToTop />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/jobsearch" element={<JobSearch />} />
-        <Route path="/publicservice" element={<PublicService />} />
+        <Route path="/" element={<PublicService />} />
         <Route path="/alarmservice" element={<AlarmService />} />
+        <Route path="/auth/kakao/callback" element={<Auth />} />
       </Routes>
     </Router>
   );
