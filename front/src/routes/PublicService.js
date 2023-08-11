@@ -6,6 +6,8 @@ import ResetImg from "../assets/images/reset.png";
 import PubSvcFilterList from "../components/PublicService/PubSvcFilterList";
 import { axiosPubSvcFind } from "../api/axios/axios.PubSvc";
 import NoResults from "../components/SearchFilter/NoResults";
+import Navbar from "../components/navbar/Navbar";
+import Footer from "../components/footer/Footer";
 
 function PublicService() {
   const [searchText, setSearchText] = useState("");
@@ -43,6 +45,7 @@ function PublicService() {
 
   return (
     <PublicServiceWrapped>
+      <Navbar />
       <PublicServiceTop>
         <SearchBarStyled>
           <SearchBar>
@@ -69,6 +72,7 @@ function PublicService() {
       ) : (
         <PublicServiceContainer searchResults={searchResults} />
       )}
+      <Footer />
     </PublicServiceWrapped>
   );
 }
