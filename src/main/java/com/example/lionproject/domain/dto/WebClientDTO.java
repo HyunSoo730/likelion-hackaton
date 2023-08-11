@@ -86,7 +86,7 @@ public class WebClientDTO {
         @JsonProperty("X")
         private String x;
 
-        @JsonProperty("y")
+        @JsonProperty("Y")
         private String y;
 
         @JsonProperty("SVCOPNBGNDT")

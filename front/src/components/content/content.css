@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Gothic&display=swap');
+
+.content {
+    /* width:100vw; */
+    /* background-color: white ; */
+    
+    display : flex;
+    justify-content : center;
+    align-items : center;
+    width: 100%;
+
+    background-color: white;
+    height:40vh;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+.form {
+    /* position: relative; */
+    border-radius: 12px;
+    width:75%;
+    height:45vh;
+    position:absolute;
+    top: 36%;
+
+    background-color: #FFF0E8;
+
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.enter {
+    display : flex;
+    justify-content : center;
+    margin:2% 3% 2% 3%;
+    font-size:35px;
+    font-weight: bold;
+}
+
+.svc {
+    display : flex;
+    justify-content : center;
+    align-items : center;
+}
+
+.svcJbs,.svcPbl, .svcEdu, .svcAlm {
+    text-align: center;
+    width:16%;
+    height: 18vh;
+    background-color: white;
+    border-radius: 12px;
+    padding:2%;
+    margin:0.5% 1.5% 0.5% 1.5%;
+    cursor:pointer;
+}
+
+.ttl {
+    font-size: 140%;
+    font-weight: bold;
+}
+
+.icon {
+    transform: scale(4);
+    margin:18% 15% 10% 15%;
+  }
+
+.dtl {
+    font-size: 90%;
+}
