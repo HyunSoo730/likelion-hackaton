@@ -3,6 +3,7 @@ import PublicServiceList from "./PublicServiceList";
 import Pagination from "../Pagination/Pagination";
 import { styled } from "styled-components";
 import { axiosGetPubSvc, axiosPostPubSvc } from "../../api/axios/axios.PubSvc";
+import Data from "../../assets/data/Data2";
 
 const PublicServiceContainer = ({ searchResults }) => {
   const [publicServiceData, setPublicServiceData] = useState([]);
@@ -78,7 +79,7 @@ const PublicServiceContainer = ({ searchResults }) => {
 
   return (
     <PublicServiceListStyled>
-      <PublicServiceList publicServiceLists={currentPageData} />
+      <PublicServiceList publicServiceLists={Data} />
       <PaginationStyled>
         <Pagination
           currentPage={currentPage}

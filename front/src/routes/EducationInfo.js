@@ -6,6 +6,8 @@ import ResetImg from "../assets/images/reset.png";
 import EduFilterList from "../components/EducationInfo/EduFilterList";
 import { axiosPubSvcFind } from "../api/axios/axios.PubSvc";
 import NoResults from "../components/SearchFilter/NoResults";
+import Navbar from "../components/navbar/Navbar";
+import Footer from "../components/footer/Footer";
 
 function EducationInfo() {
   const [searchText, setSearchText] = useState("");
@@ -43,6 +45,7 @@ function EducationInfo() {
 
   return (
     <EducationInfoWrapped>
+      <Navbar />
       <EducationInfoTop>
         <SearchBarStyled>
           <SearchBar>
@@ -69,6 +72,7 @@ function EducationInfo() {
       ) : (
         <EducationInfoContainer searchResults={searchResults} />
       )}
+      <Footer />
     </EducationInfoWrapped>
   );
 }

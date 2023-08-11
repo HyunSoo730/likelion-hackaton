@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { styled } from "styled-components";
-import JobInfoContainer from "../components/JobInfo/JobInfo.Container";
-import SearchImg from "../assets/images/search.png";
-import ResetImg from "../assets/images/reset.png";
-import JobInfoFilterList from "../components/JobInfo/JobInfoFilter";
-import { axiosPubSvcFind } from "../api/axios/axios.PubSvc";
-import NoResults from "../components/SearchFilter/NoResults";
+import JobInfoContainer from "./JobInfo.Container";
+import SearchImg from "../../assets/images/search.png";
+import ResetImg from "../../assets/images/reset.png";
+import JobInfoFilterList from "./JobInfoFilter";
+import { axiosPubSvcFind } from "../../api/axios/axios.PubSvc";
+import NoResults from "../SearchFilter/NoResults";
 
 function JobInfo() {
   const [searchText, setSearchText] = useState("");
@@ -69,7 +69,7 @@ function JobInfo() {
       {showNoResult ? (
         <NoResults />
       ) : (
-        <JobInfoContainer searchResults={searchResults} />
+        <JobInfoContainer searchResults={searchResults} subscription="false" />
       )}
     </JobInfoWrapped>
   );
