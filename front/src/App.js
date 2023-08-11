@@ -5,6 +5,9 @@ import JobSearch from "./routes/JobSearch";
 import PublicService from "./routes/PublicService";
 import AlarmService from "./routes/AlarmService";
 import MyPage from "./routes/MyPage";
+import Auth from "./routes/Auth";
+import "./App.css";
+
 import Job from "./routes/Job";
 import EduationInfo from "./routes/EducationInfo";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -25,6 +28,7 @@ function App() {
           <Route path="/publicservice" element={<PublicService />} />
           <Route path="/jobinfo" element={<Job />} />
           <Route path="/educationinfo" element={<EduationInfo />} />
+          <Route path="/auth/kakao/callback" element={<Auth />} />
         </Routes>
       </Router>
     </div>
