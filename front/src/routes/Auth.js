@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Rest_api_key from "../../config/key";
+import Rest_api_key from "../config/key";
 
 function Auth() {
   const redirect_uri = "http://localhost:3000/auth/kakao/callback"; //Redirect URI
