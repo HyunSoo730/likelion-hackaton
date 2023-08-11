@@ -38,7 +38,6 @@ const PublicServiceListsStyled = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 `;
 
 const Row = styled.div`
