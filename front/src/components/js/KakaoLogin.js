@@ -4,6 +4,7 @@ import axios from "axios";
 import Rest_api_key from "../../config/key";
 import kakaoButton from "../../assets/images/KakaoLogin.png";
 import daologo from "../../assets/images/daoLogo.png";
+import likelionlogo from "../../assets/images/likelionlogo.png";
 import "./KakaoLogin.css"; // CSS 파일 import
 
 function KakaoLogin() {
@@ -28,13 +29,19 @@ function KakaoLogin() {
 
   return (
     <div className="kakao_login_container">
-      <div className="logo_container">
-        <img src={daologo} alt="daologo" />
-        <div className="service_text">다오</div>
-      </div>
-      <div className="line"></div>
-      <div onClick={handleLogin} className="login_button">
-        <img src={kakaoButton} alt="KakaoLogin" />
+      <div className="login_box">
+        <div className="logo_container">
+          <img src={daologo} alt="daologo" />
+          <div className="service_text">다오</div>
+        </div>
+        <div className="line"></div>
+        <div onClick={handleLogin} className="login_button">
+          <img src={kakaoButton} alt="KakaoLogin" />
+        </div>
+        <div className="bottom">
+          <div className="bottom_text">Likelion 11th</div>
+          <img src={likelionlogo} alt="likelionlogo" />
+        </div>
       </div>
     </div>
   );

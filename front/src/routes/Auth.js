@@ -28,6 +28,7 @@ function Auth() {
         const jwtToken = data.access_token; // JWT 토큰 추출
         if (jwtToken) {
           localStorage.setItem("token", jwtToken); // localStorage에 토큰 저장
+          navigate("/Main"); // 로그인 성공 시 Main 페이지로 이동
         } else {
           navigate("/Auth");
         }
