@@ -75,7 +75,8 @@ public class PublicServiceReservationController {
 
 
     /**
-     * 체크박스 필터 적용한 데이터 조회
+     * 체크박스 + 검색어 필터 적용한 데이터 조회
+     * 둘 합쳐서 조회할 수 있도록 구현함
      */
     @PostMapping("/filter_data")
     public ResponseEntity<List<PublicServiceReservationResponse>> returnFilterData(@RequestBody PublicServiceReservationRequest dto) {
