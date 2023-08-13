@@ -3,7 +3,7 @@ import Main from "./routes/main/Main";
 import SignIn from "./routes/SignIn";
 import JobSearch from "./routes/JobSearch";
 import PublicService from "./routes/PublicService";
-import AlarmService from "./routes/AlarmService";
+import AlarmService from "./routes/alarmservice/AlarmService";
 import MyPage from "./routes/MyPage";
 import Auth from "./routes/Auth";
 import "./App.css";

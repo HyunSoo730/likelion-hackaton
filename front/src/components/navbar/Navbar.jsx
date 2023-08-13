@@ -65,7 +65,7 @@ export default function Navbar() {
           </div>
         )}
         {isLoggedIn && (
-          <div className="navUser" onClick={() => handleNavigation("/mypage")}>
+          <div className="navUser" onClick={() => handleNavigation("/alarmservice")}>
             <img src={userImg} width="30px" alt="" />
             <div className="signUp">하미리님</div>
           </div>
