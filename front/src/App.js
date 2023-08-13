@@ -15,7 +15,7 @@ import { createGlobalStyle } from "styled-components";
 
 function App() {
   return (
-    <div className="hi">
+    <div>
       <Router>
         <ScrollToTop />
         <GlobalStyles />

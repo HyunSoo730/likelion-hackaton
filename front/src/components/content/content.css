@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Gothic&display=swap');
 
 .content {
-    /* width:100vw; */
-    /* background-color: white ; */
     
     display : flex;
     justify-content : center;
@@ -10,27 +8,36 @@
     width: 100%;
 
     background-color: white;
-    height:40vh;
+    /* height:40vh; */
+    height:380px;
     font-family: 'IBM Plex Sans KR', sans-serif;
+
+    min-width: 950px;
+
+    position: relative;
 }
 
 .form {
     /* position: relative; */
-    border-radius: 12px;
-    width:75%;
-    height:45vh;
-    position:absolute;
-    top: 36%;
+    background-image: url('../../assets/images/contentBck.jpg');
+    background-size: cover; /* 이미지를 컨테이너에 맞게 조절 */
+    background-position: center center;
 
+    border-radius: 30px;
+    width:68%;
+    height:430px;
+    position:absolute;
+    transform: translateY(-22%);
     background-color: #FFF0E8;
 
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    min-width: 1000px;
 }
 
 .enter {
     display : flex;
     justify-content : center;
-    margin:2% 3% 2% 3%;
+    margin:27px 25px 25px 25px;
     font-size:35px;
     font-weight: bold;
 }
@@ -39,17 +46,25 @@
     display : flex;
     justify-content : center;
     align-items : center;
+    margin: 0 1.5%;
 }
 
 .svcJbs,.svcPbl, .svcEdu, .svcAlm {
     text-align: center;
     width:16%;
-    height: 18vh;
+    height: 210px;
     background-color: white;
-    border-radius: 12px;
-    padding:2%;
+    border-radius: 30px;
+    padding:30px;
     margin:0.5% 1.5% 0.5% 1.5%;
     cursor:pointer;
+    box-shadow: rgba(152, 152, 156, 0.2) 0px 1px 15px 1px;
+    box-shadow: inset 0px -90px 0px -80px #FFB287; /* 내부 그림자 추가 */
+}
+
+.svcJbs:hover,.svcPbl:hover, .svcEdu:hover, .svcAlm:hover {
+    background-color: #a8a7a7;
+    color:white;
 }
 
 .ttl {
@@ -57,11 +72,12 @@
     font-weight: bold;
 }
 
-.icon {
-    transform: scale(4);
-    margin:18% 15% 10% 15%;
-  }
+.contentImg {
+    color:red;
+    margin:10px 5px 5px 5px;
+}
 
 .dtl {
-    font-size: 90%;
+    margin-top:7px;
+    font-size: 18px;
 }
