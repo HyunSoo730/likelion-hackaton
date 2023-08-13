@@ -11,7 +11,7 @@ const JobInfoTable = ({ data }) => {
     return null;
   }
   const SvcClick = () => {
-    window.open(data.svcUrl);
+    window.open(data.homepage);
   };
 
   return (
@@ -25,10 +25,8 @@ const JobInfoTable = ({ data }) => {
           {decodeHTMLEntities(data.recrtTitle)}
         </JobinfoeNameStyled>
         <JobinfoItem>
-          <div>{data.maxClassNM}</div>
-          <PlaceStyled>
-            {data.areaNM} / {data.placeNM}
-          </PlaceStyled>
+          <div>{data.emplymShpNm}</div>
+          <PlaceStyled>{data.workPlcNm}</PlaceStyled>
           <div>접수방법 : {data.acptMthd}</div>
           <div>
             접수기간 : {formatDate(data.frDd)} ~ {formatDate(data.toDd)}
@@ -40,7 +38,8 @@ const JobInfoTable = ({ data }) => {
 };
 
 const JobinfoTableStyled = styled.div`
-  width: 380px;
+  width: 100%;
+  max-width: 380px;
   height: 286px;
   min-width: 380px;
   border-radius: 20px;

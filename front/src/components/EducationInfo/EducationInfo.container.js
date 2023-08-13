@@ -3,34 +3,48 @@ import EducationList from "./EducationList";
 import Pagination from "../Pagination/Pagination";
 import { styled } from "styled-components";
 import { axiosGetEduSvc } from "../../api/axios/axios.EduSvc";
-import Data from "../../assets/data/Data3";
 
-function EducationInfoContainer() {
+function EducationInfoContainer({ searchResults }) {
   const [educationInfoData, setEducationInfoData] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
 
-  async function getData(page) {
-    try {
-      const result = await axiosGetEduSvc(page);
-      setTotalPage(result.totalPages);
-      setEducationInfoData(result.content);
-    } catch (error) {
-      console.error("Error getting data:", error);
-    }
-  }
+  const itemsPerPage = 6;
 
   useEffect(() => {
-    getData(currentPage);
-  }, [currentPage]);
+    if (searchResults.length > 0) {
+      const totalItems = searchResults.length;
+      const totalPages = Math.ceil(totalItems / itemsPerPage);
+      setTotalPage(totalPages);
+      setEducationInfoData(searchResults);
+      setCurrentPage(0);
+    } else {
+      async function getData() {
+        try {
+          const result = await axiosGetEduSvc();
+          const totalItems = result.length;
+          const totalPages = Math.ceil(totalItems / itemsPerPage);
+          setTotalPage(totalPages);
+          setEducationInfoData(result);
+        } catch (error) {
+          console.error("Error getting data:", error);
+        }
+      }
+      getData();
+    }
+  }, [searchResults]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
 
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentPageData = educationInfoData.slice(startIndex, endIndex);
+
   return (
     <EducationInfoListStyled>
-      <EducationList EducationLists={Data} />
+      <EducationList EducationLists={currentPageData} />
       <PaginationStyled>
         <Pagination
           currentPage={currentPage}
