@@ -61,7 +61,7 @@ function JobInfo() {
         <FilterStyled>
           <ResetBtn onClick={handleResetClick}>
             <img src={ResetImg} alt="reset" />
-            조건 초기화
+            검색 초기화
           </ResetBtn>
           <JobInfoFilterList />
         </FilterStyled>
