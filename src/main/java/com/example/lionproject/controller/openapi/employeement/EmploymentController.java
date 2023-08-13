@@ -52,24 +52,15 @@ public class EmploymentController {
     }
 
     /**
-     * 체크박스 필터 적용한 데이터 조회
+     * 체크박스 + 검색어 필터 적용한 데이터 조회
+     * 둘 합쳐서 조회할 수 있도록 구현함.
      */
     @PostMapping("/filter_data")
     public ResponseEntity<List<EmploymentResponse>> returnFilterData(@RequestBody EmploymentRequest dto) {
-        //검색 필터에 일치하는 내용들 가져오기
-        List<Employment> temp;
-        if (dto.getRegistCost() == null && dto.getApplyState() == null) {
-            temp = repository.findAll();
-        } else if (dto.getRegistCost() != null && dto.getApplyState() == null) {
-            temp = repository.findByRegistCost(dto.getRegistCost());
-        } else if (dto.getRegistCost() == null && dto.getApplyState() != null) {
-            temp = repository.findByApplyState(dto.getApplyState());
-        }else {
-            temp = repository.findByRegistCostAndApplyState(dto.getRegistCost(), dto.getApplyState());
-        }
-
+        List<Employment> temp = repository.findByFiltered(dto.getRegistCost(), dto.getApplyState(), dto.getSubject());
         List<EmploymentResponse> res = temp.stream().map(this::convertToEmploymentResponse)
                 .collect(Collectors.toList());
+
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 

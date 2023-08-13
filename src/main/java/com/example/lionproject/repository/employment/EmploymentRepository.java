@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Set;
 
-public interface EmploymentRepository extends JpaRepository<Employment, Long> {
+public interface EmploymentRepository extends JpaRepository<Employment, Long>, EmploymentRepositoryCustom {
 
     @Query("SELECT DISTINCT e.subject FROM Employment e")
     Set<String> findAllDistinctSubject();
