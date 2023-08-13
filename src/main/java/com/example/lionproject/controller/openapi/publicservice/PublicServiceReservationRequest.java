@@ -18,6 +18,7 @@ public class PublicServiceReservationRequest {
     private List<String> minClassNM;    // 소분류명 리스트
     private List<String> svcStatNM;     // 서비스상태 리스트
     private List<String> payAtNM;       // 결제방법 리스트
+    private String svcNM; //서비스명
 
     //    private String useTgtInfo;//서비스대상  //일단 안씀
 

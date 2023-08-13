@@ -82,8 +82,7 @@ public class PublicServiceReservationController {
 
         List<PublicServiceReservation> res = repository.findByFiltered(
                 dto.getAreaNM(), dto.getReserveType(), dto.getMaxClassNM(),
-                dto.getMinClassNM(), dto.getSvcStatNM(), dto.getPayAtNM()
-        );
+                dto.getMinClassNM(), dto.getSvcStatNM(), dto.getPayAtNM(), dto.getSvcNM());
         log.info("res size =  {}, res : {}", res.size(), res.stream().collect(Collectors.toList()));
 
         //리스트로 그냥 반환해봄

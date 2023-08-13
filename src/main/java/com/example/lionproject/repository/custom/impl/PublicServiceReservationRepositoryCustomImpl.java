@@ -18,7 +18,7 @@ public class PublicServiceReservationRepositoryCustomImpl implements PublicServi
 
     @Override
     public List<PublicServiceReservation> findByFiltered(List<String> areaNM, List<String> reserveType, List<String> maxClassNM,
-                                                         List<String> minClassNM, List<String> svcStatNM, List<String> payAtNM) {
+                                                         List<String> minClassNM, List<String> svcStatNM, List<String> payAtNM, String svcNM) {
 
         String query = "SELECT p FROM PublicServiceReservation p where ";
 
@@ -40,6 +40,9 @@ public class PublicServiceReservationRepositoryCustomImpl implements PublicServi
         }
         if(checkParamList(payAtNM)){
             whereClause.add("p.payAtNM in :payAtNM");
+        }
+        if (checkString(svcNM)) {
+            whereClause.add("p.svcNM LIKE :svcNM");
         }
 
         if(checkParamList(whereClause)){
@@ -67,6 +70,9 @@ public class PublicServiceReservationRepositoryCustomImpl implements PublicServi
         if(checkParamList(payAtNM)){
             typedQuery.setParameter("payAtNM", payAtNM);
         }
+        if (checkString(svcNM)) {
+            typedQuery.setParameter("svcNM", "%" + svcNM + "%");
+        }
 
 //        int offset = pageable.getPageNumber() * pageable.getPageSize();
 //        int limit = pageable.getPageSize();
@@ -79,6 +85,10 @@ public class PublicServiceReservationRepositoryCustomImpl implements PublicServi
 
     private <T> boolean checkParamList(List<T> param) {
         return param == null ? false : param.isEmpty() || param.size() == 0 ? false : true;
+    }
+
+    private boolean checkString(String serviceName) {
+        return serviceName == null ? false : serviceName.isEmpty() ? false : true;
     }
 
 }

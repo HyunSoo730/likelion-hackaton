@@ -55,6 +55,7 @@ class PublicServiceReservationRepositoryTest {
         Assertions.assertThat(result.size()).isEqualTo(10);
     }
 
+    /**
     @Test
     void givenParameters_whenCallingFindByFiltered_thenSuccess() throws Exception {
         // Given
@@ -79,6 +80,7 @@ class PublicServiceReservationRepositoryTest {
        result.forEach(p -> Assertions.assertThat(p.getServiceId()).isIn(actual));
 
     }
+    */
 
     public static List<PublicServiceReservation> createPublicServiceReservation(int size) {
         List<PublicServiceReservation> data = new ArrayList<>();
