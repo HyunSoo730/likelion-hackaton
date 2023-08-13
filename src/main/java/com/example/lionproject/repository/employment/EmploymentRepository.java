@@ -14,4 +14,11 @@ public interface EmploymentRepository extends JpaRepository<Employment, Long> {
 
     List<Employment> findAllByOrderByApplicationEndDateAsc();
 
+    List<Employment> findByRegistCostAndApplyState(String registCost, String applyState);
+
+    List<Employment> findByRegistCost(String registCost);
+
+    List<Employment> findByApplyState(String applyState);
+    List<Employment> findBySubjectContaining(String subject);
+
 }
