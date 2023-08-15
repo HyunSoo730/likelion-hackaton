@@ -1,19 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Gothic&display=swap");
 
 .navbar {
-  /*width:100%;
-    height:80px;
-
-    position: fixed;
-    top:0;
-    z-index:999;*/
   width: 100%;
-  height: 9vh;
+  /* height: 9vh; */
+  height: 80px;
   background-color: white;
 
   position: sticky;
   top: 0px;
   z-index: 999;
+  min-width: 950px;
+
 }
 
 .navbarWrapper {
@@ -27,8 +24,10 @@
 
 .navLogo {
   padding: 5px 20px 5px 20px;
-
   cursor: pointer;
+
+  display: flex;
+  align-items: center;
 }
 
 .signIn,
@@ -60,13 +59,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   transition: color 0.3s;
-}
-
-.indexName {
-  margin: 0 40px 0 40px;
+  margin:0 15px;
+  cursor: pointer;
 }
 
 .indexName:hover,

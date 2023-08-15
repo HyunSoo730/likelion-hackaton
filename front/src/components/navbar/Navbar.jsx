@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./navbar.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import userImg from "../../assets/images/user.png";
+import daoLogoImg from "../../assets/images/daoLogo.png";
 import logoImg from "../../assets/images/logo.jpg";
 
 export default function Navbar() {
@@ -18,6 +19,7 @@ export default function Navbar() {
     <div className="navbar">
       <div className="navbarWrapper">
         <div className="navLogo" onClick={() => handleNavigation("/")}>
+          <img src={daoLogoImg} width="50px" alt="" />
           <img src={logoImg} width="70px" alt="" />
         </div>
         {isLoggedIn && (
