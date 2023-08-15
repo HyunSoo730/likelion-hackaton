@@ -15,23 +15,21 @@ import { createGlobalStyle } from "styled-components";
 
 function App() {
   return (
-    <div>
-      <Router>
-        <ScrollToTop />
-        <GlobalStyles />
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/jobsearch" element={<JobSearch />} />
-          <Route path="/alarmservice" element={<AlarmService />} />
-          <Route path="/publicservice" element={<PublicService />} />
-          <Route path="/jobinfo" element={<Job />} />
-          <Route path="/educationinfo" element={<EduationInfo />} />
-          <Route path="/auth/kakao/callback" element={<Auth />} />
-        </Routes>
-      </Router>
-    </div>
+    <Router>
+      <ScrollToTop />
+      <GlobalStyles />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/jobsearch" element={<JobSearch />} />
+        <Route path="/alarmservice" element={<AlarmService />} />
+        <Route path="/publicservice" element={<PublicService />} />
+        <Route path="/jobinfo" element={<Job />} />
+        <Route path="/educationinfo" element={<EduationInfo />} />
+        <Route path="/auth/kakao/callback" element={<Auth />} />
+      </Routes>
+    </Router>
   );
 }
 
