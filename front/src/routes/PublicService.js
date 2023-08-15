@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 import PublicServiceContainer from "../components/PublicService/PublicService.container";
 import SearchImg from "../assets/images/search.png";
 import ResetImg from "../assets/images/reset.png";
+import Frame from "../assets/images/Frame.png";
 import PubSvcFilterList from "../components/PublicService/PubSvcFilterList";
 import { axiosPubSvcFind } from "../api/axios/axios.PubSvc";
 import NoResults from "../components/SearchFilter/NoResults";
@@ -95,6 +96,8 @@ const PublicServiceTop = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url(${Frame});
+  background-size: cover;
 `;
 
 const SearchBarStyled = styled.div`
