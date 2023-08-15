@@ -7,6 +7,7 @@ import JobInfoFilterList from "./JobInfoFilter";
 import { axiosPubSvcFind } from "../../api/axios/axios.PubSvc";
 import NoResults from "../SearchFilter/NoResults";
 
+
 function JobInfo() {
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -41,6 +42,7 @@ function JobInfo() {
     setShowNoResult(false);
   };
 
+  
   return (
     <JobInfoWrapped>
       <JobInfoTop>

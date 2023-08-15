@@ -13,7 +13,7 @@ export default function Navbar() {
     navigate(path);
   };
 
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   return (
     <div className="navbar">

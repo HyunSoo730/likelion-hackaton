@@ -30,13 +30,13 @@
 
 .grndprt {
     position: absolute;
-    right:100px;
+    left:58%;
     z-index: 0;
     overflow: hidden;
 }
 
 .info {
-    z-index: 1;
+    z-index: 0;
 }
 
 .info1 {
