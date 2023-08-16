@@ -1,30 +1,15 @@
-import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import Rest_api_key from "../../config/key";
 import kakaoButton from "../../assets/images/KakaoLogin.png";
 import daologo from "../../assets/images/daoLogo.png";
 import likelionlogo from "../../assets/images/likelionlogo.png";
-import "./KakaoLogin.css"; // CSS 파일 import
+import "./KakaoLogin.css";
 
 function KakaoLogin() {
-  const redirect_uri = "http://localhost:3000/auth/kakao/callback"; //Redirect URI
+  const redirect_uri = "http://localhost:3000/auth/kakao/callback";
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
-
-  const location = useLocation();
-  const navigate = useNavigate();
-  const KAKAO_CODE = location.search.split("=")[1];
-
-  useEffect(() => {
-    if (!location.search) return;
-    // getKakaoToken();
-  }, []);
-
-  console.log("test");
 
   const handleLogin = () => {
     window.location.href = kakaoURL;
-    // getKakaoToken();
   };
 
   return (

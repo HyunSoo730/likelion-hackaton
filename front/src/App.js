@@ -10,6 +10,7 @@ import Job from "./routes/Job";
 import EduationInfo from "./routes/EducationInfo";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
+//import Auth1 from "./routes/Test";
 
 function App() {
   return (
