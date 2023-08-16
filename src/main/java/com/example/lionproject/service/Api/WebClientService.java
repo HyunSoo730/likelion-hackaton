@@ -1,5 +1,6 @@
 package com.example.lionproject.service.Api;
 
+import com.example.lionproject.OpenApi.CallResponse.Raw.SenuriServiceRawResponse;
 import com.example.lionproject.domain.dto.EmploymentJsonDto;
 import com.example.lionproject.domain.dto.Volunteer;
 import com.example.lionproject.domain.dto.WebClientDTO;
@@ -15,6 +16,9 @@ import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 @Service
 @Transactional
 @Slf4j
@@ -22,6 +26,8 @@ public class WebClientService {
 
     private final String BASE_URL = "http://openAPI.seoul.go.kr:8088";
     private final String BASE_URL_1365 = "http://openapi.1365.go.kr/openapi/service";
+
+    private final String BASE_URL_JOB = "http://apis.data.go.kr/B552474/SenuriService";
     private final WebClient webClient;
 
     /**
@@ -37,6 +43,9 @@ public class WebClientService {
 
     @Value("${api.key.1365}")
     private String api_key_1365;
+
+    @Value("${api.key.data.portal}")
+    private String apiKeyDataPortal;
 
 
 
@@ -258,6 +267,44 @@ public class WebClientService {
 
         return res;
 
+    }
+
+    /**
+     * 100세누리 구인정보 목록 검색 --> 나중에 시간날 때 코드 고쳐보자.
+     */
+    public SenuriServiceRawResponse CallSenuriListService(int numOfRows, int pageNo) {
+        final String uri = String.format("http://apis.data.go.kr/B552474/SenuriService/getJobList?ServiceKey=%s&numOfRows=%d&pageNo=%d",
+                apiKeyDataPortal,numOfRows, pageNo);
+        System.out.println("uri = " + uri);
+        try {
+            return webClient.get()
+                    .uri(new URI(uri))
+                    .accept(MediaType.APPLICATION_XML)
+                    .retrieve()
+                    .bodyToMono(SenuriServiceRawResponse.class)
+                    .blockOptional().orElseThrow(() -> new RuntimeException("[CallSenuriService] Error."));
+
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public String CallSenuriListServiceString(int numOfRows, int pageNo) {
+        final String uri = String.format("http://apis.data.go.kr/B552474/SenuriService/getJobList?ServiceKey=%s&numOfRows=%d&pageNo=%d",
+                apiKeyDataPortal,numOfRows, pageNo);
+        System.out.println("uri = " + uri);
+        try {
+            return webClient.get()
+                    .uri(new URI(uri))
+                    .accept(MediaType.APPLICATION_XML)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .blockOptional().orElseThrow(() -> new RuntimeException("[CallSenuriService] Error."));
+
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

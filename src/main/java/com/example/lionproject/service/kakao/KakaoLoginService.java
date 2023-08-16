@@ -1,5 +1,6 @@
 package com.example.lionproject.service.kakao;
 
+import com.example.lionproject.domain.dto.EmploymentJsonDto;
 import com.example.lionproject.domain.kakao.KakaoMember;
 import com.example.lionproject.domain.kakao.KakaoProfile;
 import com.example.lionproject.domain.oauth.OauthToken;
@@ -12,14 +13,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.util.DefaultUriBuilderFactory;
+import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
@@ -42,6 +44,28 @@ public class KakaoLoginService {
 
     @Value("${user.expiredate}")
     private String expireDate;
+
+    private final String KAKAO_LOGOUT_URL = "https://kapi.kakao.com/v1/user/logout";
+
+    private final WebClient webClient;
+
+    /**
+     * 로그아웃
+     */
+    public String logoutKakaoUser(String accessToken) {
+
+        String res = webClient.mutate()
+                .baseUrl(KAKAO_LOGOUT_URL)
+                .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+                .build()
+                .post()
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+        return res;
+
+    }
 
     /**
      * 인가코드로 액세스 토큰 발급
@@ -82,8 +106,8 @@ public class KakaoLoginService {
         /**
          * 로그 찍어보기
          */
-        log.info("카카오 엑세스 토큰 {}", oauthToken.getAccess_token());
-        log.info("카카오 refresh {}", oauthToken.getRefresh_token());
+        log.info("kakao access token = {}", oauthToken.getAccess_token());
+        log.info("kakao refresh token = {}", oauthToken.getRefresh_token());
         log.info("카카오 다른거 {}", oauthToken.getToken_type());
         return oauthToken;
     }
