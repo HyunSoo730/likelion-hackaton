@@ -12,7 +12,10 @@ export default function Navbar() {
     navigate(path);
   };
 
-  const isLoggedIn = true;
+  const accessToken = localStorage.getItem("access_token");
+  const userName = localStorage.getItem("userName");
+
+  const isLoggedIn = accessToken && userName;
 
   return (
     <div className="navbar">
@@ -65,9 +68,12 @@ export default function Navbar() {
           </div>
         )}
         {isLoggedIn && (
-          <div className="navUser" onClick={() => handleNavigation("/alarmservice")}>
+          <div
+            className="navUser"
+            onClick={() => handleNavigation("/alarmservice")}
+          >
             <img src={userImg} width="30px" alt="" />
-            <div className="signUp">하미리님</div>
+            <div className="signUp">{userName}님</div>
           </div>
         )}
       </div>
