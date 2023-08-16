@@ -29,6 +29,11 @@
     flex-direction: column;
 } */
 
+/* .alarmBox {
+    background-color: red;
+    height :100px
+} */
+
 .alarmContentTitle {
     font-weight: bold;
     font-size: 20px;

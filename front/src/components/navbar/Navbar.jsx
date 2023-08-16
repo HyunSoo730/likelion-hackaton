@@ -14,6 +14,7 @@ export default function Navbar() {
     navigate(path);
   };
 
+
   const accessToken = localStorage.getItem("access_token");
   const userName = localStorage.getItem("userName");
 
