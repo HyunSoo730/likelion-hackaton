@@ -15,7 +15,9 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -69,6 +71,57 @@ public class KakaoMessageService {
     }
 
     public String sendFeedMessage(String accessToken, KakaoMessageFeedRequest request) {
+        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
+        try {
+            formData.add("template_object", new ObjectMapper().writeValueAsString(request));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        String res = webClient.mutate()
+                .baseUrl(BASE_URL)
+                .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+                .build()
+                .post()
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+                .body(BodyInserters.fromFormData(formData))
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+
+        return res;
+    }
+
+    public String sendFeedCustomMessage(String accessToken, String con) {
+        KakaoMessageFeedRequest request = new KakaoMessageFeedRequest();
+        request.setObject_type("feed");
+
+        KakaoMessageFeedRequest.Content content = new KakaoMessageFeedRequest.Content();
+        content.setTitle(con);
+        // 여기서 나머지 정보들을 내가 직접 레포지토리에서 꺼내와서 설정해주면 됨.
+
+        KakaoMessageFeedRequest.Button webButton = new KakaoMessageFeedRequest.Button();
+        webButton.setTitle("웹으로 이동");
+        KakaoMessageFeedRequest.Link webLink = new KakaoMessageFeedRequest.Link();
+        webLink.setWeb_url("http://www.daum.net");
+        webLink.setMobile_web_url("http://m.daum.net");
+        webButton.setLink(webLink);
+
+        KakaoMessageFeedRequest.Button appButton = new KakaoMessageFeedRequest.Button();
+        appButton.setTitle("앱으로 이동");
+        KakaoMessageFeedRequest.Link appLink = new KakaoMessageFeedRequest.Link();
+        appLink.setAndroid_execution_params("contentId=100");
+        appLink.setIos_execution_params("contentId=100");
+        appButton.setLink(appLink);
+
+        List<KakaoMessageFeedRequest.Button> buttons = new ArrayList<>();
+        buttons.add(webButton);
+        buttons.add(appButton);
+
+        request.setContent(content);
+        request.setButtons(buttons);
+
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         try {
             formData.add("template_object", new ObjectMapper().writeValueAsString(request));
