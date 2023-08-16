@@ -93,13 +93,16 @@ public class KakaoMessageService {
         return res;
     }
 
+    /**
+     * 만약 커스텀을 해야하는 경우에.
+     */
     public String sendFeedCustomMessage(String accessToken, String con) {
         KakaoMessageFeedRequest request = new KakaoMessageFeedRequest();
-        request.setObject_type("feed");
+        request.setObject_type("feed"); //feed 메시지라 여기는 고정으로 넣어야함.
 
         KakaoMessageFeedRequest.Content content = new KakaoMessageFeedRequest.Content();
         content.setTitle(con);
-        // 여기서 나머지 정보들을 내가 직접 레포지토리에서 꺼내와서 설정해주면 됨.
+        // 여기서 나머지 정보들을 내가 직접 구인 구직 정보 레포지토리에서 꺼내와서 설정해주면 됨.
 
         KakaoMessageFeedRequest.Button webButton = new KakaoMessageFeedRequest.Button();
         webButton.setTitle("웹으로 이동");

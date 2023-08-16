@@ -1,5 +1,6 @@
 package com.example.lionproject.service.Api;
 
+import com.example.lionproject.OpenApi.CallResponse.Raw.SenuriServiceDetailRawResponse;
 import com.example.lionproject.OpenApi.CallResponse.Raw.SenuriServiceRawResponse;
 import com.example.lionproject.domain.dto.EmploymentJsonDto;
 import com.example.lionproject.domain.dto.Volunteer;
@@ -290,6 +291,9 @@ public class WebClientService {
 
     }
 
+    /**
+     * String으로 제대로 되는지 테스트
+     */
     public String CallSenuriListServiceString(int numOfRows, int pageNo) {
         final String uri = String.format("http://apis.data.go.kr/B552474/SenuriService/getJobList?ServiceKey=%s&numOfRows=%d&pageNo=%d",
                 apiKeyDataPortal,numOfRows, pageNo);
@@ -301,6 +305,26 @@ public class WebClientService {
                     .retrieve()
                     .bodyToMono(String.class)
                     .blockOptional().orElseThrow(() -> new RuntimeException("[CallSenuriService] Error."));
+
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 100세누리 구인정보 상세 정보 조회
+     */
+    public SenuriServiceDetailRawResponse CallSenuriDetailService(String id) {
+        final String uri = String.format("https://apis.data.go.kr/B552474/SenuriService/getJobInfo?&id=%s&serviceKey=%s",
+                id, apiKeyDataPortal);
+
+        try {
+            return webClient.get()
+                    .uri(new URI(uri))
+                    .accept(MediaType.APPLICATION_XML)
+                    .retrieve()
+                    .bodyToMono(SenuriServiceDetailRawResponse.class)
+                    .blockOptional().orElseThrow(() -> new RuntimeException("[CallSenuriServiceDetail] Error."));
 
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);

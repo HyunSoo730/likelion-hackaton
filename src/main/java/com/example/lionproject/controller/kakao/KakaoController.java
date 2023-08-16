@@ -30,14 +30,28 @@ public class KakaoController {
     }
 
     /**
+     * 액세스 토큰으로 로그인 진행.
+     */
+    @GetMapping("/auth/kakao/callback/access")
+    public String kakaoCallBackAccess(@RequestParam("accessToken") String accessToken) {
+
+        String jwtToken = kakaoLoginService.save(accessToken);
+        //발급받은 access token으로 카카오 회원 정보 DB 저장 후 JWT 생성
+        access_token = accessToken;
+
+        return jwtToken;
+    }
+
+    /**
      * 사용자 정보 반환. 카카오 정보 + 닉네임
      * 사용자 정보 요청오면 토큰을 복호화해서 정보 가져온 후에 반환.
      */
     @PostMapping("/auth/kakao/token")
-    public KakaoMember userInfo(@RequestHeader("Authorization") String token) {
+    public KakaoMember userInfo(@RequestHeader("Authorization") String accessToken) {
+
         //JWT 토큰 검증
-        log.info("프론트로부터 들어오는 token, {}", token);
-        KakaoMember user = kakaoLoginService.validateToken(token);
+        log.info("프론트로부터 들어오는 token, {}", accessToken);
+        KakaoMember user = kakaoLoginService.validateToken(accessToken);
         return user;
     }
 

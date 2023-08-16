@@ -53,6 +53,21 @@ public class SenuriServiceList {
                 dto.getJobId(), dto.getOranNm(), dto.getOrganYn(), dto.getRecrtTitle(), dto.getStmId(),
                 dto.getStmNm(), dto.getToDd(), dto.getWorkPlc()
         );
+        value.emplymShp = value.emplymShp.equals("CM0101") ? "정규직" :
+                value.emplymShp.equals("CM0102") ? "계약직" :
+                        value.emplymShp.equals("CM0103") ? "시간제 일자리" :
+                                value.emplymShp.equals("CM0104") ? "일당직" :
+                                        value.emplymShp.equals("CM0105") ? "기타" : value.emplymShp;
+
+        value.emplymShpNm = value.emplymShpNm.equals("CM0101") ? "정규직" :
+                value.emplymShpNm.equals("CM0102") ? "계약직" :
+                        value.emplymShpNm.equals("CM0103") ? "시간제 일자리" :
+                                value.emplymShpNm.equals("CM0104") ? "일당직" :
+                                        value.emplymShpNm.equals("CM0105") ? "기타" : value.emplymShpNm;
+
+        value.organYn = value.organYn.equals("N") ? "대민" :
+                value.organYn.equals("Y") ? "업무" : value.organYn;
+
         return value;
     }
 }

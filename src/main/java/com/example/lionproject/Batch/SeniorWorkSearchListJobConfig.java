@@ -2,7 +2,7 @@ package com.example.lionproject.Batch;
 
 import com.example.lionproject.OpenApi.CallResponse.Raw.SenuriServiceRawResponse;
 import com.example.lionproject.domain.entity.SenuriServiceList;
-import com.example.lionproject.repository.SenuriServiceListRepository;
+import com.example.lionproject.repository.senuri.SenuriServiceListRepository;
 import com.example.lionproject.service.Api.WebClientService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,9 +45,11 @@ public class SeniorWorkSearchListJobConfig {
 
     @Bean
     @JobScope
-    public Step senuriWorkSearchListStep(ItemReader senuriServiceItemReader, ItemProcessor senuriServiceItemProcessor, ItemWriter senuriServiceItemWriter) {
+    public Step senuriWorkSearchListStep(ItemReader<SenuriServiceRawResponse> senuriServiceItemReader,
+         ItemProcessor<SenuriServiceRawResponse, List<SenuriServiceList>> senuriServiceItemProcessor,
+         ItemWriter<List<SenuriServiceList>> senuriServiceItemWriter) {
         return new StepBuilder("senuriServiceStep", jobRepository)
-                .<SenuriServiceRawResponse, List<SenuriServiceList>>chunk(10, platformTransactionManager)
+                .<SenuriServiceRawResponse, List<SenuriServiceList>>chunk(1, platformTransactionManager)
                 .reader(senuriServiceItemReader)
                 .processor(senuriServiceItemProcessor)
                 .writer(senuriServiceItemWriter)
@@ -58,7 +60,7 @@ public class SeniorWorkSearchListJobConfig {
     @StepScope
     public ItemReader<SenuriServiceRawResponse> senuriServiceItemReader() {
         return new ItemReader<SenuriServiceRawResponse>() {
-            private static int CHUNK_SIZE = 10;
+//            private static int CHUNK_SIZE = 10;
             private static int pageNo = 1;
             private LocalDate today = LocalDate.now();
             private boolean IS_END = false;
@@ -68,13 +70,18 @@ public class SeniorWorkSearchListJobConfig {
                 if (IS_END)
                     return null;
 
-                SenuriServiceRawResponse senuriServiceRawResponse = webClientService.CallSenuriListService(10, pageNo);
-                if (senuriServiceRawResponse.returnToDd().isBefore(today)) {
-                    log.info("END");
+                SenuriServiceRawResponse response = webClientService.CallSenuriListService(10, pageNo);
+                log.info("response = {}", response.toString());
+                //                if (response.returnToDd().isBefore(today)) {
+//                    log.info("END");
+//                    IS_END = true;
+//                }
+                if (pageNo == 100) {
+                    log.info("read END");
                     IS_END = true;
                 }
                 pageNo += 1;
-                return senuriServiceRawResponse;
+                return response;
             }
         };
     }
@@ -96,12 +103,6 @@ public class SeniorWorkSearchListJobConfig {
     @Bean
     @StepScope
     public ItemWriter<List<SenuriServiceList>> senuriServiceItemWriter() {
-        return new ItemWriter<List<SenuriServiceList>>() {
-            @Override
-            public void write(Chunk<? extends List<SenuriServiceList>> chunk) throws Exception {
-                chunk.forEach(i -> repository.saveAllAndFlush(i));
-                log.info("save !!");
-            }
-        };
+        return items -> items.forEach(i -> repository.saveAllAndFlush(i));
     }
 }

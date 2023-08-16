@@ -1,9 +1,6 @@
-package com.example.lionproject.OpenApi.CallResponse.Raw;
+package com.example.lionproject.domain.dto;
 
-import com.example.lionproject.OpenApi.CallResponse.dto.SenuriServiceDetailDto;
-import com.example.lionproject.OpenApi.CallResponse.dto.SenuriServiceDto;
-import com.example.lionproject.domain.entity.SenuriServiceDetail;
-import com.example.lionproject.domain.entity.SenuriServiceDetailCheck;
+import com.example.lionproject.OpenApi.CallResponse.Raw.SenuriServiceDetailRawResponse;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
@@ -12,14 +9,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @XmlRootElement(name = "response")
-public class SenuriServiceDetailRawResponse {
+public class SenuriServiceDetailResponse {
 
     @XmlElement(name = "header")
     private Header header;
@@ -66,7 +62,7 @@ public class SenuriServiceDetailRawResponse {
         public static class Items{
 
             @XmlElement(name = "item")
-            private List<Item> item;
+            private Item item;
 
             @Setter
             @ToString
@@ -137,26 +133,5 @@ public class SenuriServiceDetailRawResponse {
 
         }
     }
-
-    public String fetchResultCode(){
-        return this.header.resultCode;
-    }
-
-    public List<SenuriServiceDetailDto> toListDto(){
-        return this.body.items.item.stream()
-                .map(i -> SenuriServiceDetailDto.of(
-                        i.acptMthdCd, i.age, i.clerk, i.clerkContt, i.clltPrnnum, i.createDy, i.etcItm, i.frAcptDd, i.homepage,
-                        i.jobId, i.lnkStmId, i.organYn, i.plDetAddr, i.plbizNm, i.repr, i.stmId, i.toAcptDd, i.updDy, i.wantedAuthNo, i.wantedTitle
-                ))
-                .collect(Collectors.toList());
-    }
-
-    public SenuriServiceDetailCheck fromDto() {
-        return new SenuriServiceDetailCheck(this.body.items.item.get(0).acptMthdCd, this.body.items.item.get(0).age, this.body.items.item.get(0).clerk, this.body.items.item.get(0).clerkContt, this.body.items.item.get(0).clltPrnnum, this.body.items.item.get(0).createDy, this.body.items.item.get(0).etcItm, this.body.items.item.get(0).frAcptDd, this.body.items.item.get(0).homepage,
-                this.body.items.item.get(0).jobId, this.body.items.item.get(0).lnkStmId, this.body.items.item.get(0).organYn, this.body.items.item.get(0).plDetAddr, this.body.items.item.get(0).plbizNm, this.body.items.item.get(0).repr, this.body.items.item.get(0).stmId, this.body.items.item.get(0).toAcptDd, this.body.items.item.get(0).updDy, this.body.items.item.get(0).wantedAuthNo, this.body.items.item.get(0).wantedTitle);
-    }
-
-
-
 
 }
