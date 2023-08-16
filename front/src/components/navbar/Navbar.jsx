@@ -15,7 +15,6 @@ export default function Navbar() {
 
   const accessToken = localStorage.getItem("access_token");
   const userName = localStorage.getItem("userName");
-  const jwtToken = localStorage.getItem("jwtToken");
 
   const isLoggedIn = accessToken && userName;
 

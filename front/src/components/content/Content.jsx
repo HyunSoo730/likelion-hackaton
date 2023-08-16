@@ -9,17 +9,25 @@ import { useNavigate } from "react-router-dom";
 export default function Content() {
   const navigate = useNavigate();
 
+  const accessToken = localStorage.getItem("access_token");
+  const userName = localStorage.getItem("userName");
+  const isLoggedIn = accessToken && userName;
+
   const navigateToJobsearch = () => {
-    navigate("/jobinfo");
+    if (isLoggedIn) navigate("/jobinfo");
+    else navigate("/signin");
   };
   const navigateToPublicservice = () => {
-    navigate("/publicservice");
+    if (isLoggedIn) navigate("/publicservice");
+    else navigate("/signin");
   };
   const navigateToEducation = () => {
-    navigate("/educationinfo");
+    if (isLoggedIn) navigate("/educationinfo");
+    else navigate("/signin");
   };
   const navigateToAlarmservice = () => {
-    navigate("/alarmservice");
+    if (isLoggedIn) navigate("/alarmservice");
+    else navigate("/signin");
   };
 
   return (
