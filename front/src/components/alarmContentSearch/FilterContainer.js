@@ -2,49 +2,39 @@ import { useState } from "react";
 import FilterToggle from "./FilterToggle";
 import Swal from "sweetalert2";
 
-const FilterContainer = ({ Filters, onFilterUpdate }) => {
-  const [selectedFilter, setselectedFilter] = useState(
-    Array(Filters.length - 1).fill(false)
+const FilterContainer = ({ Filters, selectedValues, onFilterUpdate }) => {
+  const initialSelectedFilter = Filters.map((filter) =>
+    selectedValues.includes(filter)
   );
 
+  const [selectedFilter, setSelectedFilter] = useState(initialSelectedFilter);
+
   const handleAreaToggle = (index) => {
-  
-    const selectedCount = Object.values({
-      selectedFilter
-    }).reduce((values) => values.length, 0);
+    const selectedCount = selectedFilter.filter(Boolean).length;
 
-    if (selectedCount > 2 ) {
-        Swal.fire({
-            icon: "warning",
-            title: "최대 3곳까지</br> 선택할 수 있습니다!",
-            html: "더 이상 추가 선택할 수 없습니다.",
-        });
-        const updatedFilter = [...selectedFilter];
-        const selectedFilterValues = Filters.slice(1).filter(
-          (_, idx) => updatedFilter[idx]
-        );
-        onFilterUpdate(selectedFilterValues);
-        return;
+    if (!selectedFilter[index] && selectedCount >= 3) {
+      Swal.fire({
+        icon: "warning",
+        title: "최대 3곳까지</br> 선택할 수 있습니다!",
+        html: "더 이상 추가 선택할 수 없습니다.",
+        confirmButtonColor: "#8C8C8C",
+      });
+    } else {
+      const updatedFilter = [...selectedFilter];
+      updatedFilter[index] = !updatedFilter[index];
+      setSelectedFilter(updatedFilter);
+
+      const selectedFilterValues = Filters.filter(
+        (_, idx) => updatedFilter[idx]
+      );
+
+      onFilterUpdate(selectedFilterValues);
     }
-
-
-    const updatedFilter = [...selectedFilter];
-    updatedFilter[index] = !updatedFilter[index];
-    setselectedFilter(updatedFilter);
-    
-    const selectedFilterValues = Filters.slice(1).filter(
-      (_, idx) => updatedFilter[idx]
-    );
-
-    // 선택한 필터 값들을 부모 컴포넌트로 전달
-    onFilterUpdate(selectedFilterValues);
   };
-
-  const filterTitle = Filters[0];
 
   return (
     <FilterToggle
-      filterList={Filters.slice(1)}
+      filterList={Filters}
       selectedFilter={selectedFilter}
       handleAreaToggle={handleAreaToggle}
     />

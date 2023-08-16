@@ -40,7 +40,7 @@
 }
 
 .navTop {
-display: flex;
+  display: flex;
   align-items: center;
   justify-content: space-between;
 }
@@ -60,9 +60,9 @@ display: flex;
   font-size: 17px;
   transition: color 0.3s;
   font-weight: bold;
-  margin:6px 12px;
-  cursor: pointerS;
-  color:rgb(54, 54, 54);
+  margin: 6px 12px;
+  cursor: pointer;
+  color: rgb(54, 54, 54);
 }
 
 .indexNameM:hover,
