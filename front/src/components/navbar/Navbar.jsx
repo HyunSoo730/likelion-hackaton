@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import userImg from "../../assets/images/user.png";
 import daoLogoImg from "../../assets/images/daoLogo.png";
 import logoImg from "../../assets/images/logo.jpg";
+import axios from "axios";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -13,7 +14,32 @@ export default function Navbar() {
     navigate(path);
   };
 
-  const isLoggedIn = false;
+
+  const accessToken = localStorage.getItem("access_token");
+  const userName = localStorage.getItem("userName");
+
+  const isLoggedIn = accessToken && userName;
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.get("/auth/kakao/logout", {
+        params: {
+          accessToken: accessToken,
+        },
+      });
+
+      if (response.status === 200) {
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("userName");
+        localStorage.removeItem("jwtToken");
+        navigate("/");
+      } else {
+        console.error("로그아웃 실패:", response);
+      }
+    } catch (error) {
+      console.error("로그아웃 오류:", error);
+    }
+  };
 
   return (
     <div className="navbar">
@@ -63,13 +89,18 @@ export default function Navbar() {
             <div className="signIn" onClick={() => handleNavigation("/signin")}>
               로그인
             </div>
-            ｜<div className="signUp">회원가입</div>
           </div>
         )}
         {isLoggedIn && (
-          <div className="navUser" onClick={() => handleNavigation("/alarmservice")}>
+          <div
+            className="navUser"
+            onClick={() => handleNavigation("/alarmservice")}
+          >
             <img src={userImg} width="30px" alt="" />
-            <div className="signUp">하미리님</div>
+            <div className="signUp">{userName}님</div> |
+            <div className="signUp" onClick={handleLogout}>
+              로그아웃
+            </div>
           </div>
         )}
       </div>

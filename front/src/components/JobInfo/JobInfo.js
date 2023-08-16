@@ -6,6 +6,7 @@ import ResetImg from "../../assets/images/reset.png";
 import JobInfoFilterList from "./JobInfoFilter";
 import { axiosPubSvcFind } from "../../api/axios/axios.PubSvc";
 import NoResults from "../SearchFilter/NoResults";
+import Frame from "../../assets/images/Frame.png";
 
 
 function JobInfo() {
@@ -89,6 +90,8 @@ const JobInfoTop = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url(${Frame});
+  background-size: cover;
 `;
 
 const SearchBarStyled = styled.div`

@@ -8,6 +8,7 @@ import { axiosPostEduSvc } from "../api/axios/axios.EduSvc";
 import NoResults from "../components/SearchFilter/NoResults";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
+import Frame from "../assets/images/Frame.png";
 
 function EducationInfo() {
   const [searchText, setSearchText] = useState("");
@@ -95,6 +96,8 @@ const EducationInfoTop = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url(${Frame});
+  background-size: cover;
 `;
 
 const SearchBarStyled = styled.div`
