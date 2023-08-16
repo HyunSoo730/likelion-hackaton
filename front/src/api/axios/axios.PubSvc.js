@@ -11,25 +11,13 @@ export const axiosGetPubSvc = async () => {
   }
 };
 
-const axioPostPubSvcUrl = "/api/public_service/filter_data";
+const axiosPostPubSvcFindUrl = "/api/public_service/filter_data";
 
-export const axiosPostPubSvc = async (selecPubSvc) => {
+export const axiosPubSvcFind = async (svcNM, filterData) => {
   try {
-    const response = await axios.post(axioPostPubSvcUrl, selecPubSvc);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
-
-const axiosGetPubSvcFindUrl = "/api/public_service/find";
-
-export const axiosPubSvcFind = async (serviceName) => {
-  try {
-    const response = await axios.get(axiosGetPubSvcFindUrl, {
-      params: {
-        serviceName: serviceName,
-      },
+    const response = await axios.post(axiosPostPubSvcFindUrl, {
+      svcNM,
+      ...filterData,
     });
     return response.data;
   } catch (error) {

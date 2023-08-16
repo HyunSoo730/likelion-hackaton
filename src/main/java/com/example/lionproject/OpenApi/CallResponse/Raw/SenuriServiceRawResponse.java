@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -116,6 +118,11 @@ public class SenuriServiceRawResponse {
                         i.recrtTitle, i.stmId, i.stmNm, i.toDd, i.workPlc
                 ))
                 .collect(Collectors.toList());
+    }
+
+    public LocalDate returnToDd() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        return LocalDate.parse(this.body.items.item.get(0).toDd, formatter);
     }
 
 }

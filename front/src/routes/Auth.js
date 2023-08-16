@@ -1,48 +1,64 @@
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Rest_api_key from "../config/key";
 
-function Auth() {
-  const redirect_uri = "http://localhost:3000/auth/kakao/callback"; //Redirect URI
-  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
-
-  const location = useLocation();
+const Auth = () => {
   const navigate = useNavigate();
-  const KAKAO_CODE = location.search.split("=")[1];
-
-  const getKakaoToken = () => {
-    console.log(KAKAO_CODE);
-
-    axios
-      .get("http://13.209.173.69:8080/auth/kakao/callback", {
-        params: {
-          code: KAKAO_CODE,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        return res.data;
-      })
-      .then((data) => {
-        const jwtToken = data.access_token; // JWT 토큰 추출
-        if (jwtToken) {
-          localStorage.setItem("token", jwtToken); // localStorage에 토큰 저장
-          navigate("/Main"); // 로그인 성공 시 Main 페이지로 이동
-        } else {
-          navigate("/Auth");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching Kakao token:", error);
-        // 에러 처리 로직 추가
-      });
-  };
 
   useEffect(() => {
-    getKakaoToken();
+    const params = new URL(document.location.toString()).searchParams;
+    const code = params.get("code");
+    const grantType = "authorization_code";
+    const redirect_uri = "http://localhost:3000/auth/kakao/callback";
+
+    axios
+      .post(
+        `https://kauth.kakao.com/oauth/token?grant_type=${grantType}&client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&code=${code}`,
+        {},
+        {
+          headers: {
+            "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        const { access_token } = res.data;
+        axios
+          .post(
+            `https://kapi.kakao.com/v2/user/me`,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${access_token}`,
+                "Content-type":
+                  "application/x-www-form-urlencoded;charset=utf-8",
+              },
+            }
+          )
+          .then((res) => {
+            const userName = res.data.properties.nickname;
+            localStorage.setItem("access_token", access_token);
+            localStorage.setItem("userName", userName);
+
+            const response = axios.get("/auth/kakao/callback/access", {
+              params: {
+                accessToken: access_token,
+              },
+            });
+            const jwtToken = response.data;
+            localStorage.setItem("jwtToken", jwtToken);
+
+            navigate("/");
+          });
+      })
+      .catch((Error) => {
+        console.log(Error);
+      });
   }, []);
-  return <h1>Hi</h1>;
-}
+
+  return <h1>로그인 중입니다</h1>;
+};
 
 export default Auth;

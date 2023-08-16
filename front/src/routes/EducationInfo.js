@@ -5,29 +5,36 @@ import EducationInfoContainerM from "../components/EducationInfo/EducationInfo.c
 import SearchImg from "../assets/images/search.png";
 import ResetImg from "../assets/images/reset.png";
 import EduFilterList from "../components/EducationInfo/EduFilterList";
-import { axiosPubSvcFind } from "../api/axios/axios.PubSvc";
+import { axiosPostEduSvc } from "../api/axios/axios.EduSvc";
 import NoResults from "../components/SearchFilter/NoResults";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 import { useMediaQuery } from "react-responsive";
 import NavbarM from "../components/navbar/NavbarM";
 import EduFilterListM from "../components/EducationInfo/EduFilterListM";
+import Frame from "../assets/images/Frame.png";
 
 function EducationInfo() {
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showNoResult, setShowNoResult] = useState(false);
+  const [filterData, setFilterData] = useState({});
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
   };
 
   const handleSearchClick = async () => {
-    if (searchText.trim().length < 2) {
-      return alert("두 글자 이상의 검색어를 입력해주세요.");
-    }
+    // if (searchText.trim().length < 2) {
+    //   return alert("두 글자 이상의 검색어를 입력해주세요.");
+    // }
+    const searchData = {
+      subject: searchText.trim(),
+      ...filterData,
+    };
+
     try {
-      const results = await axiosPubSvcFind(searchText);
+      const results = await axiosPostEduSvc(searchData);
       setSearchResults(results);
       setShowNoResult(results.length === 0);
     } catch (error) {
@@ -135,6 +142,8 @@ const EducationInfoTop = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url(${Frame});
+  background-size: cover;
 `;
 
 const EducationInfoTopM = styled.div`

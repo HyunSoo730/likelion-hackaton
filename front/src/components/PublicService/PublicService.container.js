@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import PublicServiceList from "./PublicServiceList";
 import Pagination from "../Pagination/Pagination";
 import { styled } from "styled-components";
-import { axiosGetPubSvc, axiosPostPubSvc } from "../../api/axios/axios.PubSvc";
-import Data from "../../assets/data/Data2";
+import { axiosGetPubSvc } from "../../api/axios/axios.PubSvc";
 
 const PublicServiceContainer = ({ searchResults }) => {
   const [publicServiceData, setPublicServiceData] = useState([]);
@@ -35,40 +34,6 @@ const PublicServiceContainer = ({ searchResults }) => {
     }
   }, [searchResults]);
 
-  //   async function getData() {
-  //     try {
-  //       const result = await axiosGetPubSvc();
-  //       const totalItems = result.length;
-  //       const totalPages = Math.ceil(totalItems / itemsPerPage);
-  //       setTotalPage(totalPages);
-  //       setPublicServiceData(result);
-  //     } catch (error) {
-  //       console.error("Error getting data:", error);
-  //     }
-  //   }
-
-  //   async function getData() {
-  //     try {
-  //       const result = await axiosPostPubSvc(postData);
-  //       const itemsPerPage = 6;
-  //       const totalItems = result.length;
-  //       const totalPages = Math.ceil(totalItems / itemsPerPage);
-  //       setTotalPage(totalPages);
-
-  //       const startIndex = currentPage * itemsPerPage;
-  //       const endIndex = startIndex + itemsPerPage;
-  //       const currentPageData = result.slice(startIndex, endIndex);
-
-  //       setPublicServiceData(currentPageData);
-  //     } catch (error) {
-  //       console.error("Error getting data:", error);
-  //     }
-  //   }
-
-  //   useEffect(() => {
-  //     getData();
-  //   }, []);
-
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
@@ -79,7 +44,7 @@ const PublicServiceContainer = ({ searchResults }) => {
 
   return (
     <PublicServiceListStyled>
-      <PublicServiceList publicServiceLists={Data} />
+      <PublicServiceList publicServiceLists={currentPageData} />
       <PaginationStyled>
         <Pagination
           currentPage={currentPage}

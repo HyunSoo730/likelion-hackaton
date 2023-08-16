@@ -3,15 +3,24 @@ import { styled } from "styled-components";
 import { ApplyState, RegistCost } from "../../assets/data/EduFilter.data";
 import FilterContainer from "../SearchFilter/FilterContainer2";
 
-const EduFilterList = () => {
-  const [filterData, setFilterData] = useState({});
+const EduFilterList = ({ filterData, setFilterData }) => {
   const handleFilterUpdate = (filterType, selectedValues) => {
-    setFilterData((prevData) => ({
-      ...prevData,
-      [filterType]: selectedValues,
-    }));
-    console.log("Filter Data:", filterData);
+    let updatedFilterData = {};
+
+    if (Array.isArray(selectedValues)) {
+      updatedFilterData = {
+        ...filterData,
+        [filterType]: selectedValues.length > 0 ? selectedValues[0] : null,
+      };
+    } else {
+      updatedFilterData = {
+        ...filterData,
+        [filterType]: selectedValues,
+      };
+    }
+    setFilterData(updatedFilterData);
   };
+
   return (
     <FilterContainerStyled>
       <FilterContainer

@@ -2,6 +2,8 @@ package com.example.lionproject.OpenApi.CallResponse.Raw;
 
 import com.example.lionproject.OpenApi.CallResponse.dto.SenuriServiceDetailDto;
 import com.example.lionproject.OpenApi.CallResponse.dto.SenuriServiceDto;
+import com.example.lionproject.domain.entity.SenuriServiceDetail;
+import com.example.lionproject.domain.entity.SenuriServiceDetailCheck;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
@@ -148,4 +150,13 @@ public class SenuriServiceDetailRawResponse {
                 ))
                 .collect(Collectors.toList());
     }
+
+    public SenuriServiceDetailCheck fromDto() {
+        return new SenuriServiceDetailCheck(this.body.items.item.get(0).acptMthdCd, this.body.items.item.get(0).age, this.body.items.item.get(0).clerk, this.body.items.item.get(0).clerkContt, this.body.items.item.get(0).clltPrnnum, this.body.items.item.get(0).createDy, this.body.items.item.get(0).etcItm, this.body.items.item.get(0).frAcptDd, this.body.items.item.get(0).homepage,
+                this.body.items.item.get(0).jobId, this.body.items.item.get(0).lnkStmId, this.body.items.item.get(0).organYn, this.body.items.item.get(0).plDetAddr, this.body.items.item.get(0).plbizNm, this.body.items.item.get(0).repr, this.body.items.item.get(0).stmId, this.body.items.item.get(0).toAcptDd, this.body.items.item.get(0).updDy, this.body.items.item.get(0).wantedAuthNo, this.body.items.item.get(0).wantedTitle);
+    }
+
+
+
+
 }

@@ -1,34 +1,53 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Gothic&display=swap');
 
 .layout {
+    background-image: url('../../assets/images/layoutBck.jpg');
+    background-size: cover; /* 이미지를 컨테이너에 맞게 조절 */
+    background-position: center center;
+
     font-family: 'IBM Plex Sans KR', sans-serif;
     background-color: #FFB287;
 
     width: 100%;
-    height:40vh;
+    /* height:40vh; */
+    height: 380px;
 
     color: white;
     white-space:nowrap; /*줄바꿈 방지*/
+
+    min-width: 950px;
+    text-shadow: 2px 2px 5px #b48c75;
+    font-weight: bold;
 }
 
 .title {
     text-align: left;
-    font-weight: bold;
-    font-size:180%;
+    font-size:33px;
     
-    margin: 0 0 13px 13%;
-    padding:3% 0 0 0;
+    margin: 0 0 15px 16%;
+    padding:35px 0 0 0;
+}
+
+.grndprt {
+    position: absolute;
+    left:58%;
+    z-index: 0;
+    overflow: hidden;
 }
 
 .info {
+    z-index: 0;
+}
+
+.info1 {
     text-align: left;
-    margin-left:13%;
-    margin-bottom: 1.5%;
-    font-size:130%;
+    margin-left:16%;
+    margin-bottom: 13px;
+    font-size:20px;
 }
 
 .info2 {
     text-align: left;
-    margin-left:13%;
-    font-size:130%;
+    margin-left:16%;
+    font-size:20px;
 }

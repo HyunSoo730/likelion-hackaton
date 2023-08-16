@@ -7,11 +7,11 @@ const EducationTable = ({ data }) => {
     return null;
   }
   const SvcClick = () => {
-    window.open(data.svcUrl);
+    window.open(data.viewDetail);
   };
 
   const registCostText =
-    data.registCost === "0" ? "무료" : `${data.registCost}원`;
+    data.registCost === "0" ? "무료" : `${data.registCost}`;
 
   return (
     <EducationTableStyled onClick={SvcClick}>

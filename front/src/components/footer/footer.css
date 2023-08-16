@@ -18,11 +18,12 @@
   background-color: #8c8c8c;
   color: white;
   height: 14vh;
+  position: sticky;
 }
 
 .logo {
   flex-shrink: 0;
-  margin: 0 5% 0 10%;
+  margin: 10px 3% 0 10%;
   font-weight: bold;
 }
 
@@ -31,7 +32,7 @@
 }
 
 .policy {
-  margin-bottom: 0.5%;
+  margin-bottom: 3px;
   font-size: 12px;
 }
 

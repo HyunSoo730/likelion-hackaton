@@ -41,21 +41,21 @@ public class EmploymentJobConfig {
 
 
     @Bean
-    public Job employmentInfoJob(Step employmentInsertJob) {
+    public Job employmentInfoJob(Step employmentInsertStep) {
         log.info("start job [EmploymentInfoJob]");
 
         return new JobBuilder("employmentInfoJob", jobRepository)
                 .incrementer(new RunIdIncrementer())
-                .start(employmentInsertJob)
+                .start(employmentInsertStep)
                 .build();
 
     }
 
     @Bean
     @JobScope
-    public Step employmentInsertJob(ItemReader<EmploymentJsonDto> employmentReader, ItemProcessor<EmploymentJsonDto, List<Employment>> employmentProcessor,
+    public Step employmentInsertStep(ItemReader<EmploymentJsonDto> employmentReader, ItemProcessor<EmploymentJsonDto, List<Employment>> employmentProcessor,
                                     ItemWriter<List<Employment>> employmentWriter) {
-        return new StepBuilder("employmentInsertJob", jobRepository)
+        return new StepBuilder("employmentInsertStep", jobRepository)
                 .<EmploymentJsonDto, List<Employment>>chunk(10, platformTransactionManager)
                 .reader(employmentReader)
                 .processor(employmentProcessor)

@@ -6,6 +6,8 @@ import ResetImg from "../../assets/images/reset.png";
 import JobInfoFilterList from "./JobInfoFilter";
 import { axiosPubSvcFind } from "../../api/axios/axios.PubSvc";
 import NoResults from "../SearchFilter/NoResults";
+import Frame from "../../assets/images/Frame.png";
+
 
 function JobInfo() {
   const [searchText, setSearchText] = useState("");
@@ -41,6 +43,7 @@ function JobInfo() {
     setShowNoResult(false);
   };
 
+  
   return (
     <JobInfoWrapped>
       <JobInfoTop>
@@ -61,7 +64,7 @@ function JobInfo() {
         <FilterStyled>
           <ResetBtn onClick={handleResetClick}>
             <img src={ResetImg} alt="reset" />
-            조건 초기화
+            검색 초기화
           </ResetBtn>
           <JobInfoFilterList />
         </FilterStyled>
@@ -87,6 +90,8 @@ const JobInfoTop = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url(${Frame});
+  background-size: cover;
 `;
 
 const SearchBarStyled = styled.div`

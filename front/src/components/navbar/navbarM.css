@@ -13,7 +13,11 @@
 }
 
 .navLogoM {
+<<<<<<< HEAD
   padding: 7px 10px 5px 20px;
+=======
+  padding: 7px 10px 5px 30px;
+>>>>>>> 500f69b723756f98f8cb218350a8e33c4aacc95f
   cursor: pointer;
 
   display: flex;
@@ -31,7 +35,11 @@
 .navUserM {
   display: flex;
   align-items: center;
+<<<<<<< HEAD
   padding: 5px 20px 5px 20px;
+=======
+  padding: 5px 20px 5px 30px;
+>>>>>>> 500f69b723756f98f8cb218350a8e33c4aacc95f
 }
 
 .signInM:hover,
@@ -40,7 +48,11 @@
 }
 
 .navTop {
+<<<<<<< HEAD
   display: flex;
+=======
+display: flex;
+>>>>>>> 500f69b723756f98f8cb218350a8e33c4aacc95f
   align-items: center;
   justify-content: space-between;
 }
@@ -60,9 +72,15 @@
   font-size: 17px;
   transition: color 0.3s;
   font-weight: bold;
+<<<<<<< HEAD
   margin: 6px 18px;
   cursor: pointerS;
   color: rgb(54, 54, 54);
+=======
+  margin:6px 12px;
+  cursor: pointerS;
+  color:rgb(54, 54, 54);
+>>>>>>> 500f69b723756f98f8cb218350a8e33c4aacc95f
 }
 
 .indexNameM:hover,

@@ -8,60 +8,39 @@ import {
 } from "../../assets/data/PubSvcFilter.data";
 import FilterContainer from "../SearchFilter/FilterContainer";
 
-const PubSvcFilterList = () => {
-  //   const createFilterObject = (filterType, selectedValues) => {
-  //     return {
-  //       filterType: filterType,
-  //       selectedValues: selectedValues,
-  //     };
-  //   };
-
-  //   const createFilterObject = (filterType, selectedValues) => {
-  //     const filterObject = {
-  //       [filterType]: selectedValues,
-  //     };
-  //     return filterObject;
-  //   };
-
-  //   const handleFilterUpdate = (filterType, selectedValues) => {
-  //     const filterObject = createFilterObject(filterType, selectedValues);
-  //     console.log("Filter Object:", filterObject);
-  //   };
-
-  //handleFilterUpdate(filterTitle, selectedFilterValues);
-
-  const [filterData, setFilterData] = useState({});
+const PubSvcFilterList = ({ filterData, setFilterData }) => {
   const handleFilterUpdate = (filterType, selectedValues) => {
-    setFilterData((prevData) => ({
-      ...prevData,
+    const updatedFilterData = {
+      ...filterData,
       [filterType]: selectedValues,
-    }));
-    console.log("Filter Data:", filterData);
+    };
+    setFilterData(updatedFilterData);
+    console.log("Filter Data:", updatedFilterData);
   };
   return (
     <FilterContainerStyled>
       <FilterContainer
         Filters={AreaNMs}
         onFilterUpdate={(selectedValues) =>
-          handleFilterUpdate("AreaNMs", selectedValues)
+          handleFilterUpdate("areaNM", selectedValues)
         }
       />
       <FilterContainer
         Filters={SvcStatNMs}
         onFilterUpdate={(selectedValues) =>
-          handleFilterUpdate("SvcStatNMs", selectedValues)
+          handleFilterUpdate("svcStatNM", selectedValues)
         }
       />
       <FilterContainer
         Filters={MaxClassNMs}
         onFilterUpdate={(selectedValues) =>
-          handleFilterUpdate("MaxClassNMs", selectedValues)
+          handleFilterUpdate("maxClassNM", selectedValues)
         }
       />
       <FilterContainer
         Filters={PayAtNMs}
         onFilterUpdate={(selectedValues) =>
-          handleFilterUpdate("PayAtNMs", selectedValues)
+          handleFilterUpdate("payAtNM", selectedValues)
         }
       />
     </FilterContainerStyled>
