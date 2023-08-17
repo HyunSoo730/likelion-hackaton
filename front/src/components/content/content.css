@@ -1,86 +1,169 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Gothic&display=swap');
 
-.content {
+@media (min-width:769px){
+    .content {
+        
+        display : flex;
+        justify-content : center;
+        align-items : center;
+        width: 100%;
+
+        background-color: white;
+        /* height:40vh; */
+        height:380px;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+
+        min-width: 950px;
+
+        position: relative;
+    }
+
+    .form {
+        /* position: relative; */
+        background-image: url('../../assets/images/contentBck.jpg');
+        background-size: cover; /* 이미지를 컨테이너에 맞게 조절 */
+        background-position: center center;
+        
+        border-radius: 30px;
+        width:68%;
+        height:430px;
+        position:absolute;
+        transform: translateY(-22%);
+        background-color: #FFF0E8;
+
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        min-width: 1000px;
+    }
+
+    .enter {
+        display : flex;
+        justify-content : center;
+        margin:27px 25px 25px 25px;
+        font-size:35px;
+        font-weight: bold;
+    }
+
+    .svcs {
+        display : flex;
+        justify-content : center;
+        align-items : center;
+    }
+
+    .svc {
+        display : flex;
+        justify-content : center;
+        align-items : center;
+    }
+
+
+    .svcJbs,.svcPbl, .svcEdu, .svcAlm {
+        text-align: center;
+        width:220px;
+        height: 210px;
+        background-color: white;
+        border-radius: 30px;
+        padding:30px;
+        margin:0.5% 5% 0.5% 5%;
+        cursor:pointer;
+        box-shadow: rgba(152, 152, 156, 0.2) 0px 1px 15px 1px;
+        box-shadow: inset 0px -90px 0px -80px #FFB287; /* 내부 그림자 추가 */
+    }
+
+    .svcJbs:hover,.svcPbl:hover, .svcEdu:hover, .svcAlm:hover {
+        background-color: #a8a7a7;
+        color:white;
+    }
+
+    .ttl {
+        font-size: 140%;
+        font-weight: bold;
+    }
+
+    .contentImg {
+        color:red;
+        width:78px;
+        height:83px;
+        margin:10px 5px 5px 5px;
+    }
+
+    .dtl {
+        margin-top:7px;
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 768px){
+    .content {
+        
+        display : flex;
+        justify-content : center;
+        align-items : center;
+        width: 100%;
     
-    display : flex;
-    justify-content : center;
-    align-items : center;
-    width: 100%;
-
-    background-color: white;
-    /* height:40vh; */
-    height:380px;
-    font-family: 'IBM Plex Sans KR', sans-serif;
-
-    min-width: 950px;
-
-    position: relative;
-}
-
-.form {
-    /* position: relative; */
-    background-image: url('../../assets/images/contentBck.jpg');
-    background-size: cover; /* 이미지를 컨테이너에 맞게 조절 */
-    background-position: center center;
-
-    border-radius: 30px;
-    width:68%;
-    height:430px;
-    position:absolute;
-    transform: translateY(-22%);
-    background-color: #FFF0E8;
-
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    min-width: 1000px;
-}
-
-.enter {
-    display : flex;
-    justify-content : center;
-    margin:27px 25px 25px 25px;
-    font-size:35px;
-    font-weight: bold;
-}
-
-.svc {
-    display : flex;
-    justify-content : center;
-    align-items : center;
-    margin: 0 1.5%;
-}
-
-
-.svcJbs,.svcPbl, .svcEdu, .svcAlm {
-    text-align: center;
-    width:16%;
-    height: 210px;
-    background-color: white;
-    border-radius: 30px;
-    padding:30px;
-    margin:0.5% 1.5% 0.5% 1.5%;
-    cursor:pointer;
-    box-shadow: rgba(152, 152, 156, 0.2) 0px 1px 15px 1px;
-    box-shadow: inset 0px -90px 0px -80px #FFB287; /* 내부 그림자 추가 */
-}
-
-.svcJbs:hover,.svcPbl:hover, .svcEdu:hover, .svcAlm:hover {
-    background-color: #a8a7a7;
-    color:white;
-}
-
-.ttl {
-    font-size: 140%;
-    font-weight: bold;
-}
-
-.contentImg {
-    color:red;
-    width:78px;
-    height:83px;
-    margin:10px 5px 5px 5px;
-}
-
-.dtl {
-    margin-top:7px;
-    font-size: 17px;
+        background-color: white;
+        height:470px;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+    
+        position: relative;
+    }
+    
+    .form {
+        
+        border-radius: 10px;
+        width:324px;
+        height:90%;
+        transform: translateY(-15%);
+        background-color: #FFF0E8;
+    
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+    
+    .enter {
+        display : flex;
+        justify-content : center;
+        margin:20px 25px 0px 25px;
+        font-size:22px;
+        font-weight: bold;
+    }
+    
+    .svc {
+        display : flex;
+        justify-content : center;
+        align-items : center;
+    }
+    
+    
+    .svcJbs,.svcPbl, .svcEdu, .svcAlm {
+        text-align: center;
+        width: 110px;
+        height: 134px;
+        background-color: white;
+        border-radius:10px;
+        margin: 10px 10px 3px 10px;
+        padding:10px;
+        cursor:pointer;
+        box-shadow: rgba(152, 152, 156, 0.2) 0px 1px 15px 1px;
+        box-shadow: inset 0px -90px 0px -80px #FFB287; /* 내부 그림자 추가 */
+    }
+    
+    .svcJbs:hover,.svcPbl:hover, .svcEdu:hover, .svcAlm:hover {
+        background-color: #a8a7a7;
+        color:white;
+    }
+    
+    .ttl {
+        font-size: 15px;
+        font-weight: bold;
+    }
+    
+    .contentImg {
+        width:46px;
+        height:48px;
+        margin:10px 5px 5px 5px;
+    }
+    
+    .dtl {
+        margin-top:1px;
+        font-size: 10px;
+    }
 }

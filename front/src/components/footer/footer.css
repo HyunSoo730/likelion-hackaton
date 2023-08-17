@@ -41,3 +41,9 @@
   font-weight: lighter;
   font-size: 1%;
 }
+
+@media (max-width: 768px){
+  .footer.else {
+    display: none;
+  }
+}

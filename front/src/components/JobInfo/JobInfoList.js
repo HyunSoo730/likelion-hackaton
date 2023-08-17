@@ -28,7 +28,14 @@ const JobInfoList = ({ JobInfoLists }) => {
 };
 
 const JobInfoListsStyled = styled.div`
-  display: flex;
+  @media (max-width: 768px){
+    display: static;
+    height: 74vh;
+  }
+  @media (min-width: 769px){
+    display: flex;
+    height: 100vh;
+  }
   flex-wrap: wrap;
   justify-content: center;
   flex-direction: column;
@@ -36,7 +43,12 @@ const JobInfoListsStyled = styled.div`
 `;
 
 const Row = styled.div`
+@media (max-width: 768px){
+  display: static;
+}
+@media (min-width: 769px){
   display: flex;
+}
   justify-content: center;
   align-items: center;
   width: 80%;

@@ -1,53 +1,132 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Gothic&display=swap');
 
-.layout {
-    background-image: url('../../assets/images/layoutBck.jpg');
-    background-size: cover; /* 이미지를 컨테이너에 맞게 조절 */
-    background-position: center center;
+@media (min-width:769px){
+    .layout {
+        background-image: url('../../assets/images/layoutBck.jpg');
+        background-size: cover; /* 이미지를 컨테이너에 맞게 조절 */
+        background-position: center center;
 
-    font-family: 'IBM Plex Sans KR', sans-serif;
-    background-color: #FFB287;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        background-color: #FFB287;
 
-    width: 100%;
-    /* height:40vh; */
-    height: 380px;
+        width: 100%;
+        /* height:40vh; */
+        height: 380px;
 
-    color: white;
-    white-space:nowrap; /*줄바꿈 방지*/
+        color: white;
+        white-space:nowrap; /*줄바꿈 방지*/
 
-    min-width: 950px;
-    text-shadow: 2px 2px 5px #b48c75;
-    font-weight: bold;
+        min-width: 950px;
+        text-shadow: 2px 2px 5px #b48c75;
+        font-weight: bold;
+    }
+
+    .titles {
+        display: flex;
+    }
+
+    .title1 {
+        text-align: left;
+        font-size:33px;
+        
+        margin: 0 0 15px 16%;
+        padding:35px 0 0 0;
+    }
+    .title2 {
+        text-align: left;
+        font-size:33px;
+        
+        margin: 0 0 15px 7px;
+        padding:35px 0 0 0;
+    }
+
+    .grndprt {
+        position: absolute;
+        left:58%;
+        z-index: 0;
+        overflow: hidden;
+    }
+
+    .info {
+        z-index: 0;
+    }
+
+    .info1_1 {
+        text-align: left;
+        margin-bottom: 13px;
+        font-size:20px;
+    }
+
+    .info1_2 {
+        text-align: left;
+        margin-bottom: 13px;
+        font-size:20px;
+    }
+
+    .info1_s {
+        display: flex;
+        margin-left:16%;
+    }
+
+    .info2 {
+        text-align: left;
+        margin-left:16%;
+        font-size:20px;
+    }
 }
 
-.title {
-    text-align: left;
-    font-size:33px;
+@media (max-width: 768px){
+    .layout {
+        font-family: 'IBM Plex Sans KR', sans-serif;
+        background-color: #FFC19E;
     
-    margin: 0 0 15px 16%;
-    padding:35px 0 0 0;
-}
-
-.grndprt {
-    position: absolute;
-    left:58%;
-    z-index: 0;
-    overflow: hidden;
-}
-
-.info {
-    z-index: 0;
-}
-
-.info1 {
-    text-align: left;
-    margin-left:16%;
-    margin-bottom: 13px;
-    font-size:20px;
-}
-
-.info2 {
-    text-align: left;
-    margin-left:16%;
-    font-size:20px;
+        width: 100%;
+        /* height:40vh; */
+        height: 207px;
+    
+        color: white;
+        white-space:nowrap; /*줄바꿈 방지*/
+    
+        text-shadow: 2px 2px 5px #cfa993;
+    }
+    
+    .title1 {
+        text-align: left;
+        font-size:21px;
+        
+        padding: 15px 0 0 30px;
+        font-weight: bold;
+    }
+    
+    .title2 {
+        text-align: left;
+        font-size:21px;
+        
+        margin: 3px 0 15px 30px;
+        font-weight: bold;
+    }
+    
+    .grndprt {
+        width:250px;
+        position: absolute;
+        right: 0px;
+        z-index: 0;
+        left:170px;
+        top:163px;
+        overflow: hidden;
+    }
+    
+    .info {
+        z-index: 0;
+    }
+    
+    .info1_1,.info1_2 {
+        text-align: left;
+        padding: 0 0 3px 30px;
+        font-size:13px;
+    }
+    
+    .info2 {
+        display:none
+    }
 }

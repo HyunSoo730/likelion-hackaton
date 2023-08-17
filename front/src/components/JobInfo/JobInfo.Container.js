@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import JobInfoList from "./JobInfoList";
-import JobInfoListM from "./JobInfoListM";
 import Pagination from "../../components/Pagination/Pagination";
 import { styled } from "styled-components";
 import { axiosAllJob } from "../../api/axios/axios.Job";
+import { axiosGetPubSvc } from "../../api/axios/axios.PubSvc";
 
 import { useMediaQuery } from "react-responsive";
 
@@ -11,6 +11,16 @@ function JobInfoContainer({ searchResults, subscription }) {
   const [JobInfoData, setJobInfoData] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
+
+  async function getData(page) {
+    try {
+      const result = await axiosGetPubSvc(page);
+      setTotalPage(result.totalPages);
+      setJobInfoData(result.content);
+    } catch (error) {
+      console.error("Error getting data:", error);
+    }
+  }
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
@@ -50,7 +60,7 @@ function JobInfoContainer({ searchResults, subscription }) {
   return (
     <JobInfoListStyled subscription={subscription}>
       {isMobile ? (
-        <JobInfoListM JobInfoLists={currentPageData} />
+        <JobInfoList JobInfoLists={currentPageData} />
       ) : (
         <JobInfoList JobInfoLists={currentPageData} />
       )}
@@ -66,6 +76,7 @@ function JobInfoContainer({ searchResults, subscription }) {
   );
 }
 
+
 const JobInfoListStyled = styled.div`
   width: 100%;
   height: 700px;
@@ -79,8 +90,15 @@ const JobInfoListStyled = styled.div`
 `;
 
 const PaginationStyled = styled.div`
+  @media (max-width: 768px){
+    display: none;
+  }
+  @media (min-width: 769px){
+    display: flex;
+  }
+
   position: absolute;
-  display: flex;
+  
   justify-content: space-between;
   align-items: center;
   left: 50%;
