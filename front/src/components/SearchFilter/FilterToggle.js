@@ -49,6 +49,7 @@ const FilterItem = styled.div`
   border-radius: 10px;
   margin: 10px;
   overflow: hidden;
+  box-shadow: 4px 4px 15px 0px #0000001a;
 `;
 
 const FilterTitle = styled.div`

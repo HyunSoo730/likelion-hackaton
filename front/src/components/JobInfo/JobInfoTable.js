@@ -1,5 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { getRemainingDays2 } from "../../utils/Utils";
+import generateMessage from "../KakaoMessage/messageform";
+import { axiosMessage } from "../../api/axios/axios.Alarm";
 import ApplicateModal from './ApplicateModal'
 import HeartModal from './HeartModal'
 import heartOff from "../../assets/images/heartOff.png";
@@ -30,10 +33,25 @@ const JobInfoTable = ({ data }) => {
     return null;
   }
   const SvcClick = () => {
-    //window.open(data.homepage);
+    const contactInfo = `${data.clerk} / ${data.clerkContt}`;
+    const message = generateMessage(
+      data.wantedTitle,
+      data.emplymShpNm,
+      data.acptMthdCd,
+      contactInfo
+    );
+
+    const jsonString = JSON.stringify(message);
+    console.log(jsonString);
+
+    axiosMessage(jsonString)
+      .then((response) => {
+        console.log("Response:", response);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
-
-
   return (
     <JobinfoTableStyled>
       <TopStyled>
