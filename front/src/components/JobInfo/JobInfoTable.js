@@ -3,8 +3,32 @@ import styled, { css } from "styled-components";
 import { getRemainingDays2 } from "../../utils/Utils";
 import generateMessage from "../KakaoMessage/messageform";
 import { axiosMessage } from "../../api/axios/axios.Alarm";
+import ApplicateModal from './ApplicateModal'
+import HeartModal from './HeartModal'
+import heartOff from "../../assets/images/heartOff.png";
+import heartOn from "../../assets/images/heartOn.png";
+import { useState } from "react";
+
+import {
+  getRemainingDays2,
+  decodeHTMLEntities,
+  formatDate,
+} from "../../utils/Utils";
+
+
+
 
 const JobInfoTable = ({ data }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenHeart, setIsOpenHeart] = useState(false);
+
+  const onClickButton = () => {
+    setIsOpen(true);
+  };
+  const onClickHeart = () => {
+    setIsOpenHeart(true);
+  };
+
   if (typeof data !== "object" || data === null) {
     return null;
   }
@@ -29,13 +53,34 @@ const JobInfoTable = ({ data }) => {
       });
   };
   return (
-    <JobinfoTableStyled onClick={SvcClick}>
+    <JobinfoTableStyled>
       <TopStyled>
-        <SvcStatStyled status={data.deadline}>{data.deadline}</SvcStatStyled>
-        <DdayElem>D - {getRemainingDays2(data.toAcptDd)}</DdayElem>
+        <TopStyledLeft>
+          <SvcStatStyled status={data.deadline}>{data.deadline}</SvcStatStyled>
+          <DdayElem>D-{getRemainingDays2(data.toDd)}</DdayElem>
+          <Heart onClick={onClickHeart}>
+            <img src={heartOff} alt="" />
+          </Heart>
+          {isOpenHeart && (<HeartModal
+            open={isOpenHeart}
+            onClose={() => {
+              setIsOpenHeart(false);
+          }}
+          />)}
+        </TopStyledLeft>
+
+        <Applicate onClick={onClickButton}>접수하기</Applicate>
+        {isOpen && (<ApplicateModal
+          open={isOpen}
+          onClose={() => {
+            setIsOpen(false);
+        }}
+        />)}
       </TopStyled>
-      <JobinfoStyled>
-        <JobinfoeNameStyled>{data.wantedTitle}</JobinfoeNameStyled>
+      <JobinfoStyled onClick={SvcClick}>
+        <JobinfoeNameStyled>
+          {decodeHTMLEntities(data.recrtTitle)}
+        </JobinfoeNameStyled>
         <JobinfoItem>
           <PlaceStyled>{data.area}</PlaceStyled>
           <div>접수방법 : {data.acptMthdCd} 접수</div>
@@ -48,11 +93,19 @@ const JobInfoTable = ({ data }) => {
 };
 
 const JobinfoTableStyled = styled.div`
+  @media (max-width: 768px){
+    max-width: 350px;
+    height: 240px;
+    min-width: 350px;
+    border-radius: 10px;
+  }
+  @media (min-width: 769px){
+    max-width: 380px;
+    height: 286px;
+    min-width: 380px;
+    border-radius: 20px;
+  }
   width: 100%;
-  max-width: 380px;
-  height: 286px;
-  min-width: 380px;
-  border-radius: 20px;
   background-color: white;
   box-shadow: 4px 4px 20px 0px #0000001a;
   overflow: hidden;
@@ -62,14 +115,32 @@ const JobinfoTableStyled = styled.div`
 const TopStyled = styled.div`
   display: flex;
   border-bottom: 1px solid #d3d3d3;
-  padding: 16px 24px;
+  justify-content: space-between;
+  @media (max-width: 768px){
+    padding: 10px 16px;
+  }
+  @media (min-width: 769px){
+    padding: 16px 24px;
+  }
+`;
+
+const TopStyledLeft = styled.div`
+  display: flex;
 `;
 
 const SvcStatStyled = styled.div.attrs((props) => ({
   status: props.status,
 }))`
-  width: 88px;
-  height: 32px;
+  @media (max-width: 768px){
+    width: 55px;
+    height: 31px;
+    font-size: 13px;
+  }
+  @media (min-width: 769px){
+    width: 68px;
+    height: 32px;
+    font-size: 17px;
+  }
   border-radius: 4px;
   text-align: center;
   color: #ffffff;
@@ -99,18 +170,59 @@ const SvcStatStyled = styled.div.attrs((props) => ({
 `;
 
 const DdayElem = styled.div`
-  width: 72px;
-  height: 32px;
+  @media (max-width: 768px){
+    width: 60px;
+    font-size: 13px;
+    height: 31px;
+    margin-left: 6px;
+  }
+  @media (min-width: 769px){
+    width: 60px;
+    font-size: 17px;
+    height: 32px;
+    margin-left: 10px;
+  }
   background-color: #ffb287;
   border-radius: 4px;
   top: 0;
   color: #ffffff;
-  font-size: 20px;
   font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 16px;
+`;
+
+const Heart = styled.div`
+  display:flex;
+  @media (max-width: 768px){
+    width:100px;
+    margin-left:6px;
+  }
+  @media (min-width: 769px){  
+    margin-left:9px;
+  }
+`;
+
+const Applicate = styled.div`
+  @media (max-width: 768px){
+    width: 63px;
+    height: 31px;
+    font-size: 13px;
+  }
+  @media (min-width: 769px){  
+    width: 80px;
+    height: 32px;  
+    font-size: 17px;
+  }
+  align-items: right;
+  border-radius: 4px;
+  text-align: center;
+  color: #ffffff;
+  font-weight: bold;
+  background-color: #FF6C1B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const JobinfoStyled = styled.div`
@@ -121,12 +233,23 @@ const JobinfoItem = styled.div`
   display: flex;
   flex-direction: column;
   color: #696969;
-  line-height: 40px;
-  font-size: 20px;
+  @media (max-width: 768px){
+    line-height: 27px;
+    font-size: 16px;
+  }
+  @media (min-width: 769px){
+    line-height: 35px;
+    font-size: 20px;
+  }
 `;
 
 const JobinfoeNameStyled = styled.div`
+@media (max-width: 768px){
+  font-size: 18px;
+}
+@media (min-width: 769px){
   font-size: 24px;
+}
   font-weight: bold;
   line-height: 1.2;
   min-height: 2.4em;

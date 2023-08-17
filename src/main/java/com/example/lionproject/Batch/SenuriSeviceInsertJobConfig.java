@@ -4,6 +4,8 @@ import com.example.lionproject.Batch.Reader.SenuriServiceDetailReader;
 import com.example.lionproject.OpenApi.CallOpenApi;
 import com.example.lionproject.OpenApi.CallResponse.Raw.SenuriServiceDetailRawResponse;
 import com.example.lionproject.domain.entity.SenuriServiceDetail;
+import com.example.lionproject.domain.entity.SenuriServiceDetailCheck;
+import com.example.lionproject.repository.senuri.SenuriServiceDetailRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -33,6 +35,7 @@ public class SenuriSeviceInsertJobConfig {
     private final PlatformTransactionManager platformTransactionManager;
 
     private final CallOpenApi callOpenApi;
+    private final SenuriServiceDetailRepository repository;
 
     @Bean
     public Job senuriServiceInsertJob(Step fetchSenuriServiceStep, Step fetchSenuriServiceDetailStep) {
@@ -59,12 +62,12 @@ public class SenuriSeviceInsertJobConfig {
     @Bean
     @JobScope
     public Step fetchSenuriServiceDetailStep(ItemReader<List<SenuriServiceDetailRawResponse>> senuriServiceReader,
-                                             ItemProcessor<List<SenuriServiceDetailRawResponse>, List<List<SenuriServiceDetail>>> senuriServiceProcessor,
-                                             ItemWriter<List<List<SenuriServiceDetail>>> senuriServiceWriter) {
+                                             ItemProcessor<List<SenuriServiceDetailRawResponse>, List<List<SenuriServiceDetailCheck>>> senuriServiceProcessor,
+                                             ItemWriter<List<List<SenuriServiceDetailCheck>>> senuriServiceWriter) {
         log.info("[SenuriServiceInsertJobConfig] Insert Info Step Launched");
         return new StepBuilder("fetchSenuriServiceDetailStep", jobRepository)
                 .allowStartIfComplete(true)
-                .<List<SenuriServiceDetailRawResponse>, List<List<SenuriServiceDetail>>>chunk(5, platformTransactionManager)
+                .<List<SenuriServiceDetailRawResponse>, List<List<SenuriServiceDetailCheck>>>chunk(5, platformTransactionManager)
                 .reader(senuriServiceReader)
                 .processor(senuriServiceProcessor)
                 .writer(senuriServiceWriter)
@@ -81,18 +84,19 @@ public class SenuriSeviceInsertJobConfig {
 
     @Bean
     @StepScope
-    public ItemProcessor<List<SenuriServiceDetailRawResponse>, List<List<SenuriServiceDetail>>> senuriServiceProcessor(){
+    public ItemProcessor<List<SenuriServiceDetailRawResponse>, List<List<SenuriServiceDetailCheck>>> senuriServiceProcessor(){
         return item -> item.stream()
                 .map(i -> i.toListDto().stream()
-                        .map(SenuriServiceDetail::fromDto)
+                        .map(SenuriServiceDetailCheck::fromDto)
                         .collect(Collectors.toList()))
                 .collect(Collectors.toList());
     }
 
     @Bean
     @StepScope
-    public ItemWriter<List<List<SenuriServiceDetail>>> senuriServiceWriter() {
+    public ItemWriter<List<List<SenuriServiceDetailCheck>>> senuriServiceWriter() {
         return items -> items.forEach(i -> log.info("[SenuriServiceInsertJobConfig] [Writer] {}, {}", i, i.size()));
+//        return items -> items.forEach(i -> repository.saveAllAndFlush(i));
     }
 
 

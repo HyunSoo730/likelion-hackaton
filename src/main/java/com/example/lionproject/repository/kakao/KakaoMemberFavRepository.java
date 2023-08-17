@@ -19,4 +19,7 @@ public interface KakaoMemberFavRepository extends JpaRepository<KakaoMemberFav, 
 //    @Query("DELETE FROM KakaoMemberFav k WHERE k.kakaoMember = :kakaoMember and k.areaName in :area")
 //    void deleteKakaoMember(@Param("kakaoMember") KakaoMember member, @Param("area") List<String> area);
 
+    @Query("SELECT k FROM KakaoMemberFav k  JOIN FETCH k.kakaoMember WHERE k.kakaoMember.userId = :userId")
+    List<KakaoMemberFav> findAllByKakaoMemberUserId(Long userId);
+
 }
