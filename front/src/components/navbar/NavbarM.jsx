@@ -17,62 +17,67 @@ export default function NavbarM() {
 
   return (
     <div className="navbarM">
-        
-        <div className="navTop">
+      <div className="navTop">
         <div className="navLogoM" onClick={() => handleNavigation("/")}>
           <img src={daoLogoImg} width="50px" alt="" />
           <img src={logoImg} width="60px" alt="" />
         </div>
         {!isLoggedIn && (
           <div className="navUserM">
-            <div className="signInM" onClick={() => handleNavigation("/signin")}>
+            <div
+              className="signInM"
+              onClick={() => handleNavigation("/signin")}
+            >
               로그인
             </div>
             ｜<div className="signUpM">회원가입</div>
           </div>
         )}
         {isLoggedIn && (
-          <div className="navUserM" onClick={() => handleNavigation("/alarmservice")}>
+          <div
+            className="navUserM"
+            onClick={() => handleNavigation("/alarmservice")}
+          >
             <img src={userImg} width="20px" alt="" />
             <div className="signUpM">하미리님</div>
           </div>
         )}
+      </div>
+
+      <div className="navBtm">
+        <div
+          className={`indexNameM ${
+            location.pathname === "/jobinfo" ? "active" : ""
+          }`}
+          onClick={() => handleNavigation("/jobinfo")}
+        >
+          구직정보
         </div>
-        
-        <div className="navBtm">
-          <div
-            className={`indexNameM ${
-              location.pathname === "/jobinfo" ? "active" : ""
-            }`}
-            onClick={() => handleNavigation("/jobinfo")}
-          >
-            구직정보
-          </div>
-          <div
-            className={`indexNameM ${
-              location.pathname === "/publicservice" ? "active" : ""
-            }`}
-            onClick={() => handleNavigation("/publicservice")}
-          >
-            공공서비스
-          </div>
-          <div
-            className={`indexNameM ${
-              location.pathname === "/educationinfo" ? "active" : ""
-            }`}
-            onClick={() => handleNavigation("/educationinfo")}
-          >
-            교육정보
-          </div>
-          <div
-            className={`indexNameM ${
-              location.pathname === "/alarmservice" ? "active" : ""
-            }`}
-            onClick={() => handleNavigation("/alarmservice")}
-          >
-            알림
-          </div>
+        <div
+          className={`indexNameM ${
+            location.pathname === "/publicservice" ? "active" : ""
+          }`}
+          onClick={() => handleNavigation("/publicservice")}
+        >
+          공공서비스
         </div>
+        <div
+          className={`indexNameM ${
+            location.pathname === "/educationinfo" ? "active" : ""
+          }`}
+          onClick={() => handleNavigation("/educationinfo")}
+        >
+          교육정보
+        </div>
+        <div
+          className={`indexNameM ${
+            location.pathname === "/alarmservice" ? "active" : ""
+          }`}
+          onClick={() => handleNavigation("/alarmservice")}
+        >
+          알림
+        </div>
+      </div>
     </div>
   );
 }

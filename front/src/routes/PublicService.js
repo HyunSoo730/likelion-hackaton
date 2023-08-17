@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { styled } from "styled-components";
 import PublicServiceContainer from "../components/PublicService/PublicService.container";
+import PublicServiceContainerM from "../components/PublicService/PublicService.containerM";
 import SearchImg from "../assets/images/search.png";
 import ResetImg from "../assets/images/reset.png";
 import Frame from "../assets/images/Frame.png";
@@ -9,6 +10,9 @@ import { axiosPubSvcFind } from "../api/axios/axios.PubSvc";
 import NoResults from "../components/SearchFilter/NoResults";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
+import { useMediaQuery } from "react-responsive";
+import NavbarM from "../components/navbar/NavbarM";
+import PubSvcFilterListM from "../components/PublicService/PubSvcFilterListM";
 
 function PublicService() {
   const [searchText, setSearchText] = useState("");
@@ -47,40 +51,83 @@ function PublicService() {
     setShowNoResult(false);
   };
 
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
   return (
-    <PublicServiceWrapped>
-      <Navbar />
-      <PublicServiceTop>
-        <SearchBarStyled>
-          <SearchBar>
-            <input
-              type="text"
-              value={searchText}
-              onChange={handleSearchChange}
-              onKeyDown={handleKeyPress}
-              placeholder="검색어를 입력하세요"
-            />
-            <button onClick={handleSearchClick}>
-              <img src={SearchImg} alt="search" />
-            </button>
-          </SearchBar>
-          <ResetBtn onClick={handleResetClick}>
-            <img src={ResetImg} alt="reset" />
-            검색 초기화
-          </ResetBtn>
-        </SearchBarStyled>
-        <PubSvcFilterList
-          filterData={filterData}
-          setFilterData={setFilterData}
-        />
-      </PublicServiceTop>
-      {showNoResult ? (
-        <NoResults />
+    <div>
+      {isMobile ? (
+        <div>
+          {/* <PublicServiceWrapped> */}
+          <PublicServiceWrapped>
+            <NavbarM />
+            <PublicServiceTopM>
+              <SearchBarStyled>
+                <SearchBarM>
+                  <input
+                    type="text"
+                    value={searchText}
+                    onChange={handleSearchChange}
+                    onKeyDown={handleKeyPress}
+                    placeholder="검색어를 입력하세요"
+                  />
+                  <button onClick={handleSearchClick}>
+                    <img
+                      src={SearchImg}
+                      alt="search"
+                      style={{ width: "12px", height: "12px" }}
+                    />
+                  </button>
+                </SearchBarM>
+              </SearchBarStyled>
+              <PubSvcFilterListM />
+              <ResetBtnM onClick={handleResetClick}>
+                <img src={ResetImg} alt="reset" />
+                조건 초기화
+              </ResetBtnM>
+            </PublicServiceTopM>
+            {showNoResult ? (
+              <NoResults />
+            ) : (
+              <PublicServiceContainerM searchResults={searchResults} />
+            )}
+          </PublicServiceWrapped>
+        </div>
       ) : (
-        <PublicServiceContainer searchResults={searchResults} />
+        <div>
+          {/* Desktop-specific content */}
+          <PublicServiceWrapped>
+            <Navbar />
+            <PublicServiceTop>
+              <SearchBarStyled>
+                <SearchBar>
+                  <input
+                    type="text"
+                    value={searchText}
+                    onChange={handleSearchChange}
+                    onKeyDown={handleKeyPress}
+                    placeholder="검색어를 입력하세요"
+                  />
+                  <button onClick={handleSearchClick}>
+                    <img src={SearchImg} alt="search" />
+                  </button>
+                </SearchBar>
+                <ResetBtn onClick={handleResetClick}>
+                  <img src={ResetImg} alt="reset" />
+                  조건 초기화
+                </ResetBtn>
+              </SearchBarStyled>
+              <PubSvcFilterList />
+            </PublicServiceTop>
+            {showNoResult ? (
+              <NoResults />
+            ) : (
+              <PublicServiceContainer searchResults={searchResults} />
+            )}
+            <Footer />
+          </PublicServiceWrapped>
+        </div>
       )}
-      <Footer />
-    </PublicServiceWrapped>
+    </div>
   );
 }
 
@@ -98,6 +145,16 @@ const PublicServiceTop = styled.div`
   align-items: center;
   background-image: url(${Frame});
   background-size: cover;
+`;
+
+const PublicServiceTopM = styled.div`
+  width: 100%;
+  height: 242px;
+  background-color: #ffb287;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const SearchBarStyled = styled.div`
@@ -143,6 +200,43 @@ const SearchBar = styled.div`
   }
 `;
 
+const SearchBarM = styled.div`
+  width: 90%;
+  height: 36px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0px 4px 48px 0px #0000001a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    width: 87%;
+    font-size: 14px;
+    color: #767676;
+    flex: 1;
+    border: none;
+    border-radius: 15px 0 0 15px;
+    outline: none;
+    margin-left: 10px;
+  }
+
+  button {
+    width: 29px;
+    height: 24px;
+    float: right;
+    background-color: #ff8643;
+    margin: 6px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #ffb287;
+  }
+`;
+
 const ResetBtn = styled.div`
   width: 180px;
   height: 60px;
@@ -156,7 +250,26 @@ const ResetBtn = styled.div`
   font-size: 20px;
   cursor: pointer;
   img {
-    margin-right: 12px;
+    margin-right: 5px;
+  }
+`;
+
+const ResetBtnM = styled.div`
+  width: 83px;
+  height: 26px;
+  border-radius: 15px;
+  background-color: white;
+  color: #767676;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3%;
+  font-size: 10px;
+  cursor: pointer;
+  img {
+    margin-right: 5px;
+    width: 14px;
+    height: 14px;
   }
 `;
 

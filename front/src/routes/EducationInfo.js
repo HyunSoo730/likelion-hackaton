@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { styled } from "styled-components";
 import EducationInfoContainer from "../components/EducationInfo/EducationInfo.container";
+import EducationInfoContainerM from "../components/EducationInfo/EducationInfo.containerM";
 import SearchImg from "../assets/images/search.png";
 import ResetImg from "../assets/images/reset.png";
 import EduFilterList from "../components/EducationInfo/EduFilterList";
@@ -8,6 +9,9 @@ import { axiosPostEduSvc } from "../api/axios/axios.EduSvc";
 import NoResults from "../components/SearchFilter/NoResults";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
+import { useMediaQuery } from "react-responsive";
+import NavbarM from "../components/navbar/NavbarM";
+import EduFilterListM from "../components/EducationInfo/EduFilterListM";
 import Frame from "../assets/images/Frame.png";
 
 function EducationInfo() {
@@ -50,37 +54,79 @@ function EducationInfo() {
     setShowNoResult(false);
   };
 
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
   return (
-    <EducationInfoWrapped>
-      <Navbar />
-      <EducationInfoTop>
-        <SearchBarStyled>
-          <SearchBar>
-            <input
-              type="text"
-              value={searchText}
-              onChange={handleSearchChange}
-              onKeyDown={handleKeyPress}
-              placeholder="검색어를 입력하세요"
-            />
-            <button onClick={handleSearchClick}>
-              <img src={SearchImg} alt="search" />
-            </button>
-          </SearchBar>
-          <ResetBtn onClick={handleResetClick}>
-            <img src={ResetImg} alt="reset" />
-            검색 초기화
-          </ResetBtn>
-        </SearchBarStyled>
-        <EduFilterList filterData={filterData} setFilterData={setFilterData} />
-      </EducationInfoTop>
-      {showNoResult ? (
-        <NoResults />
+    <div>
+      {isMobile ? (
+        <div>
+          {/* Mobile-specific content */}
+          <EducationInfoWrapped>
+            <NavbarM />
+            <EducationInfoTopM>
+              <SearchBarStyled>
+                <SearchBarM>
+                  <input
+                    type="text"
+                    value={searchText}
+                    onChange={handleSearchChange}
+                    onKeyDown={handleKeyPress}
+                    placeholder="검색어를 입력하세요"
+                  />
+                  <button onClick={handleSearchClick}>
+                    <img
+                      src={SearchImg}
+                      alt="search"
+                      style={{ width: "12px", height: "12px" }}
+                    />
+                  </button>
+                </SearchBarM>
+              </SearchBarStyled>
+              <EduFilterListM />
+            </EducationInfoTopM>
+            {showNoResult ? (
+              <NoResults />
+            ) : (
+              <EducationInfoContainerM searchResults={searchResults} />
+            )}
+          </EducationInfoWrapped>
+        </div>
       ) : (
-        <EducationInfoContainer searchResults={searchResults} />
+        <div>
+          {/* Desktop-specific content */}
+          <EducationInfoWrapped>
+            <Navbar />
+            <EducationInfoTop>
+              <SearchBarStyled>
+                <SearchBar>
+                  <input
+                    type="text"
+                    value={searchText}
+                    onChange={handleSearchChange}
+                    onKeyDown={handleKeyPress}
+                    placeholder="검색어를 입력하세요"
+                  />
+                  <button onClick={handleSearchClick}>
+                    <img src={SearchImg} alt="search" />
+                  </button>
+                </SearchBar>
+                <ResetBtn onClick={handleResetClick}>
+                  <img src={ResetImg} alt="reset" />
+                  조건 초기화
+                </ResetBtn>
+              </SearchBarStyled>
+              <EduFilterList />
+            </EducationInfoTop>
+            {showNoResult ? (
+              <NoResults />
+            ) : (
+              <EducationInfoContainer searchResults={searchResults} />
+            )}
+            <Footer />
+          </EducationInfoWrapped>
+        </div>
       )}
-      <Footer />
-    </EducationInfoWrapped>
+    </div>
   );
 }
 
@@ -98,6 +144,16 @@ const EducationInfoTop = styled.div`
   align-items: center;
   background-image: url(${Frame});
   background-size: cover;
+`;
+
+const EducationInfoTopM = styled.div`
+  width: 100%;
+  height: 120px;
+  background-color: #ffb287;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const SearchBarStyled = styled.div`
@@ -130,6 +186,43 @@ const SearchBar = styled.div`
   button {
     width: 60px;
     height: 48px;
+    float: right;
+    background-color: #ff8643;
+    margin: 6px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #ffb287;
+  }
+`;
+
+const SearchBarM = styled.div`
+  width: 90%;
+  height: 36px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0px 4px 48px 0px #0000001a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    width: 87%;
+    font-size: 14px;
+    color: #767676;
+    flex: 1;
+    border: none;
+    border-radius: 15px 0 0 15px;
+    outline: none;
+    margin-left: 10px;
+  }
+
+  button {
+    width: 30px;
+    height: 24px;
     float: right;
     background-color: #ff8643;
     margin: 6px;

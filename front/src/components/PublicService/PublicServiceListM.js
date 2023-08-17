@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import PublicServiceTable from "./PublicServiceTable";
+import PublicServiceTableM from "./PublicServiceTableM";
 
-const PublicServiceList = ({ publicServiceLists }) => {
+const PublicServiceListM = ({ publicServiceLists }) => {
   if (!Array.isArray(publicServiceLists)) {
     return null;
   }
@@ -21,7 +21,7 @@ const PublicServiceList = ({ publicServiceLists }) => {
     rows.push(
       <Row key={i} className="row">
         {rowItems.map((serviceInfoData, index) => (
-          <PublicServiceTable
+          <PublicServiceTableM
             key={startIndex + index}
             serviceInfoData={serviceInfoData}
           />
@@ -47,4 +47,4 @@ const Row = styled.div`
   width: 80%;
 `;
 
-export default PublicServiceList;
+export default PublicServiceListM;
