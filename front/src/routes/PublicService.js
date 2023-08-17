@@ -9,6 +9,7 @@ import { axiosPubSvcFind } from "../api/axios/axios.PubSvc";
 import NoResults from "../components/SearchFilter/NoResults";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
+import "./PublicService.css"; // 컴포넌트의 스타일 파일을 불러옵니다.
 
 function PublicService() {
   const [searchText, setSearchText] = useState("");
@@ -60,29 +61,59 @@ function PublicService() {
               onKeyDown={handleKeyPress}
               placeholder="검색어를 입력하세요"
             />
-            <button onClick={handleSearchClick}>
-              <img src={SearchImg} alt="search" />
+            <button onClick={handleSearchClick} className="search-button">
+              <img src={SearchImg} alt="search" className="search-icon" />
             </button>
           </SearchBar>
-          <ResetBtn onClick={handleResetClick}>
-            <img src={ResetImg} alt="reset" />
-            검색 초기화
-          </ResetBtn>
+          <ResetBtnWrapper>
+            <ResetBtn onClick={handleResetClick}>
+              <img src={ResetImg} alt="reset" />
+              검색 초기화
+            </ResetBtn>
+          </ResetBtnWrapper>
         </SearchBarStyled>
         <PubSvcFilterList
           filterData={filterData}
           setFilterData={setFilterData}
         />
+        <ResetBtnWrapper2>
+          <ResetBtn onClick={handleResetClick}>
+            <img src={ResetImg} alt="reset" />
+            검색 초기화
+          </ResetBtn>
+        </ResetBtnWrapper2>
       </PublicServiceTop>
       {showNoResult ? (
         <NoResults />
       ) : (
         <PublicServiceContainer searchResults={searchResults} />
       )}
-      <Footer />
+      <FooterWrapper>
+        <Footer />
+      </FooterWrapper>{" "}
     </PublicServiceWrapped>
   );
 }
+
+const FooterWrapper = styled.div`
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const ResetBtnWrapper = styled.div`
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const ResetBtnWrapper2 = styled.div`
+  display: none;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+  }
+`;
 
 const PublicServiceWrapped = styled.div`
   width: 100%;
@@ -98,6 +129,10 @@ const PublicServiceTop = styled.div`
   align-items: center;
   background-image: url(${Frame});
   background-size: cover;
+
+  @media screen and (max-width: 768px) {
+    height: 223px;
+  }
 `;
 
 const SearchBarStyled = styled.div`
@@ -116,6 +151,12 @@ const SearchBar = styled.div`
   justify-content: center;
   align-items: center;
 
+  @media screen and (max-width: 768px) {
+    width: 90%;
+    height: 36px;
+    border-radius: 10px;
+  }
+
   input {
     width: 87%;
     font-size: 24px;
@@ -125,6 +166,11 @@ const SearchBar = styled.div`
     border-radius: 15px 0 0 15px;
     outline: none;
     margin-left: 30px;
+
+    @media screen and (max-width: 768px) {
+      font-size: 14px;
+      margin-left: 10px;
+    }
   }
 
   button {
@@ -136,6 +182,11 @@ const SearchBar = styled.div`
     border: none;
     border-radius: 15px;
     cursor: pointer;
+
+    @media screen and (max-width: 768px) {
+      width: 30px;
+      height: 24px;
+    }
   }
 
   button:hover {
@@ -157,6 +208,19 @@ const ResetBtn = styled.div`
   cursor: pointer;
   img {
     margin-right: 12px;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 83px;
+    height: 28px;
+    border-radius: 10px;
+    font-size: 10px;
+    margin: 10px;
+    img {
+      margin-right: 6px;
+      width: 14px;
+      height: 14px;
+    }
   }
 `;
 

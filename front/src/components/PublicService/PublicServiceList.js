@@ -34,10 +34,18 @@ const PublicServiceList = ({ publicServiceLists }) => {
 };
 
 const PublicServiceListsStyled = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  @media (max-width: 768px) {
+    display: static;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  @media (min-width: 769px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const Row = styled.div`

@@ -1,26 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Gothic&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Gothic&display=swap");
 
 .alarmContent {
-    width: 100%;
+  width: 100%;
 
-    background-color: white;
-    height:540px;
-    font-family: 'IBM Plex Sans KR', sans-serif;
+  background-color: white;
+  height: 540px;
+  font-family: "IBM Plex Sans KR", sans-serif;
 
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .alarmMenu {
-    align-items: left;
-    background-color: #FFEBDF;
-    padding: 10px 40px 10px 40px;
-    font-size:24px;
-    font-weight: bold;
-    border-radius: 7px;
-    margin:20px 0 20px 0;
-    box-shadow: rgba(121, 121, 124, 0.2) 1px 2px 3px 1px;
+  align-items: left;
+  background-color: #ffebdf;
+  padding: 10px 40px 10px 40px;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 7px;
+  margin: 20px 0 20px 0;
+  box-shadow: rgba(121, 121, 124, 0.2) 1px 2px 3px 1px;
+  @media screen and (max-width: 768px) {
+    font-size: 16px;
+    margin: 6% 42% 20px 0;
+  }
 }
 
 /* .alarmLct {
@@ -35,43 +39,67 @@
 } */
 
 .alarmContentTitle {
-    font-weight: bold;
-    font-size: 20px;
-    margin:10px;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 10px;
 }
 
 .alarmDtl1 {
-    padding:20px 40px 20px 40px;
-    box-shadow: rgba(163, 163, 167, 0.2) 0px 3px 10px 2px;
-    border-radius: 10px;
-    font-size: 20px;
-    height: 150px;
-    width: 980px;
-    margin-bottom: 10px;
-    align-items: center;
+  padding: 20px 40px 20px 40px;
+  box-shadow: rgba(163, 163, 167, 0.2) 0px 3px 10px 2px;
+  border-radius: 10px;
+  font-size: 20px;
+  height: 150px;
+  width: 980px;
+  margin-bottom: 10px;
+  align-items: center;
+
+  @media screen and (max-width: 768px) {
+    width: 342px;
+    height: 178px;
+    padding: 20px 40px 20px 40px;
+  }
 }
 
 .alarmDtl2 {
-    padding:20px 40px 20px 40px;
-    box-shadow: rgba(163, 163, 167, 0.2) 0px 3px 10px 2px;
-    border-radius: 10px;
-    font-size: 20px;
-    height: 60px;
-    width: 980px;
-    
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  padding: 20px 40px 20px 40px;
+  box-shadow: rgba(163, 163, 167, 0.2) 0px 3px 10px 2px;
+  border-radius: 10px;
+  font-size: 20px;
+  height: 60px;
+  width: 980px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media screen and (max-width: 768px) {
+    width: 90%;
+    height: 94px;
+    padding: 0px 0px 0px 0px;
+    margin-left: 5%;
+    font-size: 10px;
+    flex-direction: column;
+  }
 }
 
-.applyBtn, .saveBtn, .cancelBtn {
-    background-color: #FF8643;
-    border-radius: 5px;
-    color:white;
-    padding:10px 20px 10px 20px;
-    width:120px;
-    font-size: 15px;
-    border: none;
-    font-weight: bold;
-    margin-left:40px;
+.applyBtn,
+.saveBtn,
+.cancelBtn {
+  background-color: #ff8643;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 20px 10px 20px;
+  width: 120px;
+  font-size: 15px;
+  border: none;
+  font-weight: bold;
+  margin-left: 40px;
+  @media screen and (max-width: 768px) {
+    width: 69px;
+    height: 24px;
+    font-size: 10px;
+    margin: 10px;
+    /* align-items: center; */
+    padding: 0px 0px 0px 0px;
+  }
 }

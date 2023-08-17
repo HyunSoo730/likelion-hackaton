@@ -1,38 +1,53 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Gothic&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Gothic&display=swap");
 
 .alarmLayout {
-    background-image: url('../../assets/images/alrmBck.png');
-    background-size: cover; /* 이미지를 컨테이너에 맞게 조절 */
-    background-position: center center;
+  background-image: url("../../assets/images/alrmBck.png");
+  background-size: cover; /* 이미지를 컨테이너에 맞게 조절 */
+  background-position: center center;
 
-    font-family: 'IBM Plex Sans KR', sans-serif;
-    background-color: #FFB287;
-    text-shadow: 2px 2px 5px #b48c75;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  background-color: #ffb287;
+  text-shadow: 2px 2px 5px #b48c75;
 
-    width: 100%;
-    height:220px;
-    color: white;
-    white-space:nowrap; /*줄바꿈 방지*/
-    font-weight: bold;
+  width: 100%;
+  height: 220px;
+  color: white;
+  white-space: nowrap; /*줄바꿈 방지*/
+  font-weight: bold;
+  @media screen and (max-width: 768px) {
+    height: 142px;
+  }
 }
 
 .alarmTitle {
-    text-align: left;
-    font-size:30px;
-    
-    margin: 0 0 15px 16%;
-    padding:35px 0 0 0;
+  text-align: left;
+  font-size: 30px;
+
+  margin: 0 0 15px 16%;
+  padding: 35px 0 0 0;
+  @media screen and (max-width: 768px) {
+    font-size: 16px;
+    margin: 0 0 1% 5%;
+  }
 }
 
 .alarmInfo {
-    text-align: left;
-    margin-left:16%;
-    margin-bottom: 3px;
-    font-size:20px;
+  text-align: left;
+  margin-left: 16%;
+  margin-bottom: 3px;
+  font-size: 20px;
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+    margin-left: 5%;
+  }
 }
 
 .alarmInfo2 {
-    text-align: left;
-    margin-left:16%;
-    font-size:20px;
+  text-align: left;
+  margin-left: 16%;
+  font-size: 20px;
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+    margin-left: 5%;
+  }
 }

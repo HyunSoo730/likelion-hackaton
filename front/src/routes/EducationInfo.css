@@ -1,0 +1,13 @@
+.search-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .search-icon {
+    width: 12px;
+    height: 12px;
+  }
+}

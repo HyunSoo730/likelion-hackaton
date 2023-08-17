@@ -46,6 +46,12 @@ const FilterItem = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 768px) {
+    width: 160px;
+    height: 36px;
+    margin-top: 0px;
+  }
 `;
 
 const FilterTitle = styled.div`
@@ -53,6 +59,12 @@ const FilterTitle = styled.div`
   font-size: 22px;
   font-weight: 400;
   border-right: 1px solid #acacac;
+
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+    margin-left: 10px;
+    white-space: nowrap; /* 추가 */
+  }
 `;
 
 const ScrollableList = styled.div`
@@ -60,6 +72,11 @@ const ScrollableList = styled.div`
   font-size: 20px;
   max-height: 160px;
   color: #111111;
+
+  @media screen and (max-width: 768px) {
+    font-size: 10px;
+    white-space: nowrap; /* 추가 */
+  }
 `;
 
 const CheckBoxLabel = styled.label`
@@ -68,6 +85,10 @@ const CheckBoxLabel = styled.label`
   cursor: pointer;
   user-select: none;
   margin-left: 30px;
+
+  @media screen and (max-width: 768px) {
+    margin-left: 10px;
+  }
 `;
 
 const CheckBoxInput = styled.input`
@@ -87,6 +108,13 @@ const CheckBoxInput = styled.input`
     content: "✔";
     font-size: 16px;
     color: white;
+    margin-left: 2px;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 10px;
+    height: 10px;
+    margin-right: 0px;
     margin-left: 2px;
   }
 `;
