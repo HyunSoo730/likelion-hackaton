@@ -7,6 +7,8 @@ import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,6 +54,12 @@ public class SenuriServiceDetailRepositoryCustomImpl implements SenuriServiceDet
         if (checkParamList(whereClause)) {
             query += String.join(" and ", whereClause);
         }
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String formattedToday = today.format(formatter);
+        log.info("formating = {}", formattedToday);
+
+        query += " and s.toAcptDd >= :formattedToday";
         query += " GROUP BY s.jobId";
         query += " ORDER BY s.toAcptDd ASC";  //종료접수일 순으로 오름차순 진행.
 
@@ -76,6 +84,7 @@ public class SenuriServiceDetailRepositoryCustomImpl implements SenuriServiceDet
         if (checkSearchWord(wantedTitle)) {
             typedQuery.setParameter("wantedTitle", "%" + wantedTitle + "%");
         }
+        typedQuery.setParameter("formattedToday", formattedToday);
 
         return typedQuery.getResultList();
     }
