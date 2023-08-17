@@ -77,11 +77,13 @@ public class KakaoController {
     }
 
     /**
-     * 하트 클릭 시 해당 구인 구직 정보 카카오톡 메시지로 보내기
+     * 노인 구직 정보에서 하트 클릭 시 해당 구인 구직 정보 카카오톡 메시지로 보내기
+     * 프론트에서 양식 다 맞춰서 보냄.
      */
-    @PostMapping("/kakao/send")
-    public String returnJobSearchMessage() {
-        return null;
+    @PostMapping("/kakao/send_message/want")
+    public String returnJobSearchMessage(@RequestBody KakaoMessageFeedRequest request, @RequestParam String accessToken) {
+        String res = kakaoMessageService.sendFeedMessage(accessToken, request);
+        return res;
     }
 
     /**
