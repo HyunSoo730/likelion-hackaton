@@ -52,6 +52,7 @@ public class SenuriServiceDetailRepositoryCustomImpl implements SenuriServiceDet
         if (checkParamList(whereClause)) {
             query += String.join(" and ", whereClause);
         }
+        query += " GROUP BY s.jobId";
         query += " ORDER BY s.toAcptDd ASC";  //종료접수일 순으로 오름차순 진행.
 
         log.info("query = {} ", query);
