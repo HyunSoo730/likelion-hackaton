@@ -1,36 +1,28 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import {
-  getRemainingDays2,
-  decodeHTMLEntities,
-  formatDate,
-} from "../../utils/Utils";
+import { getRemainingDays2 } from "../../utils/Utils";
 
 const JobInfoTable = ({ data }) => {
   if (typeof data !== "object" || data === null) {
     return null;
   }
   const SvcClick = () => {
-    window.open(data.homepage);
+    //window.open(data.homepage);
   };
 
   return (
     <JobinfoTableStyled onClick={SvcClick}>
       <TopStyled>
         <SvcStatStyled status={data.deadline}>{data.deadline}</SvcStatStyled>
-        <DdayElem>D-{getRemainingDays2(data.toDd)}</DdayElem>
+        <DdayElem>D - {getRemainingDays2(data.toAcptDd)}</DdayElem>
       </TopStyled>
       <JobinfoStyled>
-        <JobinfoeNameStyled>
-          {decodeHTMLEntities(data.recrtTitle)}
-        </JobinfoeNameStyled>
+        <JobinfoeNameStyled>{data.wantedTitle}</JobinfoeNameStyled>
         <JobinfoItem>
-          <div>{data.emplymShpNm}</div>
-          <PlaceStyled>{data.workPlcNm}</PlaceStyled>
-          <div>접수방법 : {data.acptMthd}</div>
-          <div>
-            접수기간 : {formatDate(data.frDd)} ~ {formatDate(data.toDd)}
-          </div>
+          <PlaceStyled>{data.area}</PlaceStyled>
+          <div>접수방법 : {data.acptMthdCd} 접수</div>
+          <div>모집인원 : {data.clltPrnnum}명</div>
+          <div>{data.plbizNm}</div>
         </JobinfoItem>
       </JobinfoStyled>
     </JobinfoTableStyled>
@@ -111,7 +103,7 @@ const JobinfoItem = styled.div`
   display: flex;
   flex-direction: column;
   color: #696969;
-  line-height: 35px;
+  line-height: 40px;
   font-size: 20px;
 `;
 
@@ -124,6 +116,7 @@ const JobinfoeNameStyled = styled.div`
   overflow: hidden;
   white-space: normal;
   margin-bottom: 4px;
+  color: #696969;
 `;
 
 const PlaceStyled = styled.span`

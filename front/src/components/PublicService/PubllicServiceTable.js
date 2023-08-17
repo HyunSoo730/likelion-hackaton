@@ -13,7 +13,7 @@ const PublicServiceTable = ({ serviceInfoData }) => {
   return (
     <ServiceInfoTableStyled onClick={SvcClick}>
       <ServiceImageStyled imageurl={serviceInfoData.imgUrl}>
-        <DdayElem>D-{getRemainingDays(serviceInfoData.rcptenddt)}</DdayElem>
+        <DdayElem>D - {getRemainingDays(serviceInfoData.rcptenddt)}</DdayElem>
       </ServiceImageStyled>
       <ServiceInfoStyled>
         <ServiceInfoItem>

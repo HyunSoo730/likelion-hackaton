@@ -7,33 +7,33 @@ import {
 } from "../../assets/data/JobFilter.data";
 import FilterContainer from "../SearchFilter/FilterContainer";
 
-const JobInfoFilterList = () => {
-  const [filterData, setFilterData] = useState({});
+const JobInfoFilterList = ({ filterData, setFilterData }) => {
   const handleFilterUpdate = (filterType, selectedValues) => {
-    setFilterData((prevData) => ({
-      ...prevData,
+    const updatedFilterData = {
+      ...filterData,
       [filterType]: selectedValues,
-    }));
-    console.log("Filter Data:", filterData);
+    };
+    setFilterData(updatedFilterData);
+    console.log("Filter Data:", updatedFilterData);
   };
   return (
     <FilterContainerStyled>
       <FilterContainer
         Filters={workPlcNm}
         onFilterUpdate={(selectedValues) =>
-          handleFilterUpdate("AreaNMs", selectedValues)
+          handleFilterUpdate("area", selectedValues)
         }
       />
       <FilterContainer
         Filters={emplymShpNm}
         onFilterUpdate={(selectedValues) =>
-          handleFilterUpdate("SvcStatNMs", selectedValues)
+          handleFilterUpdate("jobPosition", selectedValues)
         }
       />
       <FilterContainer
         Filters={deadline}
         onFilterUpdate={(selectedValues) =>
-          handleFilterUpdate("MaxClassNMs", selectedValues)
+          handleFilterUpdate("status", selectedValues)
         }
       />
     </FilterContainerStyled>
