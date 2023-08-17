@@ -12,9 +12,9 @@ import SaveModal from './SaveModal'
 import TerminateModal from './TerminateModal'
 
 export default function AlarmContent() {
-  const [isOpenApply, setIsOpenApply] = useState(false);
-  const [isOpenSave, setIsOpenSave] = useState(false);
-  const [isOpenTerminate, setIsOpenTerminate] = useState(false);
+  // const [isOpenApply, setIsOpenApply] = useState(false);
+  // const [isOpenSave, setIsOpenSave] = useState(false);
+  // const [isOpenTerminate, setIsOpenTerminate] = useState(false);
 
   const [userNoti, setUserNoti] = useState(
     localStorage.getItem("userNoti") === "true" ? true : false
@@ -33,7 +33,7 @@ export default function AlarmContent() {
   });
 
   const handleButtonSave = async () => {
-    setIsOpenSave(true);
+    // setIsOpenSave(true);//Modal 띄우기
     if (isApplyButtonDisabled) {
       return;
     }
@@ -60,8 +60,7 @@ export default function AlarmContent() {
   };
 
   const handleButtonTerminate = () => {
-    setIsOpenTerminate(true); //Modal 띄우기
-
+    // setIsOpenTerminate(true); //Modal 띄우기
     swalWithBootstrapButtons
       .fire({
         title: "해지하시겠습니까?",
@@ -113,7 +112,7 @@ export default function AlarmContent() {
   };
 
   const handleButtonApply = async () => {
-    setIsOpenApply(true);
+    // setIsOpenApply(true);//Modal 띄우기
     if (isApplyButtonDisabled) {
       return;
     }
@@ -172,12 +171,12 @@ export default function AlarmContent() {
               >
                 신청하기
               </button>
-              {isOpenApply && (<ApplyModal
+              {/* {isOpenApply && (<ApplyModal
                 open={isOpenApply}
                 onClose={() => {
                   setIsOpenApply(false);
               }}
-              />)}
+              />)} 모달 호출 */}
             </div>
           </div>
         </div>
@@ -201,12 +200,12 @@ export default function AlarmContent() {
               >
                 저장하기
               </button>
-              {isOpenSave && (<SaveModal
+              {/* {isOpenSave && (<SaveModal
                 open={isOpenSave}
                 onClose={() => {
                   setIsOpenSave(false);
               }}
-              />)}
+              />)} 모달 호출 */}
             </div>
           </div>
 
@@ -218,12 +217,12 @@ export default function AlarmContent() {
               <button className="cancelBtn" onClick={handleButtonTerminate}>
                 해지하기
               </button>
-              {isOpenTerminate && (<TerminateModal
+              {/* {isOpenTerminate && (<TerminateModal
                 open={isOpenTerminate}
                 onClose={() => {
                   setIsOpenTerminate(false);
               }}
-              />)}
+              />)} 모달 호출 */}
             </div>
           </div>
         </div>
