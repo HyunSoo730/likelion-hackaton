@@ -9,6 +9,7 @@ import java.util.List;
 public interface KakaoRepository extends JpaRepository<KakaoMember, Long> {
     KakaoMember findByKakaoEmail(String email);
 
+    KakaoMember findFirstByKakaoId(Long kakaoId);
     KakaoMember findByUserId(Long id);
 
     @Query("SELECT DISTINCT k.userId FROM KakaoMember k")
