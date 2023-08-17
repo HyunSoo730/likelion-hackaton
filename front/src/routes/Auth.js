@@ -39,8 +39,10 @@ const Auth = () => {
           )
           .then((res) => {
             const userName = res.data.properties.nickname;
+            const user_id = res.data.id;
             localStorage.setItem("access_token", access_token);
             localStorage.setItem("userName", userName);
+            localStorage.setItem("user_id", user_id);
 
             const response = axios.get("/auth/kakao/callback/access", {
               params: {

@@ -21,8 +21,6 @@ function PublicService() {
   };
 
   const handleSearchClick = async () => {
-    console.log(filterData);
-    console.log(searchText);
     // if (searchText.trim().length < 2) {
     //   return alert("두 글자 이상의 검색어를 입력해주세요.");
     // }

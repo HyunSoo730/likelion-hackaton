@@ -77,7 +77,7 @@ export default function AlarmContent() {
 
   const handleFilterUpdate = (newFilterData) => {
     setSelectedFilters(newFilterData);
-    setIsApplyButtonDisabled(newFilterData.AreaNMs.length === 0);
+    setIsApplyButtonDisabled(newFilterData.area.length === 0);
 
     localStorage.setItem("selectedFilters", JSON.stringify(newFilterData));
   };

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { styled } from "styled-components";
-import { AreaNMs } from "../../assets/data/AlarmFilter.data";
+import { area } from "../../assets/data/AlarmFilter.data";
 import FilterContainer from "../alarmContentSearch/FilterContainer";
 
 const AlarmRegionList = ({ onFilterUpdate, selectedFilters }) => {
@@ -17,10 +17,10 @@ const AlarmRegionList = ({ onFilterUpdate, selectedFilters }) => {
   return (
     <FilterContainerStyled>
       <FilterContainer
-        Filters={AreaNMs}
-        selectedValues={selectedFilters?.AreaNMs || []}
+        Filters={area}
+        selectedValues={selectedFilters?.area || []}
         onFilterUpdate={(selectedValues) =>
-          handleFilterUpdate("AreaNMs", selectedValues)
+          handleFilterUpdate("area", selectedValues)
         }
       />
     </FilterContainerStyled>

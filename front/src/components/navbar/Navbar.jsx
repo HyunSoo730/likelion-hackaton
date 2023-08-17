@@ -27,10 +27,13 @@ export default function Navbar() {
         },
       });
 
+      console.log(response.data);
+
       if (response.status === 200) {
         localStorage.removeItem("access_token");
         localStorage.removeItem("userName");
         localStorage.removeItem("jwtToken");
+        localStorage.removeItem("user_id");
         navigate("/");
       } else {
         console.error("로그아웃 실패:", response);
@@ -91,12 +94,15 @@ export default function Navbar() {
           </div>
         )}
         {isLoggedIn && (
-          <div
-            className="navUser"
-            onClick={() => handleNavigation("/alarmservice")}
-          >
+          <div className="navUser">
             <img src={userImg} width="30px" alt="" />
-            <div className="signUp">{userName}님</div> |
+            <div
+              className="signUp"
+              onClick={() => handleNavigation("/alarmservice")}
+            >
+              {userName}님
+            </div>{" "}
+            |
             <div className="signUp" onClick={handleLogout}>
               로그아웃
             </div>

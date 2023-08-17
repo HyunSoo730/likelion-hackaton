@@ -2,51 +2,59 @@ import { useState, useEffect } from "react";
 import JobInfoList from "./JobInfoList";
 import JobInfoListM from "./JobInfoListM";
 import Pagination from "../../components/Pagination/Pagination";
-import { styled, css } from "styled-components";
-import { axiosGetPubSvc } from "../../api/axios/axios.PubSvc";
-import Data from "../../assets/data/Data1";
+import { styled } from "styled-components";
+import { axiosAllJob } from "../../api/axios/axios.Job";
 
 import { useMediaQuery } from "react-responsive";
 
-function JobInfoContainer({ Data1, subscription }) {
+function JobInfoContainer({ searchResults, subscription }) {
   const [JobInfoData, setJobInfoData] = useState([]);
-  const [totalPage, setTotalPage] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
-  async function getData(page) {
-    try {
-      const result = await axiosGetPubSvc(page);
-      setTotalPage(result.totalPages);
-      setJobInfoData(result.content);
-    } catch (error) {
-      console.error("Error getting data:", error);
-    }
-  }
-
+  const itemsPerPage = 6;
   useEffect(() => {
-    getData(currentPage);
-  }, [currentPage]);
+    if (searchResults.length > 0) {
+      const totalItems = searchResults.length;
+      const totalPages = Math.ceil(totalItems / itemsPerPage);
+      setTotalPage(totalPages);
+      setJobInfoData(searchResults);
+      setCurrentPage(0);
+    } else {
+      async function getData() {
+        try {
+          const result = await axiosAllJob();
+          const totalItems = result.length;
+          const totalPages = Math.ceil(totalItems / itemsPerPage);
+          setTotalPage(totalPages);
+          setJobInfoData(result);
+        } catch (error) {
+          console.error("Error getting data:", error);
+        }
+      }
+      getData();
+    }
+  }, [searchResults]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
 
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const currentPageData = JobInfoData.slice(startIndex, endIndex);
+
   return (
     <JobInfoListStyled subscription={subscription}>
       {isMobile ? (
-                <div>
-                {/* Mobile-specific content */}
-                  <JobInfoListM JobInfoLists={Data1 ? Data1 : Data} />
-                </div>
-            ) : (
-                <div>
-                {/* Desktop-specific content */}
-                  <JobInfoList JobInfoLists={Data1 ? Data1 : Data} />
-                </div>
-            )}
-      
+        <JobInfoListM JobInfoLists={currentPageData} />
+      ) : (
+        <JobInfoList JobInfoLists={currentPageData} />
+      )}
+
       <PaginationStyled>
         <Pagination
           currentPage={currentPage}
@@ -60,7 +68,7 @@ function JobInfoContainer({ Data1, subscription }) {
 
 const JobInfoListStyled = styled.div`
   width: 100%;
-  height: 100%;
+  height: 700px;
   position: relative;
   justify-content: center;
   background-color: white;
