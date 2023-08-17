@@ -83,6 +83,7 @@ public class KakaoController {
     @PostMapping("/kakao/send_message/want")
     public String returnJobSearchMessage(@RequestBody KakaoMessageFeedRequest request, @RequestParam String accessToken) {
         String res = kakaoMessageService.sendFeedMessage(accessToken, request);
+        log.info("res = {}", res);
         return res;
     }
 

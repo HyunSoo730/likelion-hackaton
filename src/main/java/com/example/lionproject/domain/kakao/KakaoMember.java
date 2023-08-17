@@ -5,12 +5,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class KakaoMember {
 
@@ -28,11 +30,10 @@ public class KakaoMember {
     @CreationTimestamp
     private Timestamp createTime;
 
-    public KakaoMember(Long kakaoId, String kakaoEmail, String kakaoProfileImg, String kakaoNickname, String accessToken) {
+    public KakaoMember(Long kakaoId, String kakaoEmail, String kakaoProfileImg, String kakaoNickname) {
         this.kakaoId = kakaoId;
         this.kakaoEmail = kakaoEmail;
         this.kakaoProfileImg = kakaoProfileImg;
         this.kakaoNickname = kakaoNickname;
-        this.accessToken = accessToken;
     }
 }

@@ -181,10 +181,14 @@ public class KakaoLoginService {
     public String save(String accessToken) {
         KakaoProfile profile = findProfile(accessToken);
 
-        KakaoMember user = repository.findByKakaoEmail(profile.getKakao_account().getEmail());
+//        KakaoMember user = repository.findByKakaoEmail(profile.getKakao_account().getEmail());
+        KakaoMember user = repository.findFirstByKakaoId(profile.getId());
+        //        log.info("profile id = {}", profile.id);
 
         if (user == null) {  //DB에 없는 경우
-            user = new KakaoMember(profile.getId(), profile.getKakao_account().getEmail(), profile.getKakao_account().getProfile().getProfile_image_url(), profile.getKakao_account().getProfile().getNickname(), accessToken);
+            user = new KakaoMember(profile.getId(), profile.getKakao_account().getEmail(), profile.getKakao_account().getProfile().getProfile_image_url(), profile.getKakao_account().getProfile().getNickname());
+            user.setAccessToken(accessToken);
+
             repository.save(user);
         }
 
