@@ -14,6 +14,7 @@ const Job = () => {
   const [activeTab, setActiveTab] = useState("JobInfoContainer");
   const [subscription, setSubscription] = useState(true);
   const [interstResults, setInterstResults] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState([]);
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
@@ -62,10 +63,12 @@ const Job = () => {
             </TabButtonM>
           </JobIndexM>
           {activeTab === "JobInfoContainer" ? (
-            <JobInfoContainer
-              searchResults={interstResults}
-              subscription="true"
-            />
+            <>
+              <JobInfoContainer
+                searchResults={interstResults}
+                subscription="true"
+              />
+            </>
           ) : (
             <JobInfo />
           )}
@@ -90,10 +93,19 @@ const Job = () => {
           </JobIndex>
           {activeTab === "JobInfoContainer" ? (
             interstResults.length > 0 ? (
-              <JobInfoContainer
-                searchResults={interstResults}
-                subscription="true"
-              />
+              <>
+                <InterestAreaStyled>
+                  {selectedFilters.map((filter, index) => (
+                    <SelectedFilterItem key={index}>
+                      {filter}
+                    </SelectedFilterItem>
+                  ))}
+                </InterestAreaStyled>
+                <JobInfoContainer
+                  searchResults={interstResults}
+                  subscription="true"
+                />
+              </>
             ) : (
               <NoInterest />
             )
@@ -158,6 +170,21 @@ const TabButtonM = styled.button.attrs((props) => ({
   color: white;
   box-shadow: 0px 4px 5px 0px #0000001a;
   transition: background-color 0.3s, color 0.3s;
+`;
+
+const InterestAreaStyled = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+`;
+
+const SelectedFilterItem = styled.div`
+  background-color: #ffb287;
+  color: white;
+  border-radius: 20px;
+  padding: 4px 10px;
+  margin: 0 5px 5px 0;
 `;
 
 export default Job;

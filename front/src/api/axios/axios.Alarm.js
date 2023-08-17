@@ -30,3 +30,14 @@ export const axiosDeleteAlarm = async (userId) => {
     throw error;
   }
 };
+
+const axiosMessageUrl = "/api/interest_area/kakao";
+
+export const axiosMessage = async (kakaoM) => {
+  try {
+    const response = await axios.post(axiosMessageUrl, kakaoM);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

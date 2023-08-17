@@ -1,13 +1,22 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { getRemainingDays2 } from "../../utils/Utils";
+import generateMessage from "../KakaoMessage/messageform";
 
 const JobInfoTableM = ({ data }) => {
   if (typeof data !== "object" || data === null) {
     return null;
   }
   const SvcClick = () => {
-    //window.open(data.homepage);
+    const contactInfo = `${data.clerk} / ${data.clerkContt}`;
+    const message = generateMessage(
+      data.wantedTitle,
+      data.emplymShpNm,
+      data.acptMthdCd,
+      contactInfo
+    );
+
+    const jsonString = JSON.stringify(message);
   };
 
   return (
