@@ -6,6 +6,7 @@ import Navbar from "../components/navbar/Navbar";
 import NavbarM from "../components/navbar/NavbarM";
 import Footer from "../components/footer/Footer";
 import { axiosInterstJob } from "../api/axios/axios.Job";
+import NoInterest from "../components/SearchFilter/Nointerest";
 
 import { useMediaQuery } from "react-responsive";
 
@@ -29,7 +30,7 @@ const Job = () => {
     const userId = localStorage.getItem("user_id");
 
     if (userId) {
-      axiosInterstJob(3)
+      axiosInterstJob(userId)
         .then((jobData) => {
           setInterstResults(jobData);
         })
@@ -87,10 +88,14 @@ const Job = () => {
             </TabButton>
           </JobIndex>
           {activeTab === "JobInfoContainer" ? (
-            <JobInfoContainer
-              searchResults={interstResults}
-              subscription="true"
-            />
+            interstResults.length > 0 ? (
+              <JobInfoContainer
+                searchResults={interstResults}
+                subscription="true"
+              />
+            ) : (
+              <NoInterest />
+            )
           ) : (
             <JobInfo />
           )}
