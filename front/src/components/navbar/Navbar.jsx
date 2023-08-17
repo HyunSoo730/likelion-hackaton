@@ -17,7 +17,7 @@ export default function Navbar() {
   const accessToken = localStorage.getItem("access_token");
   const userName = localStorage.getItem("userName");
 
-  const isLoggedIn = true//accessToken && userName;
+  const isLoggedIn = accessToken && userName; 
 
   const handleLogout = async () => {
     try {
