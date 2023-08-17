@@ -17,7 +17,7 @@ export default function AlarmContent() {
   const [isOpenTerminate, setIsOpenTerminate] = useState(false);
 
   const [userNoti, setUserNoti] = useState(
-    localStorage.getItem("userNoti") === "true" ? true : true
+    localStorage.getItem("userNoti") === "true" ? true : false
   );
   const userName = localStorage.getItem("userName");
   const accessToken = localStorage.getItem("access_token");
