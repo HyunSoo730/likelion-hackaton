@@ -31,9 +31,9 @@ export const emplymShpNm = [
   "채용공고형태",
   "정규직",
   "계약직",
-  "시간제일자리",
+  "시간제 일자리",
   "일당직",
   "기타",
 ];
 
-export const deadline = ["공고상태", "진행중", "마감"];
+export const deadline = ["공고상태", "접수중", "마감"];
