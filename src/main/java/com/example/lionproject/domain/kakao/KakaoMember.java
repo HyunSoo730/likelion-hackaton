@@ -2,6 +2,7 @@ package com.example.lionproject.domain.kakao;
 
 import com.example.lionproject.domain.Role;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,6 +20,7 @@ public class KakaoMember {
     private String kakaoEmail;
     private String kakaoProfileImg;
     private String kakaoNickname;
+    private String accessToken;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -26,10 +28,11 @@ public class KakaoMember {
     @CreationTimestamp
     private Timestamp createTime;
 
-    public KakaoMember(Long kakaoId, String kakaoEmail, String kakaoProfileImg, String kakaoNickname) {
+    public KakaoMember(Long kakaoId, String kakaoEmail, String kakaoProfileImg, String kakaoNickname, String accessToken) {
         this.kakaoId = kakaoId;
         this.kakaoEmail = kakaoEmail;
         this.kakaoProfileImg = kakaoProfileImg;
         this.kakaoNickname = kakaoNickname;
+        this.accessToken = accessToken;
     }
 }

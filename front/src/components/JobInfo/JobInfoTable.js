@@ -30,7 +30,7 @@ const JobInfoTable = ({ data }) => {
     return null;
   }
   const SvcClick = () => {
-    window.open(data.homepage);
+    //window.open(data.homepage);
   };
 
 
@@ -64,12 +64,10 @@ const JobInfoTable = ({ data }) => {
           {decodeHTMLEntities(data.recrtTitle)}
         </JobinfoeNameStyled>
         <JobinfoItem>
-          <div>{data.emplymShpNm}</div>
-          <PlaceStyled>{data.workPlcNm}</PlaceStyled>
-          <div>접수방법 : {data.acptMthd}</div>
-          <div>
-            접수기간 : {formatDate(data.frDd)} ~ {formatDate(data.toDd)}
-          </div>
+          <PlaceStyled>{data.area}</PlaceStyled>
+          <div>접수방법 : {data.acptMthdCd} 접수</div>
+          <div>모집인원 : {data.clltPrnnum}명</div>
+          <div>{data.plbizNm}</div>
         </JobinfoItem>
       </JobinfoStyled>
     </JobinfoTableStyled>
@@ -241,6 +239,7 @@ const JobinfoeNameStyled = styled.div`
   overflow: hidden;
   white-space: normal;
   margin-bottom: 4px;
+  color: #696969;
 `;
 
 const PlaceStyled = styled.span`

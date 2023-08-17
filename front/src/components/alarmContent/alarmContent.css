@@ -1,33 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Gothic&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Gothic&display=swap");
 
 .alarmContent {
-    width: 100%;
-
-    background-color: white;
-    height:540px;
-    font-family: 'IBM Plex Sans KR', sans-serif;
-
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+  width: 100%;
+  background-color: white;
+  height: 630px;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .alarmMenu {
-    align-items: left;
-    background-color: #FFEBDF;
-    padding: 10px 40px 10px 40px;
-    font-size:24px;
-    font-weight: bold;
-    border-radius: 7px;
-    margin:20px 0 20px 0;
-    box-shadow: rgba(121, 121, 124, 0.2) 1px 2px 3px 1px;
+  background-color: #ffebdf;
+  padding: 10px 40px 10px 40px;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 7px;
+  margin: 30px 20px 30px 0;
+  box-shadow: rgba(121, 121, 124, 0.2) 1px 2px 3px 1px;
 }
 
-/* .alarmLct {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-} */
+.alarmMenu1 {
+  background-color: #ffebdf;
+  padding: 10px 40px 10px 40px;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 7px;
+  margin: 40px 20px 30px 0;
+  box-shadow: rgba(121, 121, 124, 0.2) 1px 2px 3px 1px;
+}
+
+.alarmLct {
+  width: 80%;
+  min-width: 1000px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 
 /* .alarmBox {
     background-color: red;
@@ -35,43 +44,49 @@
 } */
 
 .alarmContentTitle {
-    font-weight: bold;
-    font-size: 20px;
-    margin:10px;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 30px 10px 20px 20px;
 }
 
 .alarmDtl1 {
-    padding:20px 40px 20px 40px;
-    box-shadow: rgba(163, 163, 167, 0.2) 0px 3px 10px 2px;
-    border-radius: 10px;
-    font-size: 20px;
-    height: 150px;
-    width: 980px;
-    margin-bottom: 10px;
-    align-items: center;
+  padding: 20px 40px 20px 40px;
+  box-shadow: rgba(163, 163, 167, 0.2) 0px 3px 10px 2px;
+  border-radius: 10px;
+  font-size: 20px;
+  height: 160px;
+  width: 100%;
+  margin-bottom: 10px;
+  align-items: center;
 }
 
 .alarmDtl2 {
-    padding:20px 40px 20px 40px;
-    box-shadow: rgba(163, 163, 167, 0.2) 0px 3px 10px 2px;
-    border-radius: 10px;
-    font-size: 20px;
-    height: 60px;
-    width: 980px;
-    
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  padding: 20px 40px 20px 40px;
+  box-shadow: rgba(163, 163, 167, 0.2) 0px 3px 10px 2px;
+  border-radius: 10px;
+  font-size: 20px;
+  height: 60px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.applyBtn, .saveBtn, .cancelBtn {
-    background-color: #FF8643;
-    border-radius: 5px;
-    color:white;
-    padding:10px 20px 10px 20px;
-    width:120px;
-    font-size: 15px;
-    border: none;
-    font-weight: bold;
-    margin-left:40px;
+.applyBtn,
+.saveBtn,
+.cancelBtn {
+  float: right;
+  background-color: #ff8643;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 20px 10px 20px;
+  width: 120px;
+  font-size: 15px;
+  border: none;
+  font-weight: bold;
+  margin-left: 40px;
+}
+
+.alamBox {
 }

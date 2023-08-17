@@ -1,31 +1,24 @@
 import { styled } from "styled-components";
 
-
-const style = {
-  width:"4000px",
-}
-
-const FilterToggle = ({
-  filterList,
-  selectedFilter,
-  handleAreaToggle,
-}) => {
+const FilterToggle = ({ filterList, selectedFilter, handleAreaToggle }) => {
   return (
     <FilterItemWapped>
       <FilterItem>
         <ScrollableList>
-          {filterList.map((areaName, index) => (
-            <CheckBoxLabel key={index} >
-              <CheckBoxInput
-                type="checkbox"
-                checked={selectedFilter[index]}
-                onChange={() => handleAreaToggle(index)}
-              />
-              <CheckBoxText checked={selectedFilter[index]}>
-                {areaName}
-              </CheckBoxText>
-            </CheckBoxLabel>
-          ))}
+          <CheckBoxRow>
+            {filterList.map((areaName, index) => (
+              <CheckBoxLabel key={index}>
+                <CheckBoxInput
+                  type="checkbox"
+                  checked={selectedFilter[index]}
+                  onChange={() => handleAreaToggle(index)}
+                />
+                <CheckBoxText checked={selectedFilter[index]}>
+                  {areaName}
+                </CheckBoxText>
+              </CheckBoxLabel>
+            ))}
+          </CheckBoxRow>
         </ScrollableList>
       </FilterItem>
     </FilterItemWapped>
@@ -38,24 +31,30 @@ const FilterItemWapped = styled.div`
 `;
 
 const FilterItem = styled.div`
-  width: 960px;
   height: 200px;
   border-radius: 10px;
 `;
 
 const ScrollableList = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   max-height: 120px;
   color: #111111;
   padding: 10px;
+`;
+
+const CheckBoxRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 const CheckBoxLabel = styled.label`
   align-items: center;
   cursor: pointer;
   user-select: none;
-  margin-bottom: 40px;
-  width: 20%;
+  width: 140px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
 `;
 
 const CheckBoxInput = styled.input`
@@ -65,7 +64,6 @@ const CheckBoxInput = styled.input`
   height: 20px;
   border: 1px solid #d9d9d9;
   border-radius: 2px;
-  margin-top: 0px;
   cursor: pointer;
   &:checked {
     background-color: #ff8643;

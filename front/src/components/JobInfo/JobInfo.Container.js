@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import JobInfoList from "./JobInfoList";
 import Pagination from "../../components/Pagination/Pagination";
-import { styled, css } from "styled-components";
+import { styled } from "styled-components";
+import { axiosAllJob } from "../../api/axios/axios.Job";
 import { axiosGetPubSvc } from "../../api/axios/axios.PubSvc";
-import Data from "../../assets/data/Data1";
 
 import { useMediaQuery } from "react-responsive";
 
-function JobInfoContainer({ Data1, subscription }) {
+function JobInfoContainer({ searchResults, subscription }) {
   const [JobInfoData, setJobInfoData] = useState([]);
-  const [totalPage, setTotalPage] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
 
   async function getData(page) {
     try {
@@ -22,18 +22,49 @@ function JobInfoContainer({ Data1, subscription }) {
     }
   }
 
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
+  const itemsPerPage = 6;
   useEffect(() => {
-    getData(currentPage);
-  }, [currentPage]);
+    if (searchResults.length > 0) {
+      const totalItems = searchResults.length;
+      const totalPages = Math.ceil(totalItems / itemsPerPage);
+      setTotalPage(totalPages);
+      setJobInfoData(searchResults);
+      setCurrentPage(0);
+    } else {
+      async function getData() {
+        try {
+          const result = await axiosAllJob();
+          const totalItems = result.length;
+          const totalPages = Math.ceil(totalItems / itemsPerPage);
+          setTotalPage(totalPages);
+          setJobInfoData(result);
+        } catch (error) {
+          console.error("Error getting data:", error);
+        }
+      }
+      getData();
+    }
+  }, [searchResults]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
 
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const currentPageData = JobInfoData.slice(startIndex, endIndex);
+
   return (
     <JobInfoListStyled subscription={subscription}>
-        <JobInfoList JobInfoLists={Data1 ? Data1 : Data} />
-      
+      {isMobile ? (
+        <JobInfoList JobInfoLists={currentPageData} />
+      ) : (
+        <JobInfoList JobInfoLists={currentPageData} />
+      )}
+
       <PaginationStyled>
         <Pagination
           currentPage={currentPage}
@@ -45,9 +76,10 @@ function JobInfoContainer({ Data1, subscription }) {
   );
 }
 
+
 const JobInfoListStyled = styled.div`
   width: 100%;
-  height: 100%;
+  height: 700px;
   position: relative;
   justify-content: center;
   background-color: white;
