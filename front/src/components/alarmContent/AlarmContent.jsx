@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./alarmContent.css";
 import Swal from "sweetalert2";
 import AlarmRegionList from "./AlarmRegionList";
+import {
+  axiosPostAlarm,
+  axiosPostAlarm2,
+  axiosDeleteAlarm,
+} from "../../api/axios/axios.Alarm";
 
 export default function AlarmContent() {
   const [userNoti, setUserNoti] = useState(
@@ -9,6 +14,7 @@ export default function AlarmContent() {
   );
   const userName = localStorage.getItem("userName");
   const accessToken = localStorage.getItem("access_token");
+  const userId = localStorage.getItem("user_id");
 
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
@@ -19,28 +25,30 @@ export default function AlarmContent() {
     cancelButtonColor: "#8C8C8C",
   });
 
-  const handleButtonSave = () => {
-    swalWithBootstrapButtons
-      .fire({
-        title: "변경하시겠습니까?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonText: "저장",
-        cancelButtonText: "취소",
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          swalWithBootstrapButtons.fire(
-            "관심 지역 변경 완료!",
-            "관심 지역이 변경되었습니다.",
-            "success"
-          );
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-        }
-      });
+  const handleButtonSave = async () => {
+    if (isApplyButtonDisabled) {
+      return;
+    }
+
+    const userData = {
+      userId: parseInt(userId),
+      area: selectedFilters.area,
+    };
+
+    try {
+      const response = await axiosPostAlarm2(userData);
+      if (response == "등록완료") {
+        swalWithBootstrapButtons.fire(
+          "관심 지역 변경 완료!",
+          "관심 지역이 변경되었습니다.",
+          "success"
+        );
+      } else {
+        console.error("관심 지역 변경 실패: 응답 상태 코드", response);
+      }
+    } catch (error) {
+      console.error("관심 지역 변경 실패:", error);
+    }
   };
 
   const handleButtonTerminate = () => {
@@ -52,15 +60,27 @@ export default function AlarmContent() {
         confirmButtonText: "해지",
         cancelButtonText: "취소",
       })
-      .then((result) => {
+      .then(async (result) => {
         if (result.isConfirmed) {
-          setUserNoti(false);
-          localStorage.removeItem("selectedFilters");
-          swalWithBootstrapButtons.fire(
-            "알림 서비스 해지",
-            "알림 서비스가 해지되었습니다.",
-            "success"
-          );
+          const userData = {
+            userId: parseInt(userId),
+          };
+          try {
+            const response = await axiosDeleteAlarm(userData);
+            if (response == "삭제 완료") {
+              setUserNoti(false);
+              localStorage.removeItem("selectedFilters");
+              swalWithBootstrapButtons.fire(
+                "알림 서비스 해지",
+                "알림 서비스가 해지되었습니다.",
+                "success"
+              );
+            } else {
+              console.error("알림 서비스 해지 실패: 응답 상태 코드", response);
+            }
+          } catch (error) {
+            console.error("알림 서비스 해지 실패:", error);
+          }
         } else if (
           /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
@@ -82,19 +102,34 @@ export default function AlarmContent() {
     localStorage.setItem("selectedFilters", JSON.stringify(newFilterData));
   };
 
-  const handleButtonApply = ({ userName }) => {
+  const handleButtonApply = async () => {
     if (isApplyButtonDisabled) {
       return;
     }
-    setUserNoti(true);
-    Swal.fire({
-      icon: "success",
-      iconColor: "#FF8643",
-      title: `${userName}님의</br>구직 정보 알림 신청이</br>완료 되었습니다!`,
-      text: "카카오톡으로 알림이 전송됩니다.",
-      confirmButtonText: "확인",
-      confirmButtonColor: "#FF8643",
-    });
+
+    const userData = {
+      userId: parseInt(userId),
+      area: selectedFilters.area,
+    };
+
+    try {
+      const response = await axiosPostAlarm(userData);
+      if (response == "등록완료") {
+        setUserNoti(true);
+        Swal.fire({
+          icon: "success",
+          iconColor: "#FF8643",
+          title: `${userName}님의<br/> 구직 정보 알림 신청이 <br/>완료되었습니다!`,
+          text: "카카오톡으로 알림이 전송됩니다.",
+          confirmButtonText: "확인",
+          confirmButtonColor: "#FF8643",
+        });
+      } else {
+        console.error("알림 서비스 신청 실패: 응답 상태 코드", response);
+      }
+    } catch (error) {
+      console.error("알림 서비스 신청 실패:", error);
+    }
   };
 
   useEffect(() => {

@@ -11,7 +11,7 @@ import NoInterest from "../components/SearchFilter/Nointerest";
 import { useMediaQuery } from "react-responsive";
 
 const Job = () => {
-  const [activeTab, setActiveTab] = useState("JobInfo");
+  const [activeTab, setActiveTab] = useState("JobInfoContainer");
   const [subscription, setSubscription] = useState(true);
   const [interstResults, setInterstResults] = useState([]);
 
@@ -28,8 +28,9 @@ const Job = () => {
 
   useEffect(() => {
     const userId = localStorage.getItem("user_id");
+    const selectedFilters = localStorage.getItem("selectedFilters");
 
-    if (userId) {
+    if (selectedFilters) {
       axiosInterstJob(userId)
         .then((jobData) => {
           setInterstResults(jobData);
@@ -75,16 +76,16 @@ const Job = () => {
           <Navbar />
           <JobIndex>
             <TabButton
-              onClick={() => handleTabClick("JobInfo")}
-              data-active={activeTab === "JobInfo"}
-            >
-              통합 구직 정보
-            </TabButton>
-            <TabButton
               onClick={() => handleTabClick("JobInfoContainer")}
               data-active={activeTab === "JobInfoContainer"}
             >
               관심 지역 구직 정보
+            </TabButton>
+            <TabButton
+              onClick={() => handleTabClick("JobInfo")}
+              data-active={activeTab === "JobInfo"}
+            >
+              통합 구직 정보
             </TabButton>
           </JobIndex>
           {activeTab === "JobInfoContainer" ? (

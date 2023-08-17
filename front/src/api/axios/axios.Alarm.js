@@ -1,19 +1,30 @@
 import axios from "axios";
 
-const axiosGetAlarmUrl = "/api/user/notifications";
+const axiosAlarmUrl = "/api/interest_area/update";
 
-export const axiosGetAlarm = async (userData) => {
+export const axiosPostAlarm = async (userData) => {
   try {
-    const response = await axios.post(axiosGetAlarmUrl, userData);
+    const response = await axios.post(axiosAlarmUrl, userData);
     return response.data;
   } catch (error) {
     throw error;
   }
 };
 
-export const axiosPatchAlarm = async (userData) => {
+export const axiosPostAlarm2 = async (userData) => {
   try {
-    const response = await axios.patch(axiosGetAlarmUrl, userData);
+    const response = await axios.post(axiosAlarmUrl, userData);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const axiosDeleteAlarmUrl = "/api/interest_area/delete";
+
+export const axiosDeleteAlarm = async (userId) => {
+  try {
+    const response = await axios.post(axiosDeleteAlarmUrl, userId);
     return response.data;
   } catch (error) {
     throw error;
