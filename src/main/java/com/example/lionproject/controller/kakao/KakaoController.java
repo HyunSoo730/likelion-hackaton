@@ -77,10 +77,19 @@ public class KakaoController {
     }
 
     /**
+     * 하트 클릭 시 해당 구인 구직 정보 카카오톡 메시지로 보내기
+     */
+    @PostMapping("/kakao/send")
+    public String returnJobSearchMessage() {
+        return null;
+    }
+
+    /**
      * 프론트로부터 액세스 토큰 받아와서 로그아웃 진행.
      */
     @GetMapping("/auth/kakao/logout")
     public String logout(@RequestParam("accessToken") String access_token) {
+
         String res = kakaoLoginService.logoutKakaoUser(access_token);
         return res;
     }

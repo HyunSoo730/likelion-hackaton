@@ -8,23 +8,25 @@ import com.example.lionproject.repository.kakao.KakaoMemberFavRepository;
 import com.example.lionproject.repository.kakao.KakaoRepository;
 import com.example.lionproject.repository.senuri.SenuriServiceDetailRepository;
 import com.example.lionproject.service.kakao.KakaoLoginService;
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.awt.geom.Area;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 @RequestMapping("/api/interest_area")
 public class InterestAreaController {
 
-    private final KakaoLoginService kakaoLoginService;
     private final KakaoMemberFavRepository kakaoMemberFavRepository;
     private final KakaoRepository kakaoRepository;
     private final SenuriServiceDetailRepository senuriServiceDetailRepository;
@@ -45,6 +47,54 @@ public class InterestAreaController {
                 .limit(150)
                 .collect(Collectors.toList());
         return res;
+    }
+
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    private static class Request {
+        Long userId;
+        List<String> area;
+    }
+
+    /**
+     * 관심지역 등록 - 최대 3개지역 (서울시로 한정)
+     */
+    @PostMapping("/update")
+    public String registerArea(@RequestBody Request request) {
+        KakaoMember findMember = kakaoRepository.findByUserId(request.getUserId());
+
+        // 사용자 관심지역 전체 삭제
+        kakaoMemberFavRepository.deleteByKakaoMember(findMember);
+        List<String> area = request.getArea(); //등록할 area
+        List<KakaoMemberFav> res = area.stream().map(areaName -> convertToKakaoMemberFav(findMember, areaName))
+                .collect(Collectors.toList());
+        //사용자 관심지역 추가
+        kakaoMemberFavRepository.saveAll(res);
+
+        // 3개인 사람이라면... 다 삭제 후 다 등록
+        // 그 외에는 userId 있는지 검사 후에 해당 있으면 추가
+
+        return "등록완료";
+    }
+
+    @PostMapping("/delete")
+    public String deleteArea(@RequestBody Request request) {
+        KakaoMember findMember = kakaoRepository.findByUserId(request.userId);
+
+        // 요청한 지역 전체 삭제
+        kakaoMemberFavRepository.deleteByKakaoMember(findMember);
+
+        return "삭제 완료";
+    }
+
+    /**
+     * 데이터 변환
+     */
+    private KakaoMemberFav convertToKakaoMemberFav(KakaoMember member, String areaName) {
+        KakaoMemberFav fav = KakaoMemberFav.of(member, areaName);
+        return fav;
     }
 
     private SenuriServiceDetailCheckResponse convertToResponse(SenuriServiceDetailCheck detailCheck) {
