@@ -11,5 +11,5 @@ public interface SenuriServiceDetailRepositoryCustom {
 
     List<SenuriServiceDetailCheck> findFiltered(List<String> area, List<String> jobPosition, List<String> status, String wantedTitle);
 
-
+    List<SenuriServiceDetailCheck> findFilteredInterestArea(List<String> area);
 }
