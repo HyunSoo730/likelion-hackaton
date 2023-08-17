@@ -13,5 +13,6 @@ public interface SenuriServiceDetailRepository extends JpaRepository<SenuriServi
     @Query("SELECT DISTINCT s FROM SenuriServiceDetailCheck s WHERE s.toAcptDd >= :today AND s.plDetAddr LIKE %:city% GROUP BY s.jobId ORDER BY s.toAcptDd ASC")
     List<SenuriServiceDetailCheck> findAfterTodayAndCityOrderByToAcptDdAsc(@Param("today") String today, @Param("city") String city);
 
-
+    @Query("SELECT s FROM SenuriServiceDetailCheck s WHERE s.createDy >= :today AND s.plDetAddr LIKE %:city% GROUP BY s.jobId ORDER BY s.toAcptDd ASC")
+    List<SenuriServiceDetailCheck> findCreateDayAfterTodayAndCityOrderByToAcptDdAsc(String today, String city);
 }

@@ -63,4 +63,25 @@ public class KakaoMessageFeedRequest {
         private String item;
         private String item_op;
     }
+
+    // 내부 클래스 값 저장
+    public void updateContent(String title, String description, String image_url, int image_width, int image_height,
+                              String web_url, String mobile_web_url, String android_execution_params, String ios_execution_params) {
+        this.content = new Content(title, description, image_url, image_width, image_height,
+                new Link(web_url, mobile_web_url, android_execution_params, ios_execution_params));
+    }
+
+    public void updateItemContent(String senuriTitle, String senuriTitleValue,
+                            String senuriType, String senuriTypeValue,
+                            String senuriMethod, String senuriMethodValue,
+                            String senuriContact, String senuriContactValue) {
+
+        Item itemA = new Item(senuriTitle, senuriTitleValue);
+        Item itemB = new Item(senuriType, senuriTypeValue);
+        Item itemC = new Item(senuriMethod, senuriMethodValue);
+        Item itemD = new Item(senuriContact, senuriContactValue);
+
+        this.item_content = new ItemContent(List.of(itemA, itemB, itemC, itemD));
+    }
+
 }
