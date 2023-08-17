@@ -13,6 +13,7 @@ public class KakaoMessageFeedRequest {
     private String object_type;
     private Content content;
     private List<Button> buttons;
+    private ItemContent item_content;  // 추가된 부분
 
     // 생성자, getter 및 setter 메서드는 생략
 
@@ -48,4 +49,18 @@ public class KakaoMessageFeedRequest {
         private Link link;
     }
 
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ItemContent {
+        private List<Item> items;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Item {
+        private String item;
+        private String item_op;
+    }
 }
