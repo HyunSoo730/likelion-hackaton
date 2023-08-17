@@ -1,7 +1,6 @@
 package com.example.lionproject.Batch;
 
 import com.example.lionproject.OpenApi.CallResponse.Raw.SenuriServiceDetailRawResponse;
-import com.example.lionproject.domain.entity.SenuriServiceDetail;
 import com.example.lionproject.domain.entity.SenuriServiceDetailCheck;
 import com.example.lionproject.domain.entity.SenuriServiceList;
 import com.example.lionproject.repository.senuri.SenuriServiceDetailRepository;
@@ -18,8 +17,6 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.*;
-import org.springframework.batch.item.data.RepositoryItemReader;
-import org.springframework.batch.item.data.builder.RepositoryItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -35,7 +32,8 @@ public class SenuriWorkSearchDetailJobConfig {
     private final JobRepository jobRepository;
     private final PlatformTransactionManager platformTransactionManager;
     private final WebClientService webClientService;
-    private final SenuriServiceDetailRepository repository;
+    private final SenuriServiceDetailRepository detailRepository;
+    private final SenuriServiceListRepository listRepository;
 
     /**
      * 레포지토리를 통해 데이터 읽어오기 위해
@@ -102,6 +100,10 @@ public class SenuriWorkSearchDetailJobConfig {
             public SenuriServiceDetailCheck process(SenuriServiceDetailRawResponse item) throws Exception {
                 //여기서 변환시켜야함.
                 SenuriServiceDetailCheck senuriServiceDetailCheck = item.fromDto();
+                SenuriServiceList temp = listRepository.findFirstByJobId(senuriServiceDetailCheck.getJobId());
+                senuriServiceDetailCheck.setEmplymShpNm(temp.getEmplymShpNm());
+                senuriServiceDetailCheck.setDeadline(temp.getDeadline());
+
                 return senuriServiceDetailCheck;
             }
         };
@@ -110,11 +112,12 @@ public class SenuriWorkSearchDetailJobConfig {
     @Bean
     @StepScope
     public ItemWriter<SenuriServiceDetailCheck> senuriServiceDetailCheckItemWriter() {
-        return items -> {
-            for (SenuriServiceDetailCheck item : items) {
-                // 여기서 item을 데이터베이스에 저장하는 로직을 구현
-                repository.saveAndFlush(item);
-            }
-        };
+//        return items -> {
+//            for (SenuriServiceDetailCheck item : items) {
+//                // 여기서 item을 데이터베이스에 저장하는 로직을 구현
+//                detailRepository.saveAndFlush(item);
+//            }
+//        };
+        return items -> items.forEach(item -> detailRepository.saveAndFlush(item));
     }
 }

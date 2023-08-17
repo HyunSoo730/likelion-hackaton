@@ -8,8 +8,8 @@ import jakarta.xml.bind.annotation.XmlElement;
 import lombok.*;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class SenuriServiceDetailCheck {
@@ -39,8 +39,12 @@ public class SenuriServiceDetailCheck {
     private String wantedAuthNo;//구인인증번호(채용공고ID값)
     private String wantedTitle;//채용제목
     private String emplymShpNm;  //채용공고 형태명 ex 기간제 일자리.
+    private String deadline;  //마감 / 접수중
 
-    public SenuriServiceDetailCheck(String acptMthdCd, String age, String clerk, String clerkContt, String clltPrnnum, String createDy, String etcItm, String frAcptDd, String homepage, String jobId, String lnkStmId, String organYn, String plDetAddr, String plbizNm, String repr, String stmId, String toAcptDd, String updDy, String wantedAuthNo, String wantedTitle) {
+    public SenuriServiceDetailCheck(String acptMthdCd, String age, String clerk, String clerkContt, String clltPrnnum, String createDy, String etcItm, String frAcptDd, String homepage, String jobId, String lnkStmId,
+                                    String organYn, String plDetAddr, String plbizNm, String repr, String stmId, String toAcptDd,
+                                    String updDy, String wantedAuthNo, String wantedTitle) {
+
         this.acptMthdCd = acptMthdCd.equals("CM0801") ? "온라인" : acptMthdCd.equals("CM0802") ? "이메일" : acptMthdCd.equals("CM0803") ? "팩스" : acptMthdCd.equals("CM0804") ? "방문" : acptMthdCd;
         this.age = age;
         this.clerk = clerk;

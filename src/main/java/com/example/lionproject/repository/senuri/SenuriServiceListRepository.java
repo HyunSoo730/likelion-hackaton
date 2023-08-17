@@ -14,4 +14,8 @@ public interface SenuriServiceListRepository extends JpaRepository<SenuriService
 
     @Query("SELECT s.jobId FROM SenuriServiceList s")
     List<String> findAllJobId();
+
+
+    SenuriServiceList findFirstByJobId(String jobId);
+
 }
