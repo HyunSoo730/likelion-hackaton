@@ -10,7 +10,7 @@ const NoResults = () => {
 
 const NoResultsStyled = styled.div`
   width: 100%;
-  height: 400px;
+  height: 60vh;
   position: relative;
   display: flex;
   justify-content: center;

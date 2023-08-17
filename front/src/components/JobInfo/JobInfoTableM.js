@@ -6,7 +6,7 @@ import {
   formatDate,
 } from "../../utils/Utils";
 
-const JobInfoTable = ({ data }) => {
+const JobInfoTableM = ({ data }) => {
   if (typeof data !== "object" || data === null) {
     return null;
   }
@@ -15,50 +15,50 @@ const JobInfoTable = ({ data }) => {
   };
 
   return (
-    <JobinfoTableStyled onClick={SvcClick}>
-      <TopStyled>
-        <SvcStatStyled status={data.deadline}>{data.deadline}</SvcStatStyled>
-        <DdayElem>D-{getRemainingDays2(data.toDd)}</DdayElem>
-      </TopStyled>
-      <JobinfoStyled>
-        <JobinfoeNameStyled>
+    <JobinfoTableStyledM onClick={SvcClick}>
+      <TopStyledM>
+        <SvcStatStyledM status={data.deadline}>{data.deadline}</SvcStatStyledM>
+        <DdayElemM>D-{getRemainingDays2(data.toDd)}</DdayElemM>
+      </TopStyledM>
+      <JobinfoStyledM>
+        <JobinfoeNameStyledM>
           {decodeHTMLEntities(data.recrtTitle)}
-        </JobinfoeNameStyled>
-        <JobinfoItem>
+        </JobinfoeNameStyledM>
+        <JobinfoItemM>
           <div>{data.emplymShpNm}</div>
-          <PlaceStyled>{data.workPlcNm}</PlaceStyled>
+          <PlaceStyledM>{data.workPlcNm}</PlaceStyledM>
           <div>접수방법 : {data.acptMthd}</div>
           <div>
             접수기간 : {formatDate(data.frDd)} ~ {formatDate(data.toDd)}
           </div>
-        </JobinfoItem>
-      </JobinfoStyled>
-    </JobinfoTableStyled>
+        </JobinfoItemM>
+      </JobinfoStyledM>
+    </JobinfoTableStyledM>
   );
 };
 
-const JobinfoTableStyled = styled.div`
+const JobinfoTableStyledM = styled.div`
   width: 100%;
-  max-width: 380px;
-  height: 286px;
-  min-width: 380px;
-  border-radius: 20px;
+  max-width: 350px;
+  height: 240px;
+  min-width: 350px;
+  border-radius: 10px;
   background-color: white;
   box-shadow: 4px 4px 20px 0px #0000001a;
   overflow: hidden;
   margin: 10px 10px;
 `;
 
-const TopStyled = styled.div`
+const TopStyledM = styled.div`
   display: flex;
   border-bottom: 1px solid #d3d3d3;
-  padding: 16px 24px;
+  padding: 10px 16px;
 `;
 
-const SvcStatStyled = styled.div.attrs((props) => ({
+const SvcStatStyledM = styled.div.attrs((props) => ({
   status: props.status,
 }))`
-  width: 88px;
+  width: 60px;
   height: 32px;
   border-radius: 4px;
   text-align: center;
@@ -88,14 +88,14 @@ const SvcStatStyled = styled.div.attrs((props) => ({
     `}
 `;
 
-const DdayElem = styled.div`
-  width: 72px;
+const DdayElemM = styled.div`
+  width: 60px;
   height: 32px;
   background-color: #ffb287;
   border-radius: 4px;
   top: 0;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -103,20 +103,20 @@ const DdayElem = styled.div`
   margin-left: 16px;
 `;
 
-const JobinfoStyled = styled.div`
+const JobinfoStyledM = styled.div`
   padding: 16px 24px;
 `;
 
-const JobinfoItem = styled.div`
+const JobinfoItemM = styled.div`
   display: flex;
   flex-direction: column;
   color: #696969;
-  line-height: 35px;
-  font-size: 20px;
+  line-height: 27px;
+  font-size: 16px;
 `;
 
-const JobinfoeNameStyled = styled.div`
-  font-size: 24px;
+const JobinfoeNameStyledM = styled.div`
+  font-size: 18px;
   font-weight: bold;
   line-height: 1.2;
   min-height: 2.4em;
@@ -126,7 +126,7 @@ const JobinfoeNameStyled = styled.div`
   margin-bottom: 4px;
 `;
 
-const PlaceStyled = styled.span`
+const PlaceStyledM = styled.span`
   display: inline-block;
   max-width: 25ch;
   overflow: hidden;
@@ -134,4 +134,4 @@ const PlaceStyled = styled.span`
   text-overflow: ellipsis;
 `;
 
-export default JobInfoTable;
+export default JobInfoTableM;

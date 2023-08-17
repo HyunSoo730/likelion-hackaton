@@ -33,7 +33,6 @@ const EducationListsStyled = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
 `;
 
 const Row = styled.div`

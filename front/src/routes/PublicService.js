@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 import PublicServiceContainer from "../components/PublicService/PublicService.container";
 import SearchImg from "../assets/images/search.png";
 import ResetImg from "../assets/images/reset.png";
+import Frame from "../assets/images/Frame.png";
 import PubSvcFilterList from "../components/PublicService/PubSvcFilterList";
 import { axiosPubSvcFind } from "../api/axios/axios.PubSvc";
 import NoResults from "../components/SearchFilter/NoResults";
@@ -13,19 +14,22 @@ function PublicService() {
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showNoResult, setShowNoResult] = useState(false);
+  const [filterData, setFilterData] = useState({});
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
   };
 
   const handleSearchClick = async () => {
-    if (searchText.trim().length < 2) {
-      return alert("두 글자 이상의 검색어를 입력해주세요.");
-    }
+    console.log(filterData);
+    console.log(searchText);
+    // if (searchText.trim().length < 2) {
+    //   return alert("두 글자 이상의 검색어를 입력해주세요.");
+    // }
     try {
-      const results = await axiosPubSvcFind(searchText);
-      setSearchResults(results);
+      const results = await axiosPubSvcFind(searchText.trim(), filterData);
       setShowNoResult(results.length === 0);
+      setSearchResults(results);
     } catch (error) {
       console.error("검색 중 오류 발생:", error);
     }
@@ -62,10 +66,13 @@ function PublicService() {
           </SearchBar>
           <ResetBtn onClick={handleResetClick}>
             <img src={ResetImg} alt="reset" />
-            조건 초기화
+            검색 초기화
           </ResetBtn>
         </SearchBarStyled>
-        <PubSvcFilterList />
+        <PubSvcFilterList
+          filterData={filterData}
+          setFilterData={setFilterData}
+        />
       </PublicServiceTop>
       {showNoResult ? (
         <NoResults />
@@ -89,6 +96,8 @@ const PublicServiceTop = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url(${Frame});
+  background-size: cover;
 `;
 
 const SearchBarStyled = styled.div`
