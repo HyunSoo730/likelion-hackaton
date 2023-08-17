@@ -89,6 +89,42 @@ public class SenuriServiceDetailRepositoryCustomImpl implements SenuriServiceDet
         return typedQuery.getResultList();
     }
 
+    @Override
+    public List<SenuriServiceDetailCheck> findFilteredInterestArea(List<String> area) {
+        String query = "SELECT s FROM SenuriServiceDetailCheck s where ";
+        List<String> whereClause = new ArrayList<>();
+
+        if (checkParamList(area)) {
+            List<String> likeConditions = area.stream()
+                    .map(areaName -> "s.plDetAddr LIKE :plDetAddr_" + areaName)
+                    .collect(Collectors.toList());
+            // -> 이렇게 해야지만 파라미터 이름을 구별할 수 있음 :plDetAddr 이렇게만 쓰면 하이버네이트는 하나의 파라미터로 인식해서
+            // 아무리 리스트에 4개의 값이 있어도 하나의 파라미터에만 값을 넣게 돼 !! name을 구분해줘야지 제대로 넣을 수 있음 !
+            whereClause.add("(" + String.join(" OR ", likeConditions) + ")");
+        }
+        if (checkParamList(whereClause)) {
+            query += String.join(" and ", whereClause);
+        }
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String formattedToday = today.format(formatter);
+        log.info("formating = {}", formattedToday);
+
+        query += " and s.toAcptDd >= :formattedToday";
+        query += " GROUP BY s.jobId";
+        query += " ORDER BY s.toAcptDd ASC";
+        log.info("query = {} ", query);
+
+        TypedQuery<SenuriServiceDetailCheck> typedQuery
+                = em.createQuery(query, SenuriServiceDetailCheck.class);
+        if (checkParamList(area)) {
+            area.forEach(areaName -> typedQuery.setParameter("plDetAddr_" + areaName, "%" + areaName + "%"));
+        }
+        typedQuery.setParameter("formattedToday", formattedToday);
+
+        return typedQuery.getResultList();
+    }
+
     private <T> boolean checkParamList(List<T> param) {
         return param == null ? false : param.isEmpty() || param.size() == 0 ? false : true;
 //        return param != null && !param.isEmpty();
