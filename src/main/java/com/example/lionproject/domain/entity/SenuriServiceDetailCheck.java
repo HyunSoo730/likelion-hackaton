@@ -1,5 +1,6 @@
 package com.example.lionproject.domain.entity;
 
+import com.example.lionproject.OpenApi.CallResponse.dto.SenuriServiceDetailDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +13,7 @@ import lombok.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@ToString(of = {"jobId"})
 public class SenuriServiceDetailCheck {
 
     @Id
@@ -65,5 +67,11 @@ public class SenuriServiceDetailCheck {
         this.updDy = updDy;
         this.wantedAuthNo = wantedAuthNo;
         this.wantedTitle = wantedTitle;
+    }
+
+    public static SenuriServiceDetailCheck fromDto(SenuriServiceDetailDto dto) {
+        return new SenuriServiceDetailCheck(dto.getAcptMthdCd(), dto.getAge(), dto.getClerk(), dto.getClerkContt(), dto.getClltPrnnum(), dto.getCreateDy(), dto.getEtcItm(),
+                dto.getFrAcptDd(), dto.getHomepage(), dto.getJobId(), dto.getLnkStmId(), dto.getOrganYn(), dto.getPlDetAddr(), dto.getPlbizNm(), dto.getRepr(), dto.getStmId(),
+                dto.getToAcptDd(), dto.getUpdDy(), dto.getWantedAuthNo(), dto.getWantedTitle());
     }
 }
