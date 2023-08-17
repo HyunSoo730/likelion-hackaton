@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import JobInfoList from "./JobInfoList";
-import JobInfoListM from "./JobInfoListM";
 import Pagination from "../../components/Pagination/Pagination";
 import { styled, css } from "styled-components";
 import { axiosGetPubSvc } from "../../api/axios/axios.PubSvc";
@@ -12,8 +11,6 @@ function JobInfoContainer({ Data1, subscription }) {
   const [JobInfoData, setJobInfoData] = useState([]);
   const [totalPage, setTotalPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   async function getData(page) {
     try {
@@ -35,17 +32,7 @@ function JobInfoContainer({ Data1, subscription }) {
 
   return (
     <JobInfoListStyled subscription={subscription}>
-      {isMobile ? (
-                <div>
-                {/* Mobile-specific content */}
-                  <JobInfoListM JobInfoLists={Data1 ? Data1 : Data} />
-                </div>
-            ) : (
-                <div>
-                {/* Desktop-specific content */}
-                  <JobInfoList JobInfoLists={Data1 ? Data1 : Data} />
-                </div>
-            )}
+        <JobInfoList JobInfoLists={Data1 ? Data1 : Data} />
       
       <PaginationStyled>
         <Pagination
@@ -71,8 +58,15 @@ const JobInfoListStyled = styled.div`
 `;
 
 const PaginationStyled = styled.div`
+  @media (max-width: 768px){
+    display: none;
+  }
+  @media (min-width: 769px){
+    display: flex;
+  }
+
   position: absolute;
-  display: flex;
+  
   justify-content: space-between;
   align-items: center;
   left: 50%;

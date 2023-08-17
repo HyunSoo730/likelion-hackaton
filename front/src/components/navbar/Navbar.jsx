@@ -18,7 +18,7 @@ export default function Navbar() {
   const accessToken = localStorage.getItem("access_token");
   const userName = localStorage.getItem("userName");
 
-  const isLoggedIn = accessToken && userName;
+  const isLoggedIn = true//accessToken && userName;
 
   const handleLogout = async () => {
     try {
@@ -44,10 +44,15 @@ export default function Navbar() {
   return (
     <div className="navbar">
       <div className="navbarWrapper">
+      <div className="navTop">
         <div className="navLogo" onClick={() => handleNavigation("/")}>
           <img src={daoLogoImg} width="50px" alt="" />
           <img src={logoImg} width="70px" alt="" />
         </div>
+      </div>
+      <div className={`navBtm ${
+            location.pathname === "/" ? "main" : "else"
+          }`}>
         {isLoggedIn && (
           <div className="indexTab">
             <div
@@ -84,6 +89,7 @@ export default function Navbar() {
             </div>
           </div>
         )}
+      </div>
         {!isLoggedIn && (
           <div className="navUser">
             <div className="signIn" onClick={() => handleNavigation("/signin")}>
