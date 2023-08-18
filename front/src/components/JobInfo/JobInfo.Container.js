@@ -36,17 +36,17 @@ function JobInfoContainer({ Data1, subscription }) {
   return (
     <JobInfoListStyled subscription={subscription}>
       {isMobile ? (
-                <div>
-                {/* Mobile-specific content */}
-                  <JobInfoListM JobInfoLists={Data1 ? Data1 : Data} />
-                </div>
-            ) : (
-                <div>
-                {/* Desktop-specific content */}
-                  <JobInfoList JobInfoLists={Data1 ? Data1 : Data} />
-                </div>
-            )}
-      
+        <div>
+          {/* Mobile-specific content */}
+          <JobInfoListM JobInfoLists={Data1 ? Data1 : Data} />
+        </div>
+      ) : (
+        <div>
+          {/* Desktop-specific content */}
+          <JobInfoList JobInfoLists={Data1 ? Data1 : Data} />
+        </div>
+      )}
+
       <PaginationStyled>
         <Pagination
           currentPage={currentPage}

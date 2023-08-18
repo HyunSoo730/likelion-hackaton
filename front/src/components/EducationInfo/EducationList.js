@@ -28,7 +28,13 @@ const EducationList = ({ EducationLists }) => {
 };
 
 const EducationListsStyled = styled.div`
-  display: flex;
+  @media (max-width: 768px) {
+    display: static;
+    margin-top: 110%;
+  }
+  @media (min-width: 769px) {
+    display: flex;
+  }
   flex-wrap: wrap;
   justify-content: center;
   flex-direction: column;
@@ -36,7 +42,12 @@ const EducationListsStyled = styled.div`
 `;
 
 const Row = styled.div`
-  display: flex;
+  @media (max-width: 768px) {
+    display: static;
+  }
+  @media (min-width: 769px) {
+    display: flex;
+  }
   justify-content: center;
   align-items: center;
   width: 80%;

@@ -36,20 +36,23 @@ const PublicServiceList = ({ publicServiceLists }) => {
 const PublicServiceListsStyled = styled.div`
   @media (max-width: 768px) {
     display: static;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
   }
   @media (min-width: 769px) {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
   }
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Row = styled.div`
-  display: flex;
+  @media (max-width: 768px) {
+    display: static;
+  }
+  @media (min-width: 769px) {
+    display: flex;
+  }
   justify-content: center;
   align-items: center;
   width: 80%;

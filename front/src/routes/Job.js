@@ -12,7 +12,7 @@ import { useMediaQuery } from "react-responsive";
 const Job = () => {
   const [activeTab, setActiveTab] = useState("JobInfoContainer");
   const [subscription, setSubscription] = useState(true);
-  
+
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   const handleTabClick = (tabName) => {
@@ -26,11 +26,10 @@ const Job = () => {
 
   return (
     <JobWrapped>
-
       {isMobile ? (
         <div>
-        {/* Mobile-specific content */}
-          <NavbarM/>
+          {/* Mobile-specific content */}
+          <NavbarM />
           <JobIndexM>
             <TabButtonM
               onClick={() => handleTabClick("JobInfoContainer")}
@@ -53,7 +52,7 @@ const Job = () => {
         </div>
       ) : (
         <div>
-        {/* Desktop-specific content */}
+          {/* Desktop-specific content */}
           <Navbar />
           <JobIndex>
             <TabButton
@@ -77,8 +76,6 @@ const Job = () => {
           <Footer />
         </div>
       )}
-      
-      
     </JobWrapped>
   );
 };
@@ -111,7 +108,6 @@ const TabButton = styled.button.attrs((props) => ({
   transition: background-color 0.3s, color 0.3s;
 `;
 
-
 const JobIndexM = styled.div`
   width: 100%;
   height: 70px;
@@ -136,6 +132,5 @@ const TabButtonM = styled.button.attrs((props) => ({
   box-shadow: 0px 4px 5px 0px #0000001a;
   transition: background-color 0.3s, color 0.3s;
 `;
-
 
 export default Job;

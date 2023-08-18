@@ -50,12 +50,22 @@ const EducationTableStyled = styled.div`
   box-shadow: 4px 4px 20px 0px #0000001a;
   overflow: hidden;
   margin: 10px 10px;
+
+  @media screen and (max-width: 768px) {
+    width: 334px;
+    height: 166px;
+    min-width: 280px;
+  }
 `;
 
 const TopStyled = styled.div`
   display: flex;
   border-bottom: 1px solid #d3d3d3;
   padding: 16px 24px;
+
+  @media screen and (max-width: 768px) {
+    padding: 8px 12px;
+  }
 `;
 
 const SvcStatStyled = styled.div.attrs((props) => ({
@@ -71,6 +81,12 @@ const SvcStatStyled = styled.div.attrs((props) => ({
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media screen and (max-width: 768px) {
+    width: 42px;
+    height: 20px;
+    font-size: 8px;
+  }
 
   ${({ status }) =>
     status === "안내중" &&
@@ -104,10 +120,16 @@ const DdayElem = styled.div`
   align-items: center;
   justify-content: center;
   margin-left: 16px;
+
+  @media screen and (max-width: 768px) {
+    width: 42px;
+    height: 20px;
+    font-size: 10px;
+  }
 `;
 
 const EducationStyled = styled.div`
-  padding: 16px 24px;
+  padding: 8px 12px;
 `;
 
 const EducationItem = styled.div`
@@ -116,6 +138,11 @@ const EducationItem = styled.div`
   color: #696969;
   line-height: 35px;
   font-size: 20px;
+
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+    line-height: 20px;
+  }
 `;
 
 const EducationeNameStyled = styled.div`
@@ -126,6 +153,9 @@ const EducationeNameStyled = styled.div`
   max-height: 2.4em;
   overflow: hidden;
   white-space: normal;
+  @media screen and (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 const PlaceStyled = styled.span`
