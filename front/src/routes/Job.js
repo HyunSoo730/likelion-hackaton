@@ -28,7 +28,7 @@ const Job = () => {
 
   useEffect(() => {
     const userId = localStorage.getItem("user_id");
-    const selectedFilters = localStorage.getItem("selectedFilters");
+    const selectedFilters = localStorage.getItem("selected");
 
     if (selectedFilters) {
       axiosInterstJob(userId)
@@ -43,47 +43,37 @@ const Job = () => {
 
   return (
     <JobWrapped>
-
-        {/* Desktop-specific content */}
-          <Navbar />
-          <JobIndex>
-            <TabButton
-              onClick={() => handleTabClick("JobInfoContainer")}
-              data-active={activeTab === "JobInfoContainer"}
-            >
-              관심 지역 구직 정보
-            </TabButton>
-            <TabButton
-              onClick={() => handleTabClick("JobInfo")}
-              data-active={activeTab === "JobInfo"}
-            >
-              통합 구직 정보
-            </TabButton>
-          </JobIndex>
-          {activeTab === "JobInfoContainer" ? (
-            interstResults.length > 0 ? (
-              <>
-                <InterestAreaStyled>
-                  {selectedFilters.map((filter, index) => (
-                    <SelectedFilterItem key={index}>
-                      {filter}
-                    </SelectedFilterItem>
-                  ))}
-                </InterestAreaStyled>
-                <JobInfoContainer
-                  searchResults={interstResults}
-                  subscription="true"
-                />
-              </>
-            ) : (
-              <NoInterest />
-            )
-          ) : (
-            <JobInfo />
-          )}
-          <Footer />
-      
-      
+      {/* Desktop-specific content */}
+      <Navbar />
+      <JobIndex>
+        <TabButton
+          onClick={() => handleTabClick("JobInfoContainer")}
+          data-active={activeTab === "JobInfoContainer"}
+        >
+          관심 지역 구직 정보
+        </TabButton>
+        <TabButton
+          onClick={() => handleTabClick("JobInfo")}
+          data-active={activeTab === "JobInfo"}
+        >
+          통합 구직 정보
+        </TabButton>
+      </JobIndex>
+      {activeTab === "JobInfoContainer" ? (
+        interstResults.length > 0 ? (
+          <>
+            <JobInfoContainer
+              searchResults={interstResults}
+              subscription="true"
+            />
+          </>
+        ) : (
+          <NoInterest />
+        )
+      ) : (
+        <JobInfo />
+      )}
+      <Footer />
     </JobWrapped>
   );
 };
@@ -111,21 +101,19 @@ const TabButton = styled.button.attrs((props) => ({
   color: white;
   box-shadow: 0px 4px 5px 0px #0000001a;
   transition: background-color 0.3s, color 0.3s;
-  
-  @media (max-width: 768px){
-    font-size: 16px; 
-    font-weight:bold;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    font-weight: bold;
     height: 50px;
     width: 42%;
-
   }
 
-  @media (min-width: 769px){
+  @media (min-width: 769px) {
     font-size: 26px;
-    font-weight:550;
+    font-weight: 550;
     height: 70px;
     width: 30%;
-
   }
 `;
 

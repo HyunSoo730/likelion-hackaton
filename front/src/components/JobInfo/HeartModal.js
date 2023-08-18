@@ -1,11 +1,9 @@
-import Modal from 'react-modal'
+import Modal from "react-modal";
 import styled, { css } from "styled-components";
 import React, { useEffect, useRef } from "react";
 import useOutSideClick from "../hooks/useOutSideClick";
 
-// components/Modal/Modal
-
-function HeartModal({ onClose }) {
+function HeartModal({ onClose, SvcClick }) {
   const modalRef = useRef(null);
   const handleClose = () => {
     onClose?.();
@@ -18,14 +16,21 @@ function HeartModal({ onClose }) {
   }, []);
 
   return (
-      <Overlay>
-        <ModalWrap>
-          <Contents>
-            <div>카카오톡으로 전송되었습니다! </div>
-          </Contents>
-          <Button onClick={handleClose}>확 인</Button>
-        </ModalWrap>
-      </Overlay>
+    <Overlay>
+      <ModalWrap>
+        <Contents>
+          <div>
+            선택한 구직 정보를 카카오톡으로
+            <br />
+            전달 받겠습니까?{" "}
+          </div>
+        </Contents>
+        <ButtonStyle>
+          <Button onClick={SvcClick}>확 인</Button>
+          <Button onClick={handleClose}>취 소</Button>
+        </ButtonStyle>
+      </ModalWrap>
+    </Overlay>
   );
 }
 
@@ -42,40 +47,41 @@ const Overlay = styled.div`
 `;
 
 const ModalWrap = styled.div`
-    @media (max-width: 768px){
-        width: 300px;
-        border:3px solid;
-        border-color: #FFB287;
-        height: 200px;
-    }
-    @media (min-width: 769px){
-        width: 600px;
-        border:5px solid;
-        border-color: #FFB287;
-        height: 290px;
-    }
+  @media (max-width: 768px) {
+    width: 300px;
+    border: 3px solid;
+    border-color: #ffb287;
+    height: 200px;
+  }
+  @media (min-width: 769px) {
+    width: 600px;
+    border: 5px solid;
+    border-color: #ffb287;
+    height: 290px;
+  }
 
-    border-radius: 15px;
-    background-color: #fff;
-    position: absolute;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    flex-direction: column;
+  border-radius: 15px;
+  background-color: #fff;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  flex-direction: column;
 `;
 
 const Contents = styled.div`
   font-weight: 600;
-  @media (max-width: 768px){
+  text-align: center;
+  @media (max-width: 768px) {
     line-height: 27px;
     font-size: 16px;
     margin: 20px;
     margin-bottom: 20px;
   }
-  @media (min-width: 769px){
+  @media (min-width: 769px) {
     line-height: 35px;
     font-size: 20px;
     margin: 40px;
@@ -83,10 +89,10 @@ const Contents = styled.div`
   }
 `;
 const Button = styled.button`
-  display:block;
+  display: block;
   padding: 10px 20px;
   border: none;
-  background-color: #FF8643;
+  background-color: #ff8643;
   border-radius: 10px;
   color: white;
   font-weight: 200;
@@ -96,18 +102,23 @@ const Button = styled.button`
   justify-content: center;
   font-weight: bold;
   &:hover {
-    background-color: #FF6C1B;
+    background-color: #ff6c1b;
   }
-  
-  @media (max-width: 768px){
+
+  @media (max-width: 768px) {
     font-size: 14px;
     width: 40%;
-    margin-bottom:15px;
+    margin-bottom: 15px;
   }
-  @media (min-width: 769px){
+  @media (min-width: 769px) {
     font-size: 19px;
     width: 30%;
-    margin-bottom:20px;
+    margin-bottom: 20px;
   }
+`;
+
+const ButtonStyle = styled.div`
+  width: 80%;
+  display: flex;
 `;
 export default HeartModal;

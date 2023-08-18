@@ -16,15 +16,20 @@ const JobInfoTable = ({ data }) => {
   const onClickButton = () => {
     setIsOpen(true);
   };
-  const onClickHeart = () => {
-    setIsOpenHeart(true);
-  };
 
   if (typeof data !== "object" || data === null) {
     return null;
   }
+
+  const onClickHeart = () => {
+    if (!isOpenHeart) {
+      setIsOpenHeart(true);
+    }
+  };
+
   const SvcClick = () => {
     const contactInfo = `${data.clerk} / ${data.clerkContt}`;
+    const access_token = localStorage.getItem("access_token");
     const message = generateMessage(
       data.wantedTitle,
       data.emplymShpNm,
@@ -35,22 +40,25 @@ const JobInfoTable = ({ data }) => {
     const jsonString = JSON.stringify(message);
     console.log(jsonString);
 
-    axiosMessage(jsonString)
+    axiosMessage(access_token, jsonString)
       .then((response) => {
         console.log("Response:", response);
+        onClickHeart();
       })
       .catch((error) => {
         console.error("Error:", error);
       });
+    setIsOpenHeart(false);
   };
+
   return (
     <JobinfoTableStyled>
       <TopStyled>
         <TopStyledLeft>
           <SvcStatStyled status={data.deadline}>{data.deadline}</SvcStatStyled>
-          <DdayElem>D-{getRemainingDays2(data.toDd)}</DdayElem>
+          <DdayElem>D - {getRemainingDays2(data.toAcptDd)}</DdayElem>
           <Heart onClick={onClickHeart}>
-            <img src={heartOff} alt="" />
+            <img src={heartOn} alt="" />
           </Heart>
           {isOpenHeart && (
             <HeartModal
@@ -58,21 +66,22 @@ const JobInfoTable = ({ data }) => {
               onClose={() => {
                 setIsOpenHeart(false);
               }}
+              SvcClick={SvcClick}
             />
           )}
         </TopStyledLeft>
 
-        <Applicate onClick={onClickButton}>접수하기</Applicate>
         {isOpen && (
           <ApplicateModal
             open={isOpen}
             onClose={() => {
               setIsOpen(false);
             }}
+            data={data}
           />
         )}
       </TopStyled>
-      <JobinfoStyled onClick={SvcClick}>
+      <JobinfoStyled onClick={onClickButton}>
         <JobinfoeNameStyled>{data.wantedTitle}</JobinfoeNameStyled>
         <JobinfoItem>
           <PlaceStyled>{data.area}</PlaceStyled>
@@ -189,10 +198,10 @@ const Heart = styled.div`
   display: flex;
   @media (max-width: 768px) {
     width: 100px;
-    margin-left: 6px;
+    margin-left: 160px;
   }
   @media (min-width: 769px) {
-    margin-left: 9px;
+    margin-left: 165px;
   }
 `;
 

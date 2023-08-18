@@ -17,7 +17,7 @@ export default function Navbar() {
   const accessToken = localStorage.getItem("access_token");
   const userName = localStorage.getItem("userName");
 
-  const isLoggedIn = true//accessToken && userName;
+  const isLoggedIn = accessToken && userName;
 
   const handleLogout = async () => {
     try {
@@ -34,6 +34,7 @@ export default function Navbar() {
         localStorage.removeItem("userName");
         localStorage.removeItem("jwtToken");
         localStorage.removeItem("user_id");
+        sessionStorage.clear();
         navigate("/");
       } else {
         console.error("로그아웃 실패:", response);
@@ -46,52 +47,52 @@ export default function Navbar() {
   return (
     <div className="navbar">
       <div className="navbarWrapper">
-      <div className="navTop">
-        <div className="navLogo" onClick={() => handleNavigation("/")}>
-          <img src={daoLogoImg} width="50px" alt="" />
-          <img src={logoImg} width="70px" alt="" />
-        </div>
-      </div>
-      <div className={`navBtm ${
-            location.pathname === "/" ? "main" : "else"
-          }`}>
-        {isLoggedIn && (
-          <div className="indexTab">
-            <div
-              className={`indexName ${
-                location.pathname === "/jobinfo" ? "active" : ""
-              }`}
-              onClick={() => handleNavigation("/jobinfo")}
-            >
-              구직정보
-            </div>
-            <div
-              className={`indexName ${
-                location.pathname === "/publicservice" ? "active" : ""
-              }`}
-              onClick={() => handleNavigation("/publicservice")}
-            >
-              공공서비스
-            </div>
-            <div
-              className={`indexName ${
-                location.pathname === "/educationinfo" ? "active" : ""
-              }`}
-              onClick={() => handleNavigation("/educationinfo")}
-            >
-              교육정보
-            </div>
-            <div
-              className={`indexName ${
-                location.pathname === "/alarmservice" ? "active" : ""
-              }`}
-              onClick={() => handleNavigation("/alarmservice")}
-            >
-              알림
-            </div>
+        <div className="navTop">
+          <div className="navLogo" onClick={() => handleNavigation("/")}>
+            <img src={daoLogoImg} width="50px" alt="" />
+            <img src={logoImg} width="70px" alt="" />
           </div>
-        )}
-      </div>
+        </div>
+        <div
+          className={`navBtm ${location.pathname === "/" ? "main" : "else"}`}
+        >
+          {isLoggedIn && (
+            <div className="indexTab">
+              <div
+                className={`indexName ${
+                  location.pathname === "/jobinfo" ? "active" : ""
+                }`}
+                onClick={() => handleNavigation("/jobinfo")}
+              >
+                구직정보
+              </div>
+              <div
+                className={`indexName ${
+                  location.pathname === "/publicservice" ? "active" : ""
+                }`}
+                onClick={() => handleNavigation("/publicservice")}
+              >
+                공공서비스
+              </div>
+              <div
+                className={`indexName ${
+                  location.pathname === "/educationinfo" ? "active" : ""
+                }`}
+                onClick={() => handleNavigation("/educationinfo")}
+              >
+                교육정보
+              </div>
+              <div
+                className={`indexName ${
+                  location.pathname === "/alarmservice" ? "active" : ""
+                }`}
+                onClick={() => handleNavigation("/alarmservice")}
+              >
+                알림
+              </div>
+            </div>
+          )}
+        </div>
         {!isLoggedIn && (
           <div className="navUser">
             <div className="signIn" onClick={() => handleNavigation("/signin")}>

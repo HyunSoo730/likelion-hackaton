@@ -29,7 +29,7 @@ const axiosInterstJobUrl = "/api/interest_area/all_data";
 
 export const axiosInterstJob = async (userId) => {
   try {
-    const response = await axios.get(`${axiosInterstJobUrl}?userId=${userId}`);
+    const response = await axios.get(`${axiosInterstJobUrl}?kakaoId=${userId}`);
     return response.data;
   } catch (error) {
     throw error;
