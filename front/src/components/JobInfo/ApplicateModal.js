@@ -1,11 +1,9 @@
-import Modal from 'react-modal'
+import Modal from "react-modal";
 import styled, { css } from "styled-components";
 import React, { useEffect, useRef } from "react";
 import useOutSideClick from "../hooks/useOutSideClick";
 
-// components/Modal/Modal
-
-function ApplicateModal({ onClose }) {
+function ApplicateModal({ onClose, data }) {
   const modalRef = useRef(null);
   const handleClose = () => {
     onClose?.();
@@ -18,17 +16,29 @@ function ApplicateModal({ onClose }) {
   }, []);
 
   return (
-      <Overlay>
-        <ModalWrap>
-          <Contents>
-            <div>접수 방법: </div>
-            <div>접수 장소: </div>
-            <div>담당자: </div>
-            <div>전화번호: </div>
-          </Contents>
-          <Button onClick={handleClose}>확 인</Button>
-        </ModalWrap>
-      </Overlay>
+    <Overlay>
+      <ModalWrap>
+        <Contents>
+          <div>
+            <strong>⚬ 접수 방법</strong> : {data.acptMthdCd} 접수
+          </div>
+          <div>
+            <strong>⚬ 접수 장소</strong> : {data.plDetAddr}{" "}
+          </div>
+          <div>
+            <strong>⚬ 담당자</strong> : {data.clerk}
+          </div>
+          <div>
+            <strong>⚬ 전화번호</strong> :{" "}
+            {data.clerkContt || "등록된 전화번호가 없습니다."}
+          </div>
+          <div>
+            <strong>⚬ 채용공고형태</strong> : {data.emplymShpNm}
+          </div>
+        </Contents>
+        <Button onClick={handleClose}>확 인</Button>
+      </ModalWrap>
+    </Overlay>
   );
 }
 
@@ -45,40 +55,42 @@ const Overlay = styled.div`
 `;
 
 const ModalWrap = styled.div`
-    @media (max-width: 768px){
-        width: 300px;
-        border:3px solid;
-        border-color: #FFB287;
-        height: 200px;
-    }
-    @media (min-width: 769px){
-        width: 600px;
-        border:5px solid;
-        border-color: #FFB287;
-        height: 290px;
-    }
+  @media (max-width: 768px) {
+    width: 300px;
+    border: 3px solid;
+    border-color: #ffb287;
+    height: 200px;
+  }
+  @media (min-width: 769px) {
+    width: 600px;
+    border: 5px solid;
+    border-color: #ffb287;
+    height: 290px;
+  }
 
-    border-radius: 15px;
-    background-color: #fff;
-    position: absolute;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    flex-direction: column;
+  border-radius: 15px;
+  background-color: #fff;
+  position: absolute;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const Contents = styled.div`
-  font-weight: 600;
-  @media (max-width: 768px){
-    line-height: 27px;
-    font-size: 16px;
+  font-weight: 500;
+  line-height: 60px;
+  font-size: 20px;
+  padding-top: 35px;
+  @media (max-width: 768px) {
+    line-height: 22px;
+    font-size: 13px;
     margin: 20px;
     margin-bottom: 20px;
   }
-  @media (min-width: 769px){
+  @media (min-width: 769px) {
     line-height: 35px;
     font-size: 20px;
     margin: 40px;
@@ -86,31 +98,31 @@ const Contents = styled.div`
   }
 `;
 const Button = styled.button`
-  display:block;
+  display: block;
   padding: 10px 20px;
   border: none;
-  background-color: #FF8643;
+  background-color: #ff8643;
   border-radius: 10px;
   color: white;
   font-weight: 200;
   cursor: pointer;
   align-items: center;
-  margin: 0 auto;
+  margin-right: 20px;
   justify-content: center;
   font-weight: bold;
   &:hover {
-    background-color: #FF6C1B;
+    background-color: #ff6c1b;
   }
-  
-  @media (max-width: 768px){
+
+  @media (max-width: 768px) {
     font-size: 14px;
     width: 40%;
-    margin-bottom:15px;
+    margin-bottom: 15px;
   }
-  @media (min-width: 769px){
+  @media (min-width: 769px) {
     font-size: 19px;
     width: 30%;
-    margin-bottom:20px;
+    margin-bottom: 20px;
   }
 `;
 export default ApplicateModal;

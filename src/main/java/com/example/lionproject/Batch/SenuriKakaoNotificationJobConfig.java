@@ -35,6 +35,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 공고 업데이트 시 알림 카톡 보냄.
+ */
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
@@ -90,8 +93,8 @@ public class SenuriKakaoNotificationJobConfig {
 
             private final int size = members.size();
             private int index = 0;
-            private String today = LocalDate.now().minusDays(7L).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
+            private String today = LocalDate.now().minusDays(10L).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            //10일 전 기준으로 이후 데이터 공고 메시지 보내지는지 확인.
             @Override
             public KakaoMemberAndSenuri read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
                 if (index >= size) {

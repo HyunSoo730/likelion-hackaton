@@ -46,6 +46,7 @@ const FilterItem = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 4px 4px 15px 0px #0000001a;
 `;
 
 const FilterTitle = styled.div`

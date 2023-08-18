@@ -1,19 +1,13 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import ApplicateModal from './ApplicateModal'
-import HeartModal from './HeartModal'
+import { getRemainingDays2 } from "../../utils/Utils";
+import generateMessage from "../KakaoMessage/messageform";
+import { axiosMessage } from "../../api/axios/axios.Alarm";
+import ApplicateModal from "./ApplicateModal";
+import HeartModal from "./HeartModal";
 import heartOff from "../../assets/images/heartOff.png";
 import heartOn from "../../assets/images/heartOn.png";
 import { useState } from "react";
-
-import {
-  getRemainingDays2,
-  decodeHTMLEntities,
-  formatDate,
-} from "../../utils/Utils";
-
-
-
 
 const JobInfoTable = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,47 +16,72 @@ const JobInfoTable = ({ data }) => {
   const onClickButton = () => {
     setIsOpen(true);
   };
-  const onClickHeart = () => {
-    setIsOpenHeart(true);
-  };
 
   if (typeof data !== "object" || data === null) {
     return null;
   }
-  const SvcClick = () => {
-    //window.open(data.homepage);
+
+  const onClickHeart = () => {
+    if (!isOpenHeart) {
+      setIsOpenHeart(true);
+    }
   };
 
+  const SvcClick = () => {
+    const contactInfo = `${data.clerk} / ${data.clerkContt}`;
+    const access_token = localStorage.getItem("access_token");
+    const message = generateMessage(
+      data.wantedTitle,
+      data.emplymShpNm,
+      data.acptMthdCd,
+      contactInfo
+    );
+
+    const jsonString = JSON.stringify(message);
+
+    axiosMessage(access_token, jsonString)
+      .then((response) => {
+        console.log("Response:", response);
+        onClickHeart();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+    setIsOpenHeart(false);
+  };
 
   return (
     <JobinfoTableStyled>
       <TopStyled>
         <TopStyledLeft>
           <SvcStatStyled status={data.deadline}>{data.deadline}</SvcStatStyled>
-          <DdayElem>D-{getRemainingDays2(data.toDd)}</DdayElem>
+          <DdayElem>D - {getRemainingDays2(data.toAcptDd)}</DdayElem>
           <Heart onClick={onClickHeart}>
-            <img src={heartOff} alt="" />
+            <img src={heartOn} alt="" />
           </Heart>
-          {isOpenHeart && (<HeartModal
-            open={isOpenHeart}
-            onClose={() => {
-              setIsOpenHeart(false);
-          }}
-          />)}
+          {isOpenHeart && (
+            <HeartModal
+              open={isOpenHeart}
+              onClose={() => {
+                setIsOpenHeart(false);
+              }}
+              SvcClick={SvcClick}
+            />
+          )}
         </TopStyledLeft>
 
-        <Applicate onClick={onClickButton}>접수하기</Applicate>
-        {isOpen && (<ApplicateModal
-          open={isOpen}
-          onClose={() => {
-            setIsOpen(false);
-        }}
-        />)}
+        {isOpen && (
+          <ApplicateModal
+            open={isOpen}
+            onClose={() => {
+              setIsOpen(false);
+            }}
+            data={data}
+          />
+        )}
       </TopStyled>
-      <JobinfoStyled onClick={SvcClick}>
-        <JobinfoeNameStyled>
-          {decodeHTMLEntities(data.recrtTitle)}
-        </JobinfoeNameStyled>
+      <JobinfoStyled onClick={onClickButton}>
+        <JobinfoeNameStyled>{data.wantedTitle}</JobinfoeNameStyled>
         <JobinfoItem>
           <PlaceStyled>{data.area}</PlaceStyled>
           <div>접수방법 : {data.acptMthdCd} 접수</div>
@@ -75,13 +94,13 @@ const JobInfoTable = ({ data }) => {
 };
 
 const JobinfoTableStyled = styled.div`
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     max-width: 350px;
     height: 240px;
     min-width: 350px;
     border-radius: 10px;
   }
-  @media (min-width: 769px){
+  @media (min-width: 769px) {
     max-width: 380px;
     height: 286px;
     min-width: 380px;
@@ -98,10 +117,10 @@ const TopStyled = styled.div`
   display: flex;
   border-bottom: 1px solid #d3d3d3;
   justify-content: space-between;
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     padding: 10px 16px;
   }
-  @media (min-width: 769px){
+  @media (min-width: 769px) {
     padding: 16px 24px;
   }
 `;
@@ -113,12 +132,12 @@ const TopStyledLeft = styled.div`
 const SvcStatStyled = styled.div.attrs((props) => ({
   status: props.status,
 }))`
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     width: 55px;
     height: 31px;
     font-size: 13px;
   }
-  @media (min-width: 769px){
+  @media (min-width: 769px) {
     width: 68px;
     height: 32px;
     font-size: 17px;
@@ -152,13 +171,13 @@ const SvcStatStyled = styled.div.attrs((props) => ({
 `;
 
 const DdayElem = styled.div`
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     width: 60px;
     font-size: 13px;
     height: 31px;
     margin-left: 6px;
   }
-  @media (min-width: 769px){
+  @media (min-width: 769px) {
     width: 60px;
     font-size: 17px;
     height: 32px;
@@ -175,25 +194,25 @@ const DdayElem = styled.div`
 `;
 
 const Heart = styled.div`
-  display:flex;
-  @media (max-width: 768px){
-    width:100px;
-    margin-left:6px;
+  display: flex;
+  @media (max-width: 768px) {
+    width: 100px;
+    margin-left: 160px;
   }
-  @media (min-width: 769px){  
-    margin-left:9px;
+  @media (min-width: 769px) {
+    margin-left: 165px;
   }
 `;
 
 const Applicate = styled.div`
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     width: 63px;
     height: 31px;
     font-size: 13px;
   }
-  @media (min-width: 769px){  
+  @media (min-width: 769px) {
     width: 80px;
-    height: 32px;  
+    height: 32px;
     font-size: 17px;
   }
   align-items: right;
@@ -201,7 +220,7 @@ const Applicate = styled.div`
   text-align: center;
   color: #ffffff;
   font-weight: bold;
-  background-color: #FF6C1B;
+  background-color: #ff6c1b;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -215,23 +234,23 @@ const JobinfoItem = styled.div`
   display: flex;
   flex-direction: column;
   color: #696969;
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     line-height: 27px;
     font-size: 16px;
   }
-  @media (min-width: 769px){
+  @media (min-width: 769px) {
     line-height: 35px;
     font-size: 20px;
   }
 `;
 
 const JobinfoeNameStyled = styled.div`
-@media (max-width: 768px){
-  font-size: 18px;
-}
-@media (min-width: 769px){
-  font-size: 24px;
-}
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
+  @media (min-width: 769px) {
+    font-size: 24px;
+  }
   font-weight: bold;
   line-height: 1.2;
   min-height: 2.4em;

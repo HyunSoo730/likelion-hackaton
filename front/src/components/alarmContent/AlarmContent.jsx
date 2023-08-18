@@ -7,21 +7,31 @@ import {
   axiosPostAlarm2,
   axiosDeleteAlarm,
 } from "../../api/axios/axios.Alarm";
-import ApplyModal from './ApplyModal'
-import SaveModal from './SaveModal'
-import TerminateModal from './TerminateModal'
+
+import { axiosUserinterest } from "../../api/axios/axios.Alarm";
 
 export default function AlarmContent() {
-  // const [isOpenApply, setIsOpenApply] = useState(false);
-  // const [isOpenSave, setIsOpenSave] = useState(false);
-  // const [isOpenTerminate, setIsOpenTerminate] = useState(false);
+  const [userNoti, setUserNoti] = useState(false);
 
-  const [userNoti, setUserNoti] = useState(
-    localStorage.getItem("userNoti") === "true" ? true : false
-  );
   const userName = localStorage.getItem("userName");
-  const accessToken = localStorage.getItem("access_token");
   const userId = localStorage.getItem("user_id");
+  const [userArea, setUserArea] = useState("");
+
+  async function getUserInterest() {
+    try {
+      const result = await axiosUserinterest(userId);
+      setUserArea(result);
+      if (result.length > 0) {
+        setUserNoti(true);
+      }
+    } catch (error) {
+      console.error("Error getting user interest:", error);
+    }
+  }
+
+  useEffect(() => {
+    getUserInterest();
+  }, []);
 
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
@@ -39,7 +49,7 @@ export default function AlarmContent() {
     }
 
     const userData = {
-      userId: parseInt(userId),
+      kakaoId: parseInt(userId),
       area: selectedFilters.area,
     };
 
@@ -51,6 +61,8 @@ export default function AlarmContent() {
           "관심 지역이 변경되었습니다.",
           "success"
         );
+        localStorage.setItem("selected", JSON.stringify(selectedFilters));
+        getUserInterest();
       } else {
         console.error("관심 지역 변경 실패: 응답 상태 코드", response);
       }
@@ -72,13 +84,14 @@ export default function AlarmContent() {
       .then(async (result) => {
         if (result.isConfirmed) {
           const userData = {
-            userId: parseInt(userId),
+            kakaoId: parseInt(userId),
           };
           try {
             const response = await axiosDeleteAlarm(userData);
             if (response == "삭제 완료") {
               setUserNoti(false);
               localStorage.removeItem("selectedFilters");
+              localStorage.removeItem("selected");
               swalWithBootstrapButtons.fire(
                 "알림 서비스 해지",
                 "알림 서비스가 해지되었습니다.",
@@ -99,7 +112,7 @@ export default function AlarmContent() {
   };
 
   const [selectedFilters, setSelectedFilters] = useState(() => {
-    const savedFilters = localStorage.getItem("selectedFilters");
+    const savedFilters = localStorage.getItem("selected");
     return savedFilters ? JSON.parse(savedFilters) : {};
   });
   const [isApplyButtonDisabled, setIsApplyButtonDisabled] = useState(true);
@@ -118,7 +131,7 @@ export default function AlarmContent() {
     }
 
     const userData = {
-      userId: parseInt(userId),
+      kakaoId: parseInt(userId),
       area: selectedFilters.area,
     };
 
@@ -134,6 +147,9 @@ export default function AlarmContent() {
           confirmButtonText: "확인",
           confirmButtonColor: "#FF8643",
         });
+        localStorage.setItem("selected", JSON.stringify(selectedFilters));
+        getUserInterest();
+        setUserArea(selectedFilters.area);
       } else {
         console.error("알림 서비스 신청 실패: 응답 상태 코드", response);
       }
@@ -141,10 +157,6 @@ export default function AlarmContent() {
       console.error("알림 서비스 신청 실패:", error);
     }
   };
-
-  useEffect(() => {
-    localStorage.setItem("userNoti", userNoti.toString());
-  }, [userNoti]);
 
   return (
     <div className="alarm">
@@ -188,7 +200,7 @@ export default function AlarmContent() {
             <div className="alarmDtl1">
               <AlarmRegionList
                 onFilterUpdate={handleFilterUpdate}
-                selectedFilters={selectedFilters}
+                selectedFilters={userArea}
               />
               <button
                 className="saveBtn"

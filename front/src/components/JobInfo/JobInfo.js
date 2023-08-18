@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 import JobInfoContainer from "./JobInfo.Container";
 import SearchImg from "../../assets/images/search.png";
 import ResetImg from "../../assets/images/reset.png";
-import JobInfofFilterList from "./JobInfoFilter";
+import JobInfoFilterList from "./JobInfoFilter";
 import { axiosFindJob } from "../../api/axios/axios.Job";
 import NoResults from "../SearchFilter/NoResults";
 import Frame from "../../assets/images/Frame.png";
@@ -24,8 +24,8 @@ function JobInfo() {
     // }
     try {
       const results = await axiosFindJob(searchText.trim(), filterData);
-      setShowNoResult(results.length === 0);
       setSearchResults(results);
+      setShowNoResult(results.length === 0);
     } catch (error) {
       console.error("검색 중 오류 발생:", error);
     }
@@ -65,7 +65,7 @@ function JobInfo() {
             <img src={ResetImg} alt="reset" />
             검색 초기화
           </ResetBtn>
-          <JobInfofFilterList
+          <JobInfoFilterList
             filterData={filterData}
             setFilterData={setFilterData}
           />
@@ -86,10 +86,10 @@ const JobInfoWrapped = styled.div`
 
 const JobInfoTop = styled.div`
   width: 100%;
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     height: 300px;
   }
-  @media (min-width: 769px){
+  @media (min-width: 769px) {
     height: 370px;
   }
   background-color: #ffb287;
@@ -99,29 +99,28 @@ const JobInfoTop = styled.div`
   align-items: center;
   background-image: url(${Frame});
   background-size: cover;
-  padding-top: 5px
+  padding-top: 5px;
 `;
 
 const SearchBarStyled = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  margin:-5px;
+  margin: -5px;
 `;
 
 const SearchBar = styled.div`
-  
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     width: 85%;
     height: 40px;
     border-radius: 10px;
   }
-  @media (min-width: 769px){
+  @media (min-width: 769px) {
     width: 60%;
     height: 60px;
     border-radius: 15px;
   }
-  
+
   background-color: white;
   box-shadow: 0px 4px 48px 0px #0000001a;
   display: flex;
@@ -131,11 +130,11 @@ const SearchBar = styled.div`
   input {
     width: 87%;
 
-    @media (max-width: 768px){
+    @media (max-width: 768px) {
       font-size: 16px;
       margin-left: 10px;
     }
-    @media (min-width: 769px){
+    @media (min-width: 769px) {
       font-size: 24px;
       margin-left: 20px;
     }
@@ -148,12 +147,12 @@ const SearchBar = styled.div`
   }
 
   button {
-    @media (max-width: 768px){
+    @media (max-width: 768px) {
       width: 30px;
       height: 27px;
       border-radius: 10px;
     }
-    @media (min-width: 769px){
+    @media (min-width: 769px) {
       width: 60px;
       height: 48px;
       border-radius: 15px;
@@ -170,16 +169,16 @@ const SearchBar = styled.div`
   }
 
   img {
-    @media (max-width: 768px){
+    @media (max-width: 768px) {
       width: 15px;
     }
   }
-    margin:-5px
+  margin: -5px;
 `;
 
 const FilterStyled = styled.div`
   display: flex;
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
@@ -196,16 +195,16 @@ const ResetBtn = styled.div`
   cursor: pointer;
   img {
     margin-right: 12px;
-    @media (max-width: 768px){
-      width: 20px
+    @media (max-width: 768px) {
+      width: 20px;
     }
   }
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     font-size: 14px;
     width: 130px;
     height: 40px;
   }
-  @media (min-width: 769px){
+  @media (min-width: 769px) {
     font-size: 20px;
     margin: 25px 10px 0 0;
     width: 180px;
