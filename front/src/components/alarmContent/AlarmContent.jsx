@@ -7,6 +7,7 @@ import {
   axiosPostAlarm2,
   axiosDeleteAlarm,
 } from "../../api/axios/axios.Alarm";
+import { axiosUserinterest } from "../../api/axios/axios.Alarm";
 
 export default function AlarmContent() {
   const [userNoti, setUserNoti] = useState(
@@ -15,6 +16,21 @@ export default function AlarmContent() {
   const userName = localStorage.getItem("userName");
   const accessToken = localStorage.getItem("access_token");
   const userId = localStorage.getItem("user_id");
+
+  const [userArea, setUserArea] = useState("");
+
+  async function getUserInterest() {
+    try {
+      const result = await axiosUserinterest(userId);
+      setUserArea(result.area);
+    } catch (error) {
+      console.error("Error getting user interest:", error);
+    }
+  }
+
+  useEffect(() => {
+    getUserInterest();
+  }, []);
 
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
@@ -31,9 +47,11 @@ export default function AlarmContent() {
     }
 
     const userData = {
-      userId: parseInt(userId),
+      kakaoId: parseInt(userId),
       area: selectedFilters.area,
     };
+
+    console.log(userData);
 
     try {
       const response = await axiosPostAlarm2(userData);
@@ -43,6 +61,7 @@ export default function AlarmContent() {
           "관심 지역이 변경되었습니다.",
           "success"
         );
+        localStorage.setItem("selected", JSON.stringify(selectedFilters));
       } else {
         console.error("관심 지역 변경 실패: 응답 상태 코드", response);
       }
@@ -70,6 +89,7 @@ export default function AlarmContent() {
             if (response == "삭제 완료") {
               setUserNoti(false);
               localStorage.removeItem("selectedFilters");
+              localStorage.removeItem("selected");
               swalWithBootstrapButtons.fire(
                 "알림 서비스 해지",
                 "알림 서비스가 해지되었습니다.",
@@ -90,7 +110,7 @@ export default function AlarmContent() {
   };
 
   const [selectedFilters, setSelectedFilters] = useState(() => {
-    const savedFilters = localStorage.getItem("selectedFilters");
+    const savedFilters = localStorage.getItem("selected");
     return savedFilters ? JSON.parse(savedFilters) : {};
   });
   const [isApplyButtonDisabled, setIsApplyButtonDisabled] = useState(true);
@@ -108,9 +128,11 @@ export default function AlarmContent() {
     }
 
     const userData = {
-      userId: parseInt(userId),
+      kakaoId: parseInt(userId),
       area: selectedFilters.area,
     };
+
+    console.log(userData);
 
     try {
       const response = await axiosPostAlarm(userData);
@@ -124,6 +146,7 @@ export default function AlarmContent() {
           confirmButtonText: "확인",
           confirmButtonColor: "#FF8643",
         });
+        localStorage.setItem("selected", JSON.stringify(selectedFilters));
       } else {
         console.error("알림 서비스 신청 실패: 응답 상태 코드", response);
       }
