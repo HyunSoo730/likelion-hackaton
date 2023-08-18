@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.imageContainer {
+  flex: 1;
+  text-align: left;
+  margin-right: 2%;
+}
+
+.imageContainer img {
+  max-width: 100%;
+  height: auto;
+}
+
+.contentContainer {
+  flex: 1;
+  text-align: right;
+  color: #2d2d2d;
+  font-family: Inter;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 40px; /* 142.857% */
+}
+
+.small {
+  text-align: left;
+  width: 392px;
+  height: 102px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #f2f3f6;
+  color: #2d2d2d;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 30px; /* 150% */
+  padding: 5px 15px;
+}

@@ -55,6 +55,11 @@ const CheckBoxLabel = styled.label`
   margin-bottom: 15px;
   display: flex;
   align-items: center;
+  @media screen and (max-width: 768px) {
+    width: 60px;
+    font-size: 10px;
+    margin-bottom: 5px;
+  }
 `;
 
 const CheckBoxInput = styled.input`
@@ -65,6 +70,10 @@ const CheckBoxInput = styled.input`
   border: 1px solid #d9d9d9;
   border-radius: 2px;
   cursor: pointer;
+  @media screen and (max-width: 768px) {
+    width: 10px;
+    height: 10px;
+  }
   &:checked {
     background-color: #ff8643;
     border: 1px solid #ff8643;

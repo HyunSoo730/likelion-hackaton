@@ -1,9 +1,10 @@
 import { styled } from "styled-components";
+import NoAnswer from "../../components/NoAnswer";
 
 const NoResults = () => {
   return (
     <NoResultsStyled>
-      <div>검색 결과가 없습니다.</div>
+      <NoAnswer />
     </NoResultsStyled>
   );
 };

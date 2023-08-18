@@ -3,8 +3,8 @@ import "./NoSetting.css";
 
 function NoSetting() {
   return (
-    <div className="main">
-      <div className="sub">
+    <div className="outer">
+      <div className="inner">
         <img
           src={process.env.PUBLIC_URL + "/MaskGroup.png"}
           alt="이미지 설명"

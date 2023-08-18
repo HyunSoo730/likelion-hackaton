@@ -114,7 +114,7 @@ const DdayElem = styled.div`
   border-radius: 4px;
   top: 0;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   display: flex;
   align-items: center;
