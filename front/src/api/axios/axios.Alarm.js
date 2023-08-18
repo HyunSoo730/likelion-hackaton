@@ -49,7 +49,7 @@ export const axiosMessage = async (accessToken, kakaoMessage) => {
   }
 };
 
-const axiosUserinterestUerl = "/userarea";
+const axiosUserinterestUerl = "/api/interest_area/userarea";
 export const axiosUserinterest = async (userData) => {
   const userIdNumber = parseInt(userData);
   try {
