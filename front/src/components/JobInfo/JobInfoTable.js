@@ -38,7 +38,6 @@ const JobInfoTable = ({ data }) => {
     );
 
     const jsonString = JSON.stringify(message);
-    console.log(jsonString);
 
     axiosMessage(access_token, jsonString)
       .then((response) => {

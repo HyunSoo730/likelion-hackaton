@@ -10,19 +10,18 @@ import {
 import { axiosUserinterest } from "../../api/axios/axios.Alarm";
 
 export default function AlarmContent() {
-  const [userNoti, setUserNoti] = useState(
-    localStorage.getItem("userNoti") === "true" ? true : false
-  );
+  const [userNoti, setUserNoti] = useState(false);
   const userName = localStorage.getItem("userName");
-  const accessToken = localStorage.getItem("access_token");
   const userId = localStorage.getItem("user_id");
-
   const [userArea, setUserArea] = useState("");
 
   async function getUserInterest() {
     try {
       const result = await axiosUserinterest(userId);
-      setUserArea(result.area);
+      setUserArea(result);
+      if (result.length > 0) {
+        setUserNoti(true);
+      }
     } catch (error) {
       console.error("Error getting user interest:", error);
     }
@@ -51,8 +50,6 @@ export default function AlarmContent() {
       area: selectedFilters.area,
     };
 
-    console.log(userData);
-
     try {
       const response = await axiosPostAlarm2(userData);
       if (response == "등록완료") {
@@ -62,6 +59,7 @@ export default function AlarmContent() {
           "success"
         );
         localStorage.setItem("selected", JSON.stringify(selectedFilters));
+        getUserInterest();
       } else {
         console.error("관심 지역 변경 실패: 응답 상태 코드", response);
       }
@@ -132,8 +130,6 @@ export default function AlarmContent() {
       area: selectedFilters.area,
     };
 
-    console.log(userData);
-
     try {
       const response = await axiosPostAlarm(userData);
       if (response == "등록완료") {
@@ -147,6 +143,8 @@ export default function AlarmContent() {
           confirmButtonColor: "#FF8643",
         });
         localStorage.setItem("selected", JSON.stringify(selectedFilters));
+        getUserInterest();
+        setUserArea(selectedFilters.area);
       } else {
         console.error("알림 서비스 신청 실패: 응답 상태 코드", response);
       }
@@ -154,10 +152,6 @@ export default function AlarmContent() {
       console.error("알림 서비스 신청 실패:", error);
     }
   };
-
-  useEffect(() => {
-    localStorage.setItem("userNoti", userNoti.toString());
-  }, [userNoti]);
 
   return (
     <div className="alarm">
@@ -195,7 +189,7 @@ export default function AlarmContent() {
             <div className="alarmDtl1">
               <AlarmRegionList
                 onFilterUpdate={handleFilterUpdate}
-                selectedFilters={selectedFilters}
+                selectedFilters={userArea}
               />
               <button
                 className="saveBtn"

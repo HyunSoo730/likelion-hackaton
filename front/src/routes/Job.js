@@ -46,8 +46,6 @@ const Job = () => {
     fetchUserInterestData();
   }, []);
 
-  console.log("test", interstResults);
-
   if (interstResults.length > 0) {
   }
 

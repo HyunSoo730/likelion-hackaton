@@ -23,7 +23,6 @@ const Auth = () => {
         }
       )
       .then((res) => {
-        console.log(res);
         const { access_token } = res.data;
         axios
           .post(

@@ -14,7 +14,6 @@ const JobInfoFilterList = ({ filterData, setFilterData }) => {
       [filterType]: selectedValues,
     };
     setFilterData(updatedFilterData);
-    console.log("Filter Data:", updatedFilterData);
   };
   return (
     <FilterContainerStyled>

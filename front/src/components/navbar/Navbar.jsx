@@ -27,13 +27,8 @@ export default function Navbar() {
         },
       });
 
-      console.log(response.data);
-
       if (response.status === 200) {
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("userName");
-        localStorage.removeItem("jwtToken");
-        localStorage.removeItem("user_id");
+        localStorage.clear();
         sessionStorage.clear();
         navigate("/");
       } else {
