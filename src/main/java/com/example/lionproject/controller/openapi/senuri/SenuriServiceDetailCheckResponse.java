@@ -23,6 +23,6 @@ public class SenuriServiceDetailCheckResponse {
     private String wantedTitle;//채용제목
     private String emplymShpNm;  //채용공고 형태명 ex 기간제 일자리. --> 이건 List 테이블에서 가져와야함.
     private String deadline;  //마감 / 접수중 -> 이것도 List에서 가져와야함.
-
+    private boolean likeOnOff; // true면 좋아요 false 안한거
 
 }

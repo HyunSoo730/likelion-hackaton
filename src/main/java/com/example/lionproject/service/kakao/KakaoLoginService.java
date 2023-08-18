@@ -190,7 +190,10 @@ public class KakaoLoginService {
             user.setAccessToken(accessToken);
 
             repository.save(user);
+        }else {  // 이미 존재하는 회원이라면 액세스 토큰 갱신
+            user.setAccessToken(accessToken);
         }
+
 
         // DB에 저장하거나 이미 존재하던거 가져온 후에
 

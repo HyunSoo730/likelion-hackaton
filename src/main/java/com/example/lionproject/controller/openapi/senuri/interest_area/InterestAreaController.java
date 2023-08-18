@@ -36,8 +36,9 @@ public class InterestAreaController {
      * 사용자가 저장해놓은 관심 지역에 해당하는 구직 정보 가져오기
      */
     @GetMapping("/all_data")
-    public List<SenuriServiceDetailCheckResponse> returnInterestAreaData(@RequestParam("userId") Long userId) {
-        KakaoMember findMember = kakaoRepository.findByUserId(userId);
+    public List<SenuriServiceDetailCheckResponse> returnInterestAreaData(@RequestParam("kakaoId") Long kakaoId) {
+//        KakaoMember findMember = kakaoRepository.findByUserId(userId);
+        KakaoMember findMember = kakaoRepository.findFirstByKakaoId(kakaoId);
         List<KakaoMemberFav> allByKakaoMember = kakaoMemberFavRepository.findAllByKakaoMember(findMember);
         List<String> areaNames = allByKakaoMember.stream()
                 .map(KakaoMemberFav::getAreaName)
@@ -54,7 +55,8 @@ public class InterestAreaController {
     @NoArgsConstructor
     @AllArgsConstructor
     private static class Request {
-        Long userId;
+//        Long userId;
+        Long kakaoId;
         List<String> area;
     }
 
@@ -63,14 +65,16 @@ public class InterestAreaController {
      */
     @PostMapping("/update")
     public String registerArea(@RequestBody Request request) {
-        KakaoMember findMember = kakaoRepository.findByUserId(request.getUserId());
+//        KakaoMember findMember = kakaoRepository.findByUserId(request.getUserId());
+        KakaoMember member = kakaoRepository.findFirstByKakaoId(request.getKakaoId());
 
         // 사용자 관심지역 전체 삭제
-        kakaoMemberFavRepository.deleteByKakaoMember(findMember);
+        kakaoMemberFavRepository.deleteByKakaoMember(member);
         List<String> area = request.getArea(); //등록할 area
-        List<KakaoMemberFav> res = area.stream().map(areaName -> convertToKakaoMemberFav(findMember, areaName))
+        List<KakaoMemberFav> res = area.stream().map(areaName -> convertToKakaoMemberFav(member, areaName))
                 .collect(Collectors.toList());
         //사용자 관심지역 추가
+//        log.info("res = {}", res);
         kakaoMemberFavRepository.saveAll(res);
 
         // 3개인 사람이라면... 다 삭제 후 다 등록
@@ -81,10 +85,10 @@ public class InterestAreaController {
 
     @PostMapping("/delete")
     public String deleteArea(@RequestBody Request request) {
-        KakaoMember findMember = kakaoRepository.findByUserId(request.userId);
-
+//        KakaoMember findMember = kakaoRepository.findByUserId(request.userId);
+        KakaoMember member = kakaoRepository.findFirstByKakaoId(request.getKakaoId());
         // 요청한 지역 전체 삭제
-        kakaoMemberFavRepository.deleteByKakaoMember(findMember);
+        kakaoMemberFavRepository.deleteByKakaoMember(member);
 
         return "삭제 완료";
     }
