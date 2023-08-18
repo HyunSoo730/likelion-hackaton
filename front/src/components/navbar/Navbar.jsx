@@ -17,23 +17,20 @@ export default function Navbar() {
   const accessToken = localStorage.getItem("access_token");
   const userName = localStorage.getItem("userName");
 
+
   const isLoggedIn = accessToken && userName;
+
 
   const handleLogout = async () => {
     try {
-      const response = await axios.get("/auth/kakao/logout", {
+      const response = await axios.get("/auth/kakao/accessout", {
         params: {
           accessToken: accessToken,
         },
       });
 
-      console.log(response.data);
-
       if (response.status === 200) {
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("userName");
-        localStorage.removeItem("jwtToken");
-        localStorage.removeItem("user_id");
+        localStorage.clear();
         sessionStorage.clear();
         navigate("/");
       } else {

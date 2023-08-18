@@ -7,22 +7,23 @@ import {
   axiosPostAlarm2,
   axiosDeleteAlarm,
 } from "../../api/axios/axios.Alarm";
+
 import { axiosUserinterest } from "../../api/axios/axios.Alarm";
 
 export default function AlarmContent() {
-  const [userNoti, setUserNoti] = useState(
-    localStorage.getItem("userNoti") === "true" ? true : false
-  );
-  const userName = localStorage.getItem("userName");
-  const accessToken = localStorage.getItem("access_token");
-  const userId = localStorage.getItem("user_id");
+  const [userNoti, setUserNoti] = useState(false);
 
+  const userName = localStorage.getItem("userName");
+  const userId = localStorage.getItem("user_id");
   const [userArea, setUserArea] = useState("");
 
   async function getUserInterest() {
     try {
       const result = await axiosUserinterest(userId);
-      setUserArea(result.area);
+      setUserArea(result);
+      if (result.length > 0) {
+        setUserNoti(true);
+      }
     } catch (error) {
       console.error("Error getting user interest:", error);
     }
@@ -42,6 +43,7 @@ export default function AlarmContent() {
   });
 
   const handleButtonSave = async () => {
+    // setIsOpenSave(true);//Modal 띄우기
     if (isApplyButtonDisabled) {
       return;
     }
@@ -50,8 +52,6 @@ export default function AlarmContent() {
       kakaoId: parseInt(userId),
       area: selectedFilters.area,
     };
-
-    console.log(userData);
 
     try {
       const response = await axiosPostAlarm2(userData);
@@ -62,6 +62,7 @@ export default function AlarmContent() {
           "success"
         );
         localStorage.setItem("selected", JSON.stringify(selectedFilters));
+        getUserInterest();
       } else {
         console.error("관심 지역 변경 실패: 응답 상태 코드", response);
       }
@@ -71,6 +72,7 @@ export default function AlarmContent() {
   };
 
   const handleButtonTerminate = () => {
+    // setIsOpenTerminate(true); //Modal 띄우기
     swalWithBootstrapButtons
       .fire({
         title: "해지하시겠습니까?",
@@ -82,7 +84,7 @@ export default function AlarmContent() {
       .then(async (result) => {
         if (result.isConfirmed) {
           const userData = {
-            userId: parseInt(userId),
+            kakaoId: parseInt(userId),
           };
           try {
             const response = await axiosDeleteAlarm(userData);
@@ -123,6 +125,7 @@ export default function AlarmContent() {
   };
 
   const handleButtonApply = async () => {
+    // setIsOpenApply(true);//Modal 띄우기
     if (isApplyButtonDisabled) {
       return;
     }
@@ -131,8 +134,6 @@ export default function AlarmContent() {
       kakaoId: parseInt(userId),
       area: selectedFilters.area,
     };
-
-    console.log(userData);
 
     try {
       const response = await axiosPostAlarm(userData);
@@ -147,6 +148,8 @@ export default function AlarmContent() {
           confirmButtonColor: "#FF8643",
         });
         localStorage.setItem("selected", JSON.stringify(selectedFilters));
+        getUserInterest();
+        setUserArea(selectedFilters.area);
       } else {
         console.error("알림 서비스 신청 실패: 응답 상태 코드", response);
       }
@@ -154,10 +157,6 @@ export default function AlarmContent() {
       console.error("알림 서비스 신청 실패:", error);
     }
   };
-
-  useEffect(() => {
-    localStorage.setItem("userNoti", userNoti.toString());
-  }, [userNoti]);
 
   return (
     <div className="alarm">
@@ -184,6 +183,12 @@ export default function AlarmContent() {
               >
                 신청하기
               </button>
+              {/* {isOpenApply && (<ApplyModal
+                open={isOpenApply}
+                onClose={() => {
+                  setIsOpenApply(false);
+              }}
+              />)} 모달 호출 */}
             </div>
           </div>
         </div>
@@ -195,7 +200,7 @@ export default function AlarmContent() {
             <div className="alarmDtl1">
               <AlarmRegionList
                 onFilterUpdate={handleFilterUpdate}
-                selectedFilters={selectedFilters}
+                selectedFilters={userArea}
               />
               <button
                 className="saveBtn"
@@ -205,8 +210,14 @@ export default function AlarmContent() {
                   cursor: isApplyButtonDisabled ? "not-allowed" : "pointer",
                 }}
               >
-                변경하기
+                저장하기
               </button>
+              {/* {isOpenSave && (<SaveModal
+                open={isOpenSave}
+                onClose={() => {
+                  setIsOpenSave(false);
+              }}
+              />)} 모달 호출 */}
             </div>
           </div>
 
@@ -218,6 +229,12 @@ export default function AlarmContent() {
               <button className="cancelBtn" onClick={handleButtonTerminate}>
                 해지하기
               </button>
+              {/* {isOpenTerminate && (<TerminateModal
+                open={isOpenTerminate}
+                onClose={() => {
+                  setIsOpenTerminate(false);
+              }}
+              />)} 모달 호출 */}
             </div>
           </div>
         </div>

@@ -18,7 +18,7 @@ const AlarmRegionList = ({ onFilterUpdate, selectedFilters }) => {
     <FilterContainerStyled>
       <FilterContainer
         Filters={area}
-        selectedValues={selectedFilters?.area || []}
+        selectedValues={selectedFilters || []}
         onFilterUpdate={(selectedValues) =>
           handleFilterUpdate("area", selectedValues)
         }
