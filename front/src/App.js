@@ -35,6 +35,7 @@ function App() {
 const GlobalStyles = createGlobalStyle`
   body {
     margin: 0;
+    overflow-x:hidden;
   }
 `;
 export default App;

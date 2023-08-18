@@ -52,6 +52,7 @@ const FilterItem = styled.div`
     height: 36px;
     margin-top: 0px;
   }
+  box-shadow: 4px 4px 15px 0px #0000001a;
 `;
 
 const FilterTitle = styled.div`
@@ -83,7 +84,7 @@ const CheckBoxLabel = styled.label`
   display: flex;
   align-items: center;
   cursor: pointer;
-  user-select: none;
+  user-select: none;k
   margin-left: 30px;
 
   @media screen and (max-width: 768px) {

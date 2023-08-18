@@ -1,4 +1,4 @@
-export function getRemainingDays(endDate) {
+export const getRemainingDays = (endDate) => {
   if (!endDate) {
     return "---";
   }
@@ -10,9 +10,12 @@ export function getRemainingDays(endDate) {
   if (daysDiff < 0) return "end";
   if (daysDiff === 0) return "day";
   return daysDiff;
-}
+};
 
 export const getRemainingDays2 = (endDate) => {
+  if (!endDate) {
+    return "---";
+  }
   const now = new Date();
   const end = new Date(
     endDate.slice(0, 4),

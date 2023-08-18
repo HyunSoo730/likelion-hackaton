@@ -176,15 +176,19 @@ public class KakaoLoginService {
     }
 
     /**
-     * 카카오 유저 DB에 저장.
+     * 카카오 유저 DB에 저장 -> accessToken으로.
      */
-    public String save(String token) {
-        KakaoProfile profile = findProfile(token);
+    public String save(String accessToken) {
+        KakaoProfile profile = findProfile(accessToken);
 
-        KakaoMember user = repository.findByKakaoEmail(profile.getKakao_account().getEmail());
+//        KakaoMember user = repository.findByKakaoEmail(profile.getKakao_account().getEmail());
+        KakaoMember user = repository.findFirstByKakaoId(profile.getId());
+        //        log.info("profile id = {}", profile.id);
 
         if (user == null) {  //DB에 없는 경우
             user = new KakaoMember(profile.getId(), profile.getKakao_account().getEmail(), profile.getKakao_account().getProfile().getProfile_image_url(), profile.getKakao_account().getProfile().getNickname());
+            user.setAccessToken(accessToken);
+
             repository.save(user);
         }
 

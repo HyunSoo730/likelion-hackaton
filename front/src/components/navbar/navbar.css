@@ -1,72 +1,175 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Nanum+Gothic&display=swap");
 
-.navbar {
-  width: 100%;
-  /* height: 9vh; */
-  height: 80px;
-  background-color: white;
+@media (min-width: 769px) {
+  .navbar {
+    width: 100%;
+    /* height: 9vh; */
+    height: 80px;
+    background-color: white;
 
-  position: sticky;
-  top: 0px;
-  z-index: 999;
-  min-width: 950px;
+    position: sticky;
+    top: 0px;
+    z-index: 999;
+    min-width: 950px;
+  }
+  .navTop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .navBtm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .navBtm.else {
+    display: flex;
+  }
+
+  .navbarWrapper {
+    height: 100%;
+    padding: 0px 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .navLogo {
+    padding: 5px 20px 5px 20px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+  }
+
+  .signIn,
+  .signUp {
+    font-family: "IBM Plex Sans KR", sans-serif;
+    position: relative;
+    padding: 0px 5px 0px 5px;
+    cursor: pointer;
+  }
+
+  .navUser {
+    display: flex;
+    align-items: center;
+    padding: 5px 30px 5px 30px;
+  }
+
+  .signIn:hover,
+  .signUp:hover {
+    color: #ff6c1b;
+  }
+
+  .indexTab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .indexName {
+    font-family: "IBM Plex Sans KR", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    transition: color 0.3s;
+    margin: 0 15px;
+    cursor: pointer;
+  }
+
+  .indexName:hover,
+  .indexName.active {
+    color: #ff6c1b;
+  }
 }
 
-.navbarWrapper {
-  height: 100%;
-  padding: 0px 100px;
+@media (max-width: 768px) {
+  .navbar {
+    width: 100%;
+    /* height: 9vh; */
+    height: 98px;
+    background-color: white;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+    position: sticky;
+    top: 0px;
+    z-index: 999;
+    /* overflow-x: hidden; */
+  }
+  .navbarWrapper {
+    height: 100%;
 
-.navLogo {
-  padding: 5px 20px 5px 20px;
-  cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-  display: flex;
-  align-items: center;
-}
+  .navLogo {
+    padding: 7px 10px 5px 30px;
+    cursor: pointer;
 
-.signIn,
-.signUp {
-  font-family: "IBM Plex Sans KR", sans-serif;
-  position: relative;
-  padding: 0px 5px 0px 5px;
-  cursor: pointer;
-}
+    display: flex;
+    align-items: center;
+  }
 
-.navUser {
-  display: flex;
-  align-items: center;
-  padding: 5px 30px 5px 30px;
-}
+  .signIn,
+  .signUp {
+    font-family: "IBM Plex Sans KR", sans-serif;
+    position: relative;
+    padding: 0px 5px 0px 5px;
+    cursor: pointer;
+  }
 
-.signIn:hover,
-.signUp:hover {
-  color: #ff6c1b;
-}
+  .navUser {
+    display: flex;
+    align-items: center;
+    padding: 5px 20px 5px 30px;
+  }
 
-.indexTab {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .signIn:hover,
+  .signUp:hover {
+    color: #ff6c1b;
+  }
 
-.indexName {
-  font-family: "IBM Plex Sans KR", sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  font-weight: bold;
-  transition: color 0.3s;
-  margin: 0 15px;
-  cursor: pointer;
-}
+  .navTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-.indexName:hover,
-.indexName.active {
-  color: #ff6c1b;
+  .navBtm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .navBtm.main {
+    display: none;
+  }
+
+  .navBtm.else {
+    display: flex;
+  }
+
+  .indexName {
+    font-family: "IBM Plex Sans KR", sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+    transition: color 0.3s;
+    font-weight: bold;
+    margin: 6px 12px;
+    cursor: pointerS;
+    color: rgb(54, 54, 54);
+  }
+
+  .indexName:hover,
+  .indexName.active {
+    color: #ff6c1b;
+  }
 }

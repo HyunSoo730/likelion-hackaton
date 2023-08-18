@@ -19,7 +19,7 @@ const EducationTable = ({ data }) => {
         <SvcStatStyled status={data.applyState}>
           {data.applyState}
         </SvcStatStyled>
-        <DdayElem>D-{getRemainingDays(data.applicationEndDate)}</DdayElem>
+        <DdayElem>D - {getRemainingDays(data.applicationEndDate)}</DdayElem>
       </TopStyled>
       <EducationStyled>
         <EducationeNameStyled>

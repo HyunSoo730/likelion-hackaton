@@ -27,11 +27,23 @@
   }
 }
 
-/* .alarmLct {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-} */
+.alarmMenu1 {
+  background-color: #ffebdf;
+  padding: 10px 40px 10px 40px;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 7px;
+  margin: 40px 20px 30px 0;
+  box-shadow: rgba(121, 121, 124, 0.2) 1px 2px 3px 1px;
+}
+
+.alarmLct {
+  width: 80%;
+  min-width: 1000px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 
 /* .alarmBox {
     background-color: red;
@@ -41,7 +53,7 @@
 .alarmContentTitle {
   font-weight: bold;
   font-size: 20px;
-  margin: 10px;
+  margin: 30px 10px 20px 20px;
 }
 
 .alarmDtl1 {
@@ -67,7 +79,7 @@
   border-radius: 10px;
   font-size: 20px;
   height: 60px;
-  width: 980px;
+  width: 100%;
 
   display: flex;
   align-items: center;
@@ -85,6 +97,7 @@
 .applyBtn,
 .saveBtn,
 .cancelBtn {
+  float: right;
   background-color: #ff8643;
   border-radius: 5px;
   color: white;

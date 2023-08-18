@@ -70,6 +70,9 @@ public class KakaoMessageService {
         return res;
     }
 
+    /**
+     * 피드 메시지 보내기.
+     */
     public String sendFeedMessage(String accessToken, KakaoMessageFeedRequest request) {
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         try {
