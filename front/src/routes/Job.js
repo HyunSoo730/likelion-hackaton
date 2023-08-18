@@ -5,6 +5,7 @@ import JobInfoContainer from "../components/JobInfo/JobInfo.Container";
 import Navbar from "../components/navbar/Navbar";
 import Footer from "../components/footer/Footer";
 import { axiosInterstJob } from "../api/axios/axios.Job";
+import { axiosUserinterest } from "../api/axios/axios.Alarm";
 import NoInterest from "../components/SearchFilter/Nointerest";
 
 import { useMediaQuery } from "react-responsive";
@@ -16,6 +17,7 @@ const Job = () => {
   const [selectedFilters, setSelectedFilters] = useState([]);
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const userId = localStorage.getItem("user_id");
 
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
@@ -27,19 +29,27 @@ const Job = () => {
   };
 
   useEffect(() => {
-    const userId = localStorage.getItem("user_id");
-    const selectedFilters = localStorage.getItem("selected");
+    const fetchUserInterestData = async () => {
+      try {
+        const jobData = await axiosUserinterest(userId);
+        setSelectedFilters(jobData);
 
-    if (selectedFilters) {
-      axiosInterstJob(userId)
-        .then((jobData) => {
-          setInterstResults(jobData);
-        })
-        .catch((error) => {
-          console.error("구직 정보 가져오기 실패!!!:", error);
-        });
-    }
+        if (jobData.length > 0) {
+          const interstJobData = await axiosInterstJob(userId);
+          setInterstResults(interstJobData);
+        }
+      } catch (error) {
+        console.error("구직 정보 가져오기 실패!!!:", error);
+      }
+    };
+
+    fetchUserInterestData();
   }, []);
+
+  console.log("test", interstResults);
+
+  if (interstResults.length > 0) {
+  }
 
   return (
     <JobWrapped>

@@ -82,7 +82,7 @@ export default function AlarmContent() {
       .then(async (result) => {
         if (result.isConfirmed) {
           const userData = {
-            userId: parseInt(userId),
+            kakaoId: parseInt(userId),
           };
           try {
             const response = await axiosDeleteAlarm(userData);

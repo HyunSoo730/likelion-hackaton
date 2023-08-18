@@ -21,7 +21,7 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.get("/auth/kakao/logout", {
+      const response = await axios.get("/auth/kakao/accessout", {
         params: {
           accessToken: accessToken,
         },
