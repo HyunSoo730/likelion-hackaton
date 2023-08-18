@@ -5,7 +5,7 @@ import likelionlogo from "../../assets/images/likelionlogo.png";
 import "./KakaoLogin.css";
 
 function KakaoLogin() {
-  const redirect_uri = "http://localhost:3000/auth/kakao/callback";
+  const redirect_uri = "http://13.209.173.69:3000/auth/kakao/callback";
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
 
   const handleLogin = () => {

@@ -10,7 +10,7 @@ const Auth = () => {
     const params = new URL(document.location.toString()).searchParams;
     const code = params.get("code");
     const grantType = "authorization_code";
-    const redirect_uri = "http://localhost:3000/auth/kakao/callback";
+    const redirect_uri = "http://13.209.173.69:3000/auth/kakao/callback";
 
     axios
       .post(
