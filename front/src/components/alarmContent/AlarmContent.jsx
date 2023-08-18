@@ -7,10 +7,12 @@ import {
   axiosPostAlarm2,
   axiosDeleteAlarm,
 } from "../../api/axios/axios.Alarm";
+
 import { axiosUserinterest } from "../../api/axios/axios.Alarm";
 
 export default function AlarmContent() {
   const [userNoti, setUserNoti] = useState(false);
+
   const userName = localStorage.getItem("userName");
   const userId = localStorage.getItem("user_id");
   const [userArea, setUserArea] = useState("");
@@ -41,6 +43,7 @@ export default function AlarmContent() {
   });
 
   const handleButtonSave = async () => {
+    // setIsOpenSave(true);//Modal 띄우기
     if (isApplyButtonDisabled) {
       return;
     }
@@ -69,6 +72,7 @@ export default function AlarmContent() {
   };
 
   const handleButtonTerminate = () => {
+    // setIsOpenTerminate(true); //Modal 띄우기
     swalWithBootstrapButtons
       .fire({
         title: "해지하시겠습니까?",
@@ -121,6 +125,7 @@ export default function AlarmContent() {
   };
 
   const handleButtonApply = async () => {
+    // setIsOpenApply(true);//Modal 띄우기
     if (isApplyButtonDisabled) {
       return;
     }
@@ -178,6 +183,12 @@ export default function AlarmContent() {
               >
                 신청하기
               </button>
+              {/* {isOpenApply && (<ApplyModal
+                open={isOpenApply}
+                onClose={() => {
+                  setIsOpenApply(false);
+              }}
+              />)} 모달 호출 */}
             </div>
           </div>
         </div>
@@ -199,8 +210,14 @@ export default function AlarmContent() {
                   cursor: isApplyButtonDisabled ? "not-allowed" : "pointer",
                 }}
               >
-                변경하기
+                저장하기
               </button>
+              {/* {isOpenSave && (<SaveModal
+                open={isOpenSave}
+                onClose={() => {
+                  setIsOpenSave(false);
+              }}
+              />)} 모달 호출 */}
             </div>
           </div>
 
@@ -212,6 +229,12 @@ export default function AlarmContent() {
               <button className="cancelBtn" onClick={handleButtonTerminate}>
                 해지하기
               </button>
+              {/* {isOpenTerminate && (<TerminateModal
+                open={isOpenTerminate}
+                onClose={() => {
+                  setIsOpenTerminate(false);
+              }}
+              />)} 모달 호출 */}
             </div>
           </div>
         </div>

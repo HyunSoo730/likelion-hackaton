@@ -1,11 +1,20 @@
 import React from 'react'
+import { useMediaQuery } from "react-responsive";
 import './layout.css'
 import grndprtImg from "../../assets/images/grndprtImg.png";
+import grndprtImg2 from "../../assets/images/grndprtImg2.png";
 
 export default function Layout() {
+    const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
     return (
         <div className="layout">
-           <img src={grndprtImg} className="grndprt" width="650px" alt="" />
+            
+            {isMobile ? (
+                <img src={grndprtImg2} className="grndprt" width="650px" alt="" />
+            ) : (
+                <img src={grndprtImg} className="grndprt" width="650px" alt="" />
+            )}
             <div className="info">
                 <div className="titles">
                     <div className="title1">더 멋진 노후를 위해 - </div>

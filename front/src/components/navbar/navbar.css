@@ -98,7 +98,6 @@
     position: sticky;
     top: 0px;
     z-index: 999;
-    /* overflow-x: hidden; */
   }
   .navbarWrapper {
     height: 100%;

@@ -81,7 +81,6 @@
         background-color: #FFC19E;
     
         width: 100%;
-        /* height:40vh; */
         height: 207px;
     
         color: white;
@@ -111,8 +110,8 @@
         position: absolute;
         right: 0px;
         z-index: 0;
-        left:170px;
-        top:163px;
+        right:0;
+        top:138px;
         overflow: hidden;
     }
     
