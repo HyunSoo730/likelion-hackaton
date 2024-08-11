@@ -22,7 +22,7 @@
 
 |    조현수      |          김민섭         |                                                                                                               
 | :------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------: | 
-|   <img width="160px" src="https://i.postimg.cc/FzHqR8gZ/image.png" />    |                      <img width="160px" src="https://user-images.githubusercontent.com/50205887/207570536-f5a82e48-99a1-4399-91d3-75fc5f8f3349.png" />    |   
+|   <img width="160px" src="https://i.postimg.cc/d0G72ZM3/image.jpg" />    |                      <img width="160px" src="https://user-images.githubusercontent.com/50205887/207570536-f5a82e48-99a1-4399-91d3-75fc5f8f3349.png" />    |   
 |   [@hyunsoo730](https://github.com/hyunsoo730)   |    [@k-ms1998](https://github.com/k-ms1998)  |   
 | 세종대학교 소프트웨어학과 4학년 | 세종대학교 소프트웨어학과 4학년 |
 
